@@ -24,10 +24,13 @@ public class Joueur {
 		
 		
 		//Joueur this = new Joueur("this");
+		boolean next = true;
 		Scanner entree = new Scanner(System.in);
 		for (int i = 0; i < 5; ++i) {
+			System.out.println("Etudiant : " + i);
+			next = true;
 			this.etudiantsDispo.put(i, new Etudiant(false, 10, 10, 10, 10, 10));
-			while (this.getNbPoints() > 0) {
+			while (this.getNbPoints() > 0 && next == true) {
 				System.out.println(
 						"Choisissez un paramêtre à modifier :\n1-dexterite\n2-force\n3-resistance\n4-initiative\n5-constitution\n6-etudiant suivant\nvous avez "
 								+ this.getNbPoints() + " crédits");
@@ -64,6 +67,8 @@ public class Joueur {
 					}
 					break;
 				case 6:
+					next = false;
+					break;
 					
 				}
 
