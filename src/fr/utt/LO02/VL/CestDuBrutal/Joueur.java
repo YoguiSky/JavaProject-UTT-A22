@@ -175,7 +175,9 @@ public class Joueur {
 					break;
 				case 6:// suivant
 					next = false;
-					this.etudiantsDispo.get(i).setStrategie(aleatoire);
+					if (this.etudiantsDispo.get(i).getStrategie() == null) {
+						this.etudiantsDispo.get(i).setStrategie(aleatoire);
+					}
 					break;
 				case 7:// précédent
 					next = false;
@@ -272,8 +274,8 @@ public class Joueur {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Joueur toto = new Joueur();
-		
+		// Joueur toto = new Joueur();
+
 	}
 
 }

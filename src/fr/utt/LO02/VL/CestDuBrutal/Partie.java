@@ -1,6 +1,6 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class Partie {
 	
