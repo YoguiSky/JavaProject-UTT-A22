@@ -8,22 +8,52 @@ public class Joueur {
 	private int nbPoints;
 	private String nomJoueur;
 	private Map<Integer, Etudiant> etudiantsDispo = new LinkedHashMap<>();
-
-	
+	private Faction factionJoueur = null;
 
 	/**
 	 * constructeur de la classe Joueur
 	 * 
 	 * @param nomJoueur
 	 */
-	public Joueur(String nomJoueur) {
-		System.out.println("")
-		this.nomJoueur = nomJoueur;
+	public Joueur() {
+		Scanner entree = new Scanner(System.in);
+		System.out.println("Choisissez un nom :");
+		this.nomJoueur = entree.next();
+		while (this.factionJoueur == null) {
+			System.out.println(
+					"Entrez le chiffre correspondant a la faction que vous choisissez : \n1-ISI\n2-MTE\n3-A2I\n4-RT\n5-GM\n6-MM\n7-GI");
+			switch (entree.nextInt()) {
+			case 1:
+				this.factionJoueur = Faction.ISI;
+				break;
+			case 2:
+				this.factionJoueur = Faction.MTE;
+				break;
+			case 3:
+				this.factionJoueur = Faction.A2I;
+				break;
+			case 4:
+				this.factionJoueur = Faction.RT;
+				break;
+			case 5:
+				this.factionJoueur = Faction.GM;
+				break;
+			case 6:
+				this.factionJoueur = Faction.MM;
+				break;
+			case 7:
+				this.factionJoueur = Faction.GI;
+				break;
+			default:
+				System.out.println("Faction non reconnue");
+				break;
+			}
+		}
 		this.nbPoints = 15;
 
 		// Joueur this = new Joueur("this");
 		boolean next = true;
-		Scanner entree = new Scanner(System.in);
+
 		for (int i = 0; i < 5; i++) {
 			next = true;
 			this.etudiantsDispo.put(i, new Etudiant(false, 10, 10, 10, 10, 10));
@@ -181,7 +211,7 @@ public class Joueur {
 	}
 
 	public void definirStrategie(Etudiant strategieEtu, Strategie typeStrategie) {
-		
+
 	}
 
 	public void choixReserviste(Etudiant EtuReserviste, boolean EstReserviste) {
@@ -190,7 +220,7 @@ public class Joueur {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Joueur toto = new Joueur("toto");
+		Joueur toto = new Joueur();
 		System.out.println(toto.getNomJoueur());
 	}
 

@@ -1,5 +1,7 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
+import java.util.Scanner;
+
 public class Partie {
 	
 	private boolean gagnee;
@@ -93,6 +95,8 @@ public class Partie {
 
 
 	public static void main(String[] args) {
+		Joueur joueur1 = new Joueur();
+		
 		// TODO Auto-generated method stub
 
 	}
