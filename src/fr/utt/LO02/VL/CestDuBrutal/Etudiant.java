@@ -176,7 +176,7 @@ public class Etudiant {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Etudiant toto = new Etudiant(false, 0, 0, 0, 0, 0);
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.*;
 public class Joueur {
 
 	private int nbZonesControlees;
-	private int nbPoints;
+	private int nbPoints = 400;
 	private String nomJoueur;
 	private Map<Integer, Etudiant> etudiantsDispo = new LinkedHashMap<>();
 	private Faction factionJoueur = null;
@@ -15,7 +15,12 @@ public class Joueur {
 	 * 
 	 * @param nomJoueur
 	 */
+
 	public Joueur() {
+		Attaquer attaquer = new Attaquer();
+		Soigner soigner = new Soigner();
+		Aleatoire aleatoire = new Aleatoire();
+
 		Scanner entree = new Scanner(System.in);
 		System.out.println("Choisissez un nom :");
 		this.nomJoueur = entree.next();
@@ -54,18 +59,46 @@ public class Joueur {
 		// Joueur this = new Joueur("this");
 		boolean next = true;
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 1; i <= 20; i++) {
 			next = true;
-			this.etudiantsDispo.put(i, new Etudiant(false, 10, 10, 10, 10, 10));
+
+			if (i <= 15) {
+				System.out.println("Etudiant n° " + i);
+				this.etudiantsDispo.put(i, new Etudiant(false, 0, 0, 0, 0, 0));
+			} else if (i > 15 && i <= 19) {
+				System.out.println("Etudiant d'élite n° " + (i - 15));
+				this.etudiantsDispo.put(i, new Etudiant(false, 1, 1, 1, 5, 1));
+			} else if (i > 19) {
+				System.out.println("Maitre du gobi");
+				this.etudiantsDispo.put(i, new Etudiant(false, 2, 2, 2, 10, 2));
+			}
+
 			while (this.getNbPoints() > 0 && next == true) {
-				System.out.println("Etudiant : " + i);
 				System.out.println(
-						"Choisissez un paramêtre à modifier :\n1-dexterite\n2-force\n3-resistance\n4-initiative\n5-constitution\n6-etudiant suivant\n7-etudiant précédent\nvous avez "
+						"Choisissez un paramêtre à modifier :\n0-Strategie\n1-dexterite\n2-force\n3-resistance\n4-initiative\n5-constitution\n6-etudiant suivant\n7-etudiant précédent\nvous avez "
 								+ this.getNbPoints() + " crédits");
-				int competence = entree.nextInt();
 
 				int points_a_ajouter;
-				switch (competence) {
+				switch (entree.nextInt()) {
+				case 0:
+					while (this.etudiantsDispo.get(i).getStrategie() == null) {
+						System.out.println("Choisissez une stratégie : \n1-Soigner\n2-Attaquer\n3-Aleatoire");
+						switch (entree.nextInt()) {
+						case 1:
+							this.etudiantsDispo.get(i).setStrategie(soigner);
+							break;
+						case 2:
+							this.etudiantsDispo.get(i).setStrategie(soigner);
+							break;
+						case 3:
+							this.etudiantsDispo.get(i).setStrategie(soigner);
+							break;
+						default:
+							System.out.println("veuillez entrer une des valeurs propose");
+							break;
+						}
+					}
+					break;
 				case 1:
 					System.out.println("votre etudiant possède " + this.etudiantsDispo.get(i).getDexterite()
 							+ " de dexterite, entrez la valeur à lui ajouter :");
