@@ -88,10 +88,10 @@ public class Joueur {
 							this.etudiantsDispo.get(i).setStrategie(soigner);
 							break;
 						case 2:
-							this.etudiantsDispo.get(i).setStrategie(soigner);
+							this.etudiantsDispo.get(i).setStrategie(attaquer);
 							break;
 						case 3:
-							this.etudiantsDispo.get(i).setStrategie(soigner);
+							this.etudiantsDispo.get(i).setStrategie(aleatoire);
 							break;
 						default:
 							System.out.println("veuillez entrer une des valeurs propose");
@@ -175,11 +175,14 @@ public class Joueur {
 					break;
 				case 6:// suivant
 					next = false;
+					this.etudiantsDispo.get(i).setStrategie(aleatoire);
 					break;
 				case 7:// précédent
 					next = false;
-					if (i - 2 >= 0) {
+					if (i - 2 > 0) {
 						i -= 2;
+					} else {
+						i -= 1;
 					}
 					break;
 				default:
@@ -191,6 +194,22 @@ public class Joueur {
 		}
 		entree.close();
 		// ajouter la définition de la faction du joueur
+	}
+
+	public Map<Integer, Etudiant> getEtudiantsDispo() {
+		return etudiantsDispo;
+	}
+
+	public void setEtudiantsDispo(Map<Integer, Etudiant> etudiantsDispo) {
+		this.etudiantsDispo = etudiantsDispo;
+	}
+
+	public Faction getFactionJoueur() {
+		return factionJoueur;
+	}
+
+	public void setFactionJoueur(Faction factionJoueur) {
+		this.factionJoueur = factionJoueur;
 	}
 
 	/**
@@ -254,7 +273,7 @@ public class Joueur {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Joueur toto = new Joueur();
-		System.out.println(toto.getNomJoueur());
+		
 	}
 
 }
