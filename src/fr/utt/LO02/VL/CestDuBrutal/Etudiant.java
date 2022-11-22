@@ -171,8 +171,8 @@ public class Etudiant {
 		this.localisation = localisation;
 	}
 
-	public void action() {
-		strategie.typeStrategie();
+	public void action(Etudiant etudiantCible) {
+		strategie.typeStrategie(etudiantCible, this);
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

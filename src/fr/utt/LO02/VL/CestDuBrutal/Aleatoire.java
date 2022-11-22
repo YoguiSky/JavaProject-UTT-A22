@@ -2,7 +2,7 @@ package fr.utt.LO02.VL.CestDuBrutal;
 
 public class Aleatoire implements Strategie {
 	
-	public void typeStrategie() {
+	public void typeStrategie(Etudiant etuCible,Etudiant etuAction) {
 		
 	}
 

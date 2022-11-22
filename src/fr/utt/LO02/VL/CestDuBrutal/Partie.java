@@ -96,7 +96,7 @@ public class Partie {
 
 	public static void main(String[] args) {
 		Joueur joueur1 = new Joueur();
-		joueur1.getEtudiantsDispo().get(1).action();
+		joueur1.getEtudiantsDispo().get(1).action(joueur1.getEtudiantsDispo().get(2));
 		// TODO Auto-generated method stub
 
 	}

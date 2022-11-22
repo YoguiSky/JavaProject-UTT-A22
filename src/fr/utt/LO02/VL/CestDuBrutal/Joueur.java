@@ -54,7 +54,6 @@ public class Joueur {
 				break;
 			}
 		}
-		this.nbPoints = 15;
 
 		// Joueur this = new Joueur("this");
 		boolean next = true;
