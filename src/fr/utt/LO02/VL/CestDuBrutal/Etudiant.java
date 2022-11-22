@@ -1,7 +1,7 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
 public class Etudiant {
-	
+
 	private boolean enCombat;
 	private boolean reserviste;
 	private int creditsECTS = 30;
@@ -11,10 +11,12 @@ public class Etudiant {
 	private int constitution = 0;
 	private int initiative = 0;
 	private Strategie strategie;
-	private Zone localisation; //a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le diagramme de classes
+	private Zone localisation; // a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le
+								// diagramme de classes
 
 	/**
 	 * Le constructeur de la classe Etudiant
+	 * 
 	 * @param enCombat
 	 * @param dexterite
 	 * @param force
@@ -22,7 +24,8 @@ public class Etudiant {
 	 * @param initiative
 	 * @param constitution
 	 */
-	public Etudiant(boolean enCombat, double dexterite, double force, double resistance, int initiative, int constitution) {
+	public Etudiant(boolean enCombat, double dexterite, double force, double resistance, int initiative,
+			int constitution) {
 		this.enCombat = enCombat;
 		this.dexterite = dexterite;
 		this.force = force;
@@ -30,7 +33,7 @@ public class Etudiant {
 		this.constitution = constitution;
 		this.initiative = initiative;
 	}
-	
+
 	/**
 	 * @return the enCombat
 	 */
@@ -83,8 +86,13 @@ public class Etudiant {
 	/**
 	 * @param dexterite the dexterite to set
 	 */
-	public void setDexterite(double dexterite) {
-		this.dexterite = dexterite;
+	public boolean setDexterite(double dexterite) {// max 10
+		if (dexterite >= 0 && (this.dexterite + dexterite) <= 10) {
+			this.dexterite += dexterite;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -97,8 +105,13 @@ public class Etudiant {
 	/**
 	 * @param force the force to set
 	 */
-	public void setForce(double force) {
-		this.force = force;
+	public boolean setForce(double force) {// max 10
+		if (force >= 0 && (this.force + force) <= 10) {
+			this.force += force;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -111,8 +124,13 @@ public class Etudiant {
 	/**
 	 * @param resistance the resistance to set
 	 */
-	public void setResistance(double resistance) {
-		this.resistance = resistance;
+	public boolean setResistance(double resistance) {// max 10
+		if (resistance >= 0 && (this.resistance + resistance) <= 10) {
+			this.resistance += resistance;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -125,8 +143,14 @@ public class Etudiant {
 	/**
 	 * @param constitution the constitution to set
 	 */
-	public void setConstitution(int constitution) {
-		this.constitution = constitution;
+	public boolean setConstitution(int constitution) {// max 30
+		if (constitution >= 0 && (this.constitution + constitution) <= 30) {
+			this.constitution += constitution;
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	/**
@@ -139,8 +163,13 @@ public class Etudiant {
 	/**
 	 * @param initiative the initiative to set
 	 */
-	public void setInitiative(int initiative) {
-		this.initiative = initiative;
+	public boolean setInitiative(int initiative) {// max 10
+		if (initiative >= 0 && (this.initiative + initiative) <= 10) {
+			this.initiative += initiative;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -174,9 +203,10 @@ public class Etudiant {
 	public void action(Etudiant etudiantCible) {
 		strategie.typeStrategie(etudiantCible, this);
 	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//Etudiant toto = new Etudiant(false, 0, 0, 0, 0, 0);
+		// Etudiant toto = new Etudiant(false, 0, 0, 0, 0, 0);
 	}
 
 }
