@@ -1,7 +1,8 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
 public class Etudiant {
-
+	
+	private Faction factionEtu;
 	private boolean enCombat;
 	private boolean reserviste;
 	private int creditsECTS = 30;
@@ -24,7 +25,7 @@ public class Etudiant {
 	 * @param initiative
 	 * @param constitution
 	 */
-	public Etudiant(boolean enCombat, double dexterite, double force, double resistance, int initiative,
+	public Etudiant(Faction factionEtu, boolean enCombat, double dexterite, double force, double resistance, int initiative,
 			int constitution) {
 		this.enCombat = enCombat;
 		this.dexterite = dexterite;
@@ -32,6 +33,7 @@ public class Etudiant {
 		this.resistance = resistance;
 		this.constitution = constitution;
 		this.initiative = initiative;
+		this.factionEtu = factionEtu;
 	}
 
 	/**
@@ -39,6 +41,14 @@ public class Etudiant {
 	 */
 	public boolean isEnCombat() {
 		return enCombat;
+	}
+
+	public Faction getFactionEtu() {
+		return factionEtu;
+	}
+
+	public void setFactionEtu(Faction factionEtu) {
+		this.factionEtu = factionEtu;
 	}
 
 	/**
@@ -87,7 +97,7 @@ public class Etudiant {
 	 * @param dexterite the dexterite to set
 	 */
 	public boolean setDexterite(double dexterite) {// max 10
-		if (dexterite >= 0 && (this.dexterite + dexterite) <= 10) {
+		if ((this.dexterite + dexterite) >= 0 && (this.dexterite + dexterite) <= 10) {
 			this.dexterite += dexterite;
 			return true;
 		} else {
@@ -106,7 +116,7 @@ public class Etudiant {
 	 * @param force the force to set
 	 */
 	public boolean setForce(double force) {// max 10
-		if (force >= 0 && (this.force + force) <= 10) {
+		if ((this.force + force) >= 0 && (this.force + force) <= 10) {
 			this.force += force;
 			return true;
 		} else {
@@ -125,7 +135,7 @@ public class Etudiant {
 	 * @param resistance the resistance to set
 	 */
 	public boolean setResistance(double resistance) {// max 10
-		if (resistance >= 0 && (this.resistance + resistance) <= 10) {
+		if ((this.resistance + resistance) >= 0 && (this.resistance + resistance) <= 10) {
 			this.resistance += resistance;
 			return true;
 		} else {
@@ -144,13 +154,13 @@ public class Etudiant {
 	 * @param constitution the constitution to set
 	 */
 	public boolean setConstitution(int constitution) {// max 30
-		if (constitution >= 0 && (this.constitution + constitution) <= 30) {
+		if ((this.constitution + constitution) >= 0 && (this.constitution + constitution) <= 30) {
 			this.constitution += constitution;
 			return true;
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	/**
@@ -164,7 +174,7 @@ public class Etudiant {
 	 * @param initiative the initiative to set
 	 */
 	public boolean setInitiative(int initiative) {// max 10
-		if (initiative >= 0 && (this.initiative + initiative) <= 10) {
+		if ((this.initiative + initiative) >= 0 && (this.initiative + initiative) <= 10) {
 			this.initiative += initiative;
 			return true;
 		} else {
