@@ -11,6 +11,7 @@ public class Attaquer implements Strategie{
 	 * méthode attaquer
 	 */
 	public void typeStrategie(Etudiant etuCible,Etudiant etuAction) {
+		System.out.println(etuAction + " attaque " + etuCible);
 		
 		//On commence par définir tous nos paramètres :
 		
