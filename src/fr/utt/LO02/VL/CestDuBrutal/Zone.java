@@ -1,7 +1,10 @@
 package fr.utt.LO02.VL.CestDuBrutal;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Zone {
 	
+	Set<Etudiant> set =  new HashSet<Etudiant>();
 	private Joueur estControleePar;
 	private String nomZone;
 	private int nombreEtu; //penser à modifier le lien Zone/Etudiant dans le diagramme de classes !!

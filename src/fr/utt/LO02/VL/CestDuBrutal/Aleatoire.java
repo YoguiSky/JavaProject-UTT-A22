@@ -8,7 +8,7 @@ public class Aleatoire implements Strategie {
 		 *la faction de etuCible est choisie de manière équiprobable.
 		 */
 
-		if (etuCible.getFaction() == etuAction.getFaction()) {
+		if (etuCible.getFactionEtu()== etuAction.getFactionEtu()) {
 			Strategie soigner = new Soigner();
 			soigner.typeStrategie(etuCible, etuAction);
 

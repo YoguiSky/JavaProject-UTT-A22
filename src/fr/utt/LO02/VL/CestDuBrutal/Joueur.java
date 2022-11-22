@@ -1,6 +1,8 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
-import java.util.*;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Joueur {
 
@@ -63,13 +65,13 @@ public class Joueur {
 
 			if (i <= 15) {
 				System.out.println("Etudiant n° " + i);
-				this.etudiantsDispo.put(i, new Etudiant(false, 0, 0, 0, 0, 0));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur,false, 0, 0, 0, 0, 0));
 			} else if (i > 15 && i <= 19) {
 				System.out.println("Etudiant d'élite n° " + (i - 15));
-				this.etudiantsDispo.put(i, new Etudiant(false, 1, 1, 1, 5, 1));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur,false, 1, 1, 1, 5, 1));
 			} else if (i > 19) {
 				System.out.println("Maitre du gobi");
-				this.etudiantsDispo.put(i, new Etudiant(false, 2, 2, 2, 10, 2));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur,false, 2, 2, 2, 10, 2));
 			}
 
 			while (this.getNbPoints() > 0 && next == true) {
@@ -102,13 +104,16 @@ public class Joueur {
 					System.out.println("votre etudiant possède " + this.etudiantsDispo.get(i).getDexterite()
 							+ " de dexterite, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
-					if (this.getNbPoints() - points_a_ajouter >= 0) {
-						this.setNbPoints(this.getNbPoints() - points_a_ajouter);
-						this.etudiantsDispo.get(i)
-								.setDexterite(this.etudiantsDispo.get(i).getDexterite() + points_a_ajouter);
-
-						System.out.println("L'etudiant numéro " + i + " a maintenant "
-								+ this.etudiantsDispo.get(i).getDexterite() + " de dexterite");
+					if (this.setNbPoints(-points_a_ajouter)) {
+						if (this.etudiantsDispo.get(i).setDexterite(points_a_ajouter)){
+							System.out.println("L'etudiant numéro " + i + " a maintenant "
+									+ this.etudiantsDispo.get(i).getDexterite() + " de dexterite");
+						}
+						else {
+							this.setNbPoints(points_a_ajouter);//Reimbursement
+							System.out.println("L'étudiant doit avoir entre 0 et 10 de dexterité");
+						}
+						
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -117,12 +122,16 @@ public class Joueur {
 					System.out.println("votre etudiant possède " + this.etudiantsDispo.get(i).getForce()
 							+ " de force, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
-					if (this.getNbPoints() - points_a_ajouter >= 0) {
-						this.setNbPoints(this.getNbPoints() - points_a_ajouter);
-						this.etudiantsDispo.get(i).setForce(this.etudiantsDispo.get(i).getForce() + points_a_ajouter);
-
-						System.out.println("L'etudiant numéro " + i + " a maintenant "
-								+ this.etudiantsDispo.get(i).getForce() + " de force");
+					if (this.setNbPoints(-points_a_ajouter)) {
+						if (this.etudiantsDispo.get(i).setForce(points_a_ajouter)){
+							System.out.println("L'etudiant numéro " + i + " a maintenant "
+									+ this.etudiantsDispo.get(i).getForce() + " de force");
+						}
+						else {
+							this.setNbPoints(points_a_ajouter);
+							System.out.println("L'étudiant doit avoir entre 0 et 10 de force");
+						}
+						
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -131,13 +140,16 @@ public class Joueur {
 					System.out.println("votre etudiant possède " + this.etudiantsDispo.get(i).getResistance()
 							+ " de résistance, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
-					if (this.getNbPoints() - points_a_ajouter >= 0) {
-						this.setNbPoints(this.getNbPoints() - points_a_ajouter);
-						this.etudiantsDispo.get(i)
-								.setResistance(this.etudiantsDispo.get(i).getResistance() + points_a_ajouter);
-
-						System.out.println("L'etudiant numéro " + i + " a maintenant "
-								+ this.etudiantsDispo.get(i).getResistance() + " de résistance");
+					if (this.setNbPoints(-points_a_ajouter)) {
+						if (this.etudiantsDispo.get(i).setResistance(points_a_ajouter)){
+							System.out.println("L'etudiant numéro " + i + " a maintenant "
+									+ this.etudiantsDispo.get(i).getResistance() + " de resistance");
+						}
+						else {
+							this.setNbPoints(points_a_ajouter);
+							System.out.println("L'étudiant doit avoir entre 0 et 10 de resistance");
+						}
+						
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -146,13 +158,16 @@ public class Joueur {
 					System.out.println("votre etudiant possède " + this.etudiantsDispo.get(i).getInitiative()
 							+ " d'initiative, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
-					if (this.getNbPoints() - points_a_ajouter >= 0) {
-						this.setNbPoints(this.getNbPoints() - points_a_ajouter);
-						this.etudiantsDispo.get(i)
-								.setInitiative(this.etudiantsDispo.get(i).getInitiative() + points_a_ajouter);
-
-						System.out.println("L'etudiant numéro " + i + " a maintenant "
-								+ this.etudiantsDispo.get(i).getInitiative() + " d'initiative");
+					if (this.setNbPoints(-points_a_ajouter)) {
+						if (this.etudiantsDispo.get(i).setInitiative(points_a_ajouter)){
+							System.out.println("L'etudiant numéro " + i + " a maintenant "
+									+ this.etudiantsDispo.get(i).getInitiative() + " d'initiative");
+						}
+						else {
+							this.setNbPoints(points_a_ajouter);
+							System.out.println("L'étudiant doit avoir entre 0 et 10 d'initiative");
+						}
+						
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -161,13 +176,16 @@ public class Joueur {
 					System.out.println("votre etudiant possède " + this.etudiantsDispo.get(i).getConstitution()
 							+ " de constitution, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
-					if (this.getNbPoints() - points_a_ajouter >= 0) {
-						this.setNbPoints(this.getNbPoints() - points_a_ajouter);
-						this.etudiantsDispo.get(i)
-								.setConstitution(this.etudiantsDispo.get(i).getConstitution() + points_a_ajouter);
-
-						System.out.println("L'etudiant numéro " + i + " a maintenant "
-								+ this.etudiantsDispo.get(i).getConstitution() + " de constitution");
+					if (this.setNbPoints(-points_a_ajouter)) {
+						if (this.etudiantsDispo.get(i).setConstitution(points_a_ajouter)){
+							System.out.println("L'etudiant numéro " + i + " a maintenant "
+									+ this.etudiantsDispo.get(i).getConstitution() + " de constitution");
+						}
+						else {
+							this.setNbPoints(points_a_ajouter);
+							System.out.println("L'étudiant doit avoir entre 0 et 30 de constitution");
+						}
+						
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -237,8 +255,13 @@ public class Joueur {
 	/**
 	 * @param nbPoints the nbPoints to set
 	 */
-	public void setNbPoints(int nbPoints) {
-		this.nbPoints = nbPoints;
+	public boolean setNbPoints(int nbPoints) {
+		if ((this.nbPoints + nbPoints) >= 0) {
+			this.nbPoints += nbPoints;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
