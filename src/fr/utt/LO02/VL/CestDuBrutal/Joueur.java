@@ -11,6 +11,7 @@ public class Joueur {
 	private String nomJoueur;
 	private Map<Integer, Etudiant> etudiantsDispo = new LinkedHashMap<>();
 	private Faction factionJoueur = null;
+	private int nbReservistes = 0; // le joueur a initialement affecté aucun réserviste
 
 	/**
 	 * constructeur de la classe Joueur
@@ -65,18 +66,18 @@ public class Joueur {
 
 			if (i <= 15) {
 				System.out.println("Etudiant n° " + i);
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur,false, 0, 0, 0, 0, 0));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 0, 0, 0, 0, 0));
 			} else if (i > 15 && i <= 19) {
 				System.out.println("Etudiant d'élite n° " + (i - 15));
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur,false, 1, 1, 1, 5, 1));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1, 1, 1, 5, 1));
 			} else if (i > 19) {
 				System.out.println("Maitre du gobi");
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur,false, 2, 2, 2, 10, 2));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 2, 2, 2, 10, 2));
 			}
 
 			while (this.getNbPoints() > 0 && next == true) {
 				System.out.println(
-						"Choisissez un paramêtre à modifier :\n0-Strategie\n1-dexterite\n2-force\n3-resistance\n4-initiative\n5-constitution\n6-etudiant suivant\n7-etudiant précédent\nvous avez "
+						"Choisissez un paramêtre à modifier :\n0-Strategie\n1-dexterite\n2-force\n3-resistance\n4-initiative\n5-constitution\n6-Réserviste?\n\n7-etudiant suivant\n8-etudiant précédent\n\nvous avez "
 								+ this.getNbPoints() + " crédits");
 
 				int points_a_ajouter;
@@ -105,15 +106,14 @@ public class Joueur {
 							+ " de dexterite, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
 					if (this.setNbPoints(-points_a_ajouter)) {
-						if (this.etudiantsDispo.get(i).setDexterite(points_a_ajouter)){
+						if (this.etudiantsDispo.get(i).setDexterite(points_a_ajouter)) {
 							System.out.println("L'etudiant numéro " + i + " a maintenant "
 									+ this.etudiantsDispo.get(i).getDexterite() + " de dexterite");
-						}
-						else {
-							this.setNbPoints(points_a_ajouter);//Reimbursement
+						} else {
+							this.setNbPoints(points_a_ajouter);// Reimbursement
 							System.out.println("L'étudiant doit avoir entre 0 et 10 de dexterité");
 						}
-						
+
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -123,15 +123,14 @@ public class Joueur {
 							+ " de force, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
 					if (this.setNbPoints(-points_a_ajouter)) {
-						if (this.etudiantsDispo.get(i).setForce(points_a_ajouter)){
+						if (this.etudiantsDispo.get(i).setForce(points_a_ajouter)) {
 							System.out.println("L'etudiant numéro " + i + " a maintenant "
 									+ this.etudiantsDispo.get(i).getForce() + " de force");
-						}
-						else {
+						} else {
 							this.setNbPoints(points_a_ajouter);
 							System.out.println("L'étudiant doit avoir entre 0 et 10 de force");
 						}
-						
+
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -141,15 +140,14 @@ public class Joueur {
 							+ " de résistance, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
 					if (this.setNbPoints(-points_a_ajouter)) {
-						if (this.etudiantsDispo.get(i).setResistance(points_a_ajouter)){
+						if (this.etudiantsDispo.get(i).setResistance(points_a_ajouter)) {
 							System.out.println("L'etudiant numéro " + i + " a maintenant "
 									+ this.etudiantsDispo.get(i).getResistance() + " de resistance");
-						}
-						else {
+						} else {
 							this.setNbPoints(points_a_ajouter);
 							System.out.println("L'étudiant doit avoir entre 0 et 10 de resistance");
 						}
-						
+
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -159,15 +157,14 @@ public class Joueur {
 							+ " d'initiative, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
 					if (this.setNbPoints(-points_a_ajouter)) {
-						if (this.etudiantsDispo.get(i).setInitiative(points_a_ajouter)){
+						if (this.etudiantsDispo.get(i).setInitiative(points_a_ajouter)) {
 							System.out.println("L'etudiant numéro " + i + " a maintenant "
 									+ this.etudiantsDispo.get(i).getInitiative() + " d'initiative");
-						}
-						else {
+						} else {
 							this.setNbPoints(points_a_ajouter);
 							System.out.println("L'étudiant doit avoir entre 0 et 10 d'initiative");
 						}
-						
+
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
@@ -177,26 +174,53 @@ public class Joueur {
 							+ " de constitution, entrez la valeur à lui ajouter :");
 					points_a_ajouter = entree.nextInt();
 					if (this.setNbPoints(-points_a_ajouter)) {
-						if (this.etudiantsDispo.get(i).setConstitution(points_a_ajouter)){
+						if (this.etudiantsDispo.get(i).setConstitution(points_a_ajouter)) {
 							System.out.println("L'etudiant numéro " + i + " a maintenant "
 									+ this.etudiantsDispo.get(i).getConstitution() + " de constitution");
-						}
-						else {
+						} else {
 							this.setNbPoints(points_a_ajouter);
 							System.out.println("L'étudiant doit avoir entre 0 et 30 de constitution");
 						}
-						
+
 					} else {
 						System.out.println("Pas assez de crédits !");
 					}
 					break;
-				case 6:// suivant
-					next = false;
-					if (this.etudiantsDispo.get(i).getStrategie() == null) {
-						this.etudiantsDispo.get(i).setStrategie(aleatoire);
+				case 6:// choix si étudiant réserviste ou non
+					System.out.println("Voulez-vous choisir cet étudiant pour être réserviste ?\n\n0-Non\n1-Oui");
+					switch (entree.nextInt()) {
+					case 0:
+						if (this.etudiantsDispo.get(i).isReserviste() == true) {
+							this.nbReservistes--;
+						}
+						this.etudiantsDispo.get(i).setReserviste(false);
+						break;
+					case 1:
+						if (this.nbReservistes < 5) {
+							if (this.etudiantsDispo.get(i).isReserviste() == false) {
+								this.nbReservistes++;
+							}
+							this.etudiantsDispo.get(i).setReserviste(true);
+						} else {
+							System.out.println("Vous ne pouvez pas assigner plus de réservistes.");
+						}
+						break;
 					}
 					break;
-				case 7:// précédent
+				case 7:// suivant
+					if (this.nbReservistes < 5 && i == 20) {
+						System.out.println("veuillez affecter 5 reservistes.\nVous n'avez que " + this.nbReservistes
+								+ " affectés sur les 5 prévus.");
+						i--;
+					} else {
+
+						if (this.etudiantsDispo.get(i).getStrategie() == null) {
+							this.etudiantsDispo.get(i).setStrategie(aleatoire);
+						}
+					}
+					next = false;
+					break;
+				case 8:// précédent
 					next = false;
 					if (i - 2 > 0) {
 						i -= 2;

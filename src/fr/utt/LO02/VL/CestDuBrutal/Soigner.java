@@ -7,12 +7,12 @@ public class Soigner implements Strategie {
 	 */
 	public void typeStrategie(Etudiant etuCible,Etudiant etuAction) {
 		int x = (int)Math.random()*101; //x est un nombre aléatoire compris entre 0 et 100 
+		double y = Math.random()*0.6;
 		
+		System.out.println(etuAction + " soigne " + etuCible);
 		if (x >= 0 && x <= 20+6*etuAction.getDexterite()){
 			//Le soin est réussi !
 			System.out.println("Le soin est réussi !"); //Il est préférable d'informer le joueur du déroulement du soin
-			
-			double y = Math.random()*0.6;
 			int creditsECTSGagne = (int)(y*etuCible.getConstitution());
 			
 			//remplacer ça par une méthode étudiant etuCible.add() qu'il faut d'abord rajouter dans la classe Etudiant
@@ -21,16 +21,16 @@ public class Soigner implements Strategie {
 			if (etuCible.getCreditsECTS() > 30 + etuCible.getConstitution()) {
 				etuCible.setCreditsECTS(30 + etuCible.getConstitution());
 				
-				System.out.println(etuCible + " à regagné toute sa vie !");
+				System.out.println(etuCible + " a regagné toute sa vie !");
 			}
 			
 			else {
-				System.out.println(etuCible + " à regagné " + creditsECTSGagne + " crédits ECTS !");
+				System.out.println(etuCible + " a regagné " + creditsECTSGagne + " crédits ECTS !");
 					}
 		}
 		else{
 			//Si la première condition n'est pas respectée, le soin échoue.
-			System.out.println("le soin à échoué...");
+			System.out.println("le soin a échoué...");
 		}
 	}
 	
