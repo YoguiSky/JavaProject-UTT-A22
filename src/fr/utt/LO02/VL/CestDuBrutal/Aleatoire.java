@@ -18,6 +18,9 @@ public class Aleatoire implements Strategie {
 			attaquer.typeStrategie(etuCible, etuAction);
 		}
 	}
+	public String nomStrat() {
+		return "aléatoire";
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
