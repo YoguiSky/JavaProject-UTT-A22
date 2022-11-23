@@ -33,6 +33,7 @@ public class Zone {
 		} else if (etudiant.getFactionEtu() == factionJ2) {
 			etuJoueur2.add(etudiant);
 		}
+		nombreEtu ++;
 	}
 	public void desaffecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
@@ -40,6 +41,7 @@ public class Zone {
 		} else if (etudiant.getFactionEtu() == factionJ2) {
 			etuJoueur2.remove(etudiant);
 		}
+		nombreEtu --;
 	}
 
 	public Joueur getEstControleePar() {

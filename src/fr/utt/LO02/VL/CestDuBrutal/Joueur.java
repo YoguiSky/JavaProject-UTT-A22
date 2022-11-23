@@ -245,7 +245,30 @@ public class Joueur {
 		entree.close();
 		// ajouter la définition de la faction du joueur
 	}
-
+	public void AffectationTroupes(Map<Integer, Zone> Zones) {
+		Scanner entree = new Scanner(System.in);
+		System.out.println(
+				"choisissez une zone :\n1-La Bibliothèque\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
+		switch (entree.nextInt()) {
+		case 1:
+			System.out.println("La Bibliothèque\n");
+			Zones.get(1).affecterEtudiant();
+			break;
+		case 2:
+			System.out.println("Le Bureau Des Etudiants\n");
+			break;
+		case 3:
+			System.out.println("Le Quartier Administratif\n");
+			break;
+		case 4:
+			System.out.println("Les Halles Industrielles\n");
+			break;
+		case 5:
+			System.out.println("La Halle Sportive\n");
+			break;		
+		}
+		entree.close();
+	}
 	public Map<Integer, Etudiant> getEtudiantsDispo() {
 		return etudiantsDispo;
 	}
