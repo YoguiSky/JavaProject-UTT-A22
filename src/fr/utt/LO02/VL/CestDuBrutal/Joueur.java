@@ -77,7 +77,7 @@ public class Joueur {
 
 			while (this.getNbPoints() > 0 && next == true) {
 				System.out.println(
-						"Choisissez un paramêtre à modifier :\n0-Strategie\n1-dexterite\n2-force\n3-resistance\n4-initiative\n5-constitution\n\n6-Réserviste?\n\n7-etudiant suivant\n8-etudiant précédent\n\nvous avez "
+						"Choisissez un paramêtre à modifier :\n0-Strategie\n1-dexterite\n2-force\n3-resistance\n4-initiative\n5-constitution\n6-Réserviste?\n\n7-etudiant suivant\n8-etudiant précédent\n\nvous avez "
 								+ this.getNbPoints() + " crédits");
 
 				int points_a_ajouter;
@@ -201,24 +201,24 @@ public class Joueur {
 								this.nbReservistes++;
 							}
 							this.etudiantsDispo.get(i).setReserviste(true);
-						}
-						else {
+						} else {
 							System.out.println("Vous ne pouvez pas assigner plus de réservistes.");
 						}
 						break;
 					}
 					break;
 				case 7:// suivant
-					if(this.nbReservistes <5 && i ==20) {
-						System.out.println("veuillez affecter 5 reservistes.\nVous n'avez que " +this.nbReservistes + " affectés sur les 5 prévus.");
+					if (this.nbReservistes < 5 && i == 20) {
+						System.out.println("veuillez affecter 5 reservistes.\nVous n'avez que " + this.nbReservistes
+								+ " affectés sur les 5 prévus.");
+						i--;
+					} else {
+
+						if (this.etudiantsDispo.get(i).getStrategie() == null) {
+							this.etudiantsDispo.get(i).setStrategie(aleatoire);
+						}
 					}
-					else {
 					next = false;
-					if (this.etudiantsDispo.get(i).getStrategie() == null) {
-						this.etudiantsDispo.get(i).setStrategie(aleatoire);
-					}
-					}
-					
 					break;
 				case 8:// précédent
 					next = false;
@@ -241,6 +241,30 @@ public class Joueur {
 
 	public Map<Integer, Etudiant> getEtudiantsDispo() {
 		return etudiantsDispo;
+	}
+
+	public void AffectationTroupes() {
+		Scanner entree = new Scanner(System.in);
+		System.out.println(
+				"choisissez une zone :\n1-La Bibliothèque\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
+		switch (entree.nextInt()) {
+		case 1:
+			System.out.println("La Bibliothèque\n");
+			break;
+		case 2:
+			System.out.println("Le Bureau Des Etudiants\n");
+			break;
+		case 3:
+			System.out.println("Le Quartier Administratif\n");
+			break;
+		case 4:
+			System.out.println("Les Halles Industrielles\n");
+			break;
+		case 5:
+			System.out.println("La Halle Sportive\n");
+			break;		
+		}
+		entree.close();
 	}
 
 	public void setEtudiantsDispo(Map<Integer, Etudiant> etudiantsDispo) {

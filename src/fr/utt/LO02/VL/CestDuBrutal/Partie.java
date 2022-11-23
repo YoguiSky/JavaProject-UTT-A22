@@ -95,8 +95,23 @@ public class Partie {
 
 
 	public static void main(String[] args) {
+		System.out.println(" ===== Début de la partie ! =====\n\nPhase 1 : Parametrage des troupes.\n");
+		System.out.println("Tour du joueur 1 :");
 		Joueur joueur1 = new Joueur();
-		joueur1.getEtudiantsDispo().get(1).action(joueur1.getEtudiantsDispo().get(2));
+		System.out.println("Tour du joueur 1 :");
+		Joueur joueur2 = new Joueur();
+		
+		System.out.println("Phase 2 : Affectation des troupes sur le champ de bataille.\n");
+		
+		Zone BU = new Zone("La bibliothèque",joueur1.getFactionJoueur(),joueur2.getFactionJoueur());
+		Zone BDE = new Zone("Le Bureau Des Etudiants",joueur1.getFactionJoueur(),joueur2.getFactionJoueur());
+		Zone QuartierAdmin = new Zone("Le Quartier Administratif",joueur1.getFactionJoueur(),joueur2.getFactionJoueur());
+		Zone HallesIndus = new Zone ("Les Halles industrielles",joueur1.getFactionJoueur(),joueur2.getFactionJoueur());
+		Zone HalleSportive = new Zone("La Halle sportive",joueur1.getFactionJoueur(),joueur2.getFactionJoueur());
+		
+		
+		//System.out.println(joueur1.getEtudiantsDispo().get(1) instanceof joueur1);
+		//joueur1.getEtudiantsDispo().get(1).action(joueur1.getEtudiantsDispo().get(2));
 		// TODO Auto-generated method stub
 
 	}
