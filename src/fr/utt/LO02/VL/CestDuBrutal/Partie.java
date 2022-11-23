@@ -115,11 +115,11 @@ public final class Partie {
 		
 		System.out.println("Phase 2 : Affectation des troupes sur le champ de bataille.\n");
 		
-		partie.Zones.put(1,new Zone("BDE",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
-		partie.Zones.put(2,new Zone("Le Bureau Des Etudiants",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
-		partie.Zones.put(3,new Zone("Le Quartier Administratif",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
-		partie.Zones.put(4,new Zone("Les Halles industrielles",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
-		partie.Zones.put(5,new Zone("La Halle sportive",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
+		partie.Zones.put(1,new Zone("la Bibliothèque",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
+		partie.Zones.put(2,new Zone("le Bureau Des Etudiants",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
+		partie.Zones.put(3,new Zone("le Quartier Administratif",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
+		partie.Zones.put(4,new Zone("les Halles industrielles",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
+		partie.Zones.put(5,new Zone("la Halle sportive",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
 
 		// TODO Auto-generated method stub
 

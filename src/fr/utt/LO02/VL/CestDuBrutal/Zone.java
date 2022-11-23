@@ -27,6 +27,7 @@ public class Zone {
 	/**
 	 * @return the estControleePar
 	 */
+	
 	public void affecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
 			etuJoueur1.add(etudiant);

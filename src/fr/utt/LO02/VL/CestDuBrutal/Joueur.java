@@ -252,7 +252,7 @@ public class Joueur {
 		switch (entree.nextInt()) {
 		case 1:
 			System.out.println("La Bibliothèque\n");
-			Zones.get(1).affecterEtudiant();
+			//Zones.get(1).affecterEtudiant();
 			break;
 		case 2:
 			System.out.println("Le Bureau Des Etudiants\n");
