@@ -110,7 +110,7 @@ public final class Partie {
 		System.out.println(" ===== Début de la partie ! =====\n\nPhase 1 : Parametrage des troupes.\n");
 		System.out.println("Tour du joueur 1 :");
 		Joueur joueur1 = new Joueur();
-		System.out.println("Tour du joueur 1 :");
+		System.out.println("Tour du joueur 2 :");
 		Joueur joueur2 = new Joueur();
 		
 		System.out.println("Phase 2 : Affectation des troupes sur le champ de bataille.\n");
@@ -121,6 +121,7 @@ public final class Partie {
 		partie.Zones.put(4,new Zone("les Halles industrielles",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
 		partie.Zones.put(5,new Zone("la Halle sportive",joueur1.getFactionJoueur(),joueur2.getFactionJoueur()));
 
+		joueur1.AffectationTroupes(partie.Zones);
 		// TODO Auto-generated method stub
 
 	}
