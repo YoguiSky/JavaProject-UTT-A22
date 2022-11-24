@@ -33,7 +33,9 @@ public class Soigner implements Strategie {
 			System.out.println("le soin a échoué...");
 		}
 	}
-	
+	public String nomStrat() {
+		return "soigner";
+	}
 
 	public static void main(String[] args) {
 		//Commande de test :

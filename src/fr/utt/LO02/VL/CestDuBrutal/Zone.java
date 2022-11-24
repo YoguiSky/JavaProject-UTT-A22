@@ -2,14 +2,15 @@ package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Zone {
 
-	Faction factionJ1;
-	Faction factionJ2;
-	Set<Etudiant> etuJoueur1 = new HashSet<Etudiant>();
-	Set<Etudiant> etuJoueur2 = new HashSet<Etudiant>();
-	private Joueur estControleePar;
+	private Faction factionJ1;
+	private Faction factionJ2;
+	private Set<Etudiant> etuJoueur1 = new HashSet<Etudiant>();
+	private Set<Etudiant> etuJoueur2 = new HashSet<Etudiant>();
+	private Joueur estControleePar = null;
 	private String nomZone;
 	private int nombreEtu; // penser à modifier le lien Zone/Etudiant dans le diagramme de classes !!
 
@@ -24,15 +25,35 @@ public class Zone {
 
 	}
 
+	public void combatZone() {
+		this.getNomZone(); 
+		Joueur statutControle = this.getEstControleePar(); //On récupère l'etat de contrôle de la zone au tout debut des combats
+		while (this.getEstControleePar() == null || statutControle == this.getEstControleePar() ) { //la condition représente la condition d'arrêt des combats (changement de statut de controle de la zone).
+			int bestInitiative = 0;
+			Etudiant etuBestInitiative;
+			Iterator<Etudiant> itJ1 = etuJoueur1.iterator();
+				while(itJ1.hasNext()) {
+					int initiativeEtu = itJ1.next().getInitiative();
+					if (initiativeEtu > bestInitiative){
+						bestInitiative = initiativeEtu;
+					}
+				}
+		}
+		
+	}
+
 	/**
 	 * @return the estControleePar
 	 */
+	
 	public void affecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
 			etuJoueur1.add(etudiant);
+			
 		} else if (etudiant.getFactionEtu() == factionJ2) {
 			etuJoueur2.add(etudiant);
 		}
+		etudiant.setLocalisation(this);
 		nombreEtu ++;
 	}
 	public void desaffecterEtudiant(Etudiant etudiant) {
@@ -41,6 +62,7 @@ public class Zone {
 		} else if (etudiant.getFactionEtu() == factionJ2) {
 			etuJoueur2.remove(etudiant);
 		}
+		etudiant.setLocalisation(null);
 		nombreEtu --;
 	}
 
