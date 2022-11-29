@@ -25,37 +25,62 @@ public class Zone {
 
 	}
 
-	public void combatZone() {
-		this.getNomZone(); 
-		Joueur statutControle = this.getEstControleePar(); //On récupère l'etat de contrôle de la zone au tout debut des combats
-		while (this.getEstControleePar() == null || statutControle == this.getEstControleePar() ) { //la condition représente la condition d'arrêt des combats (changement de statut de controle de la zone).
-			int bestInitiative = 0;
-			Etudiant etuBestInitiative;
+	public void combatZone(Joueur joueur1, Joueur joueur2) {
+		this.getNomZone();
+		int bestInitiativeJ1 = 0;
+		int bestInitiativeJ2 = 0;
+		Etudiant etuBestInitiativeJ1 = null;
+		Etudiant etuBestInitiativeJ2 = null;
+		Etudiant etuBestInitiative;
+		// On récupère l'etat de contrôle de la zone au tout debut des combats
+		Joueur statutControle = this.getEstControleePar();
+		// la condition représente la condition d'arrêt des combats (changement de
+		// statut de controle de la zone).
+		while (this.getEstControleePar() == null || statutControle == this.getEstControleePar()) {
+
 			Iterator<Etudiant> itJ1 = etuJoueur1.iterator();
-				while(itJ1.hasNext()) {
-					int initiativeEtu = itJ1.next().getInitiative();
-					if (initiativeEtu > bestInitiative){
-						bestInitiative = initiativeEtu;
-					}
+			while (itJ1.hasNext()) {
+				Etudiant meilleureInitiativeJ1 = itJ1.next();
+				if (meilleureInitiativeJ1.getInitiative() > bestInitiativeJ1) {
+					bestInitiativeJ1 = meilleureInitiativeJ1.getInitiative();
+					etuBestInitiativeJ1 = meilleureInitiativeJ1;
 				}
+			}
+			Iterator<Etudiant> itJ2 = etuJoueur2.iterator();
+			while (itJ2.hasNext()) {
+				Etudiant meilleureInitiativeJ2 = itJ2.next();
+				if (meilleureInitiativeJ2.getInitiative() > bestInitiativeJ2) {
+					bestInitiativeJ2 = meilleureInitiativeJ2.getInitiative();
+					etuBestInitiativeJ2 = meilleureInitiativeJ2;
+				}
+			}
+			// maintenant qu'on à récupéré la meilleure des initiatives des etudiants de
+			// chaque zone, on determine la meilleur entre les deux étudiants.
+			if (etuBestInitiativeJ1.getInitiative() > etuBestInitiativeJ2.getInitiative()) {
+				etuBestInitiative = etuBestInitiativeJ1;
+			}
+			else {
+				etuBestInitiative = etuBestInitiativeJ2;
+			}
 		}
-		
+
 	}
 
 	/**
 	 * @return the estControleePar
 	 */
-	
+
 	public void affecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
 			etuJoueur1.add(etudiant);
-			
+
 		} else if (etudiant.getFactionEtu() == factionJ2) {
 			etuJoueur2.add(etudiant);
 		}
 		etudiant.setLocalisation(this);
-		nombreEtu ++;
+		nombreEtu++;
 	}
+
 	public void desaffecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
 			etuJoueur1.remove(etudiant);
@@ -63,7 +88,7 @@ public class Zone {
 			etuJoueur2.remove(etudiant);
 		}
 		etudiant.setLocalisation(null);
-		nombreEtu --;
+		nombreEtu--;
 	}
 
 	public Joueur getEstControleePar() {
@@ -103,6 +128,34 @@ public class Zone {
 	 */
 	public void setNombreEtu(int nombreEtu) {
 		this.nombreEtu = nombreEtu;
+	}
+
+	/**
+	 * @return the etuJoueur1
+	 */
+	public Set<Etudiant> getEtuJoueur1() {
+		return etuJoueur1;
+	}
+
+	/**
+	 * @param etuJoueur1 the etuJoueur1 to set
+	 */
+	public void setEtuJoueur1(Set<Etudiant> etuJoueur1) {
+		this.etuJoueur1 = etuJoueur1;
+	}
+
+	/**
+	 * @return the etuJoueur2
+	 */
+	public Set<Etudiant> getEtuJoueur2() {
+		return etuJoueur2;
+	}
+
+	/**
+	 * @param etuJoueur2 the etuJoueur2 to set
+	 */
+	public void setEtuJoueur2(Set<Etudiant> etuJoueur2) {
+		this.etuJoueur2 = etuJoueur2;
 	}
 
 	public static void main(String[] args) {
