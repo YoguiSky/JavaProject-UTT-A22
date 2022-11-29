@@ -36,7 +36,7 @@ public class Zone {
 			etuJoueur2.add(etudiant);
 		}
 		etudiant.setLocalisation(this);
-		nombreEtu ++;
+		nombreEtu++;
 	}
 	public void desaffecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
@@ -45,7 +45,7 @@ public class Zone {
 			etuJoueur2.remove(etudiant);
 		}
 		etudiant.setLocalisation(null);
-		nombreEtu --;
+		nombreEtu--;
 	}
 
 	public Joueur getEstControleePar() {
@@ -73,6 +73,38 @@ public class Zone {
 		this.nomZone = nomZone;
 	}
 
+	public Faction getFactionJ1() {
+		return factionJ1;
+	}
+
+	public void setFactionJ1(Faction factionJ1) {
+		this.factionJ1 = factionJ1;
+	}
+
+	public Faction getFactionJ2() {
+		return factionJ2;
+	}
+
+	public void setFactionJ2(Faction factionJ2) {
+		this.factionJ2 = factionJ2;
+	}
+
+	public Set<Etudiant> getEtuJoueur1() {
+		return etuJoueur1;
+	}
+
+	public void setEtuJoueur1(Set<Etudiant> etuJoueur1) {
+		this.etuJoueur1 = etuJoueur1;
+	}
+
+	public Set<Etudiant> getEtuJoueur2() {
+		return etuJoueur2;
+	}
+
+	public void setEtuJoueur2(Set<Etudiant> etuJoueur2) {
+		this.etuJoueur2 = etuJoueur2;
+	}
+
 	/**
 	 * @return the nombreEtu
 	 */
@@ -89,6 +121,7 @@ public class Zone {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 
 	}
 

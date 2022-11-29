@@ -245,60 +245,90 @@ public class Joueur {
 
 			}
 		}
-		//entree.close();
+		// entree.close();
 		// ajouter la définition de la faction du joueur
 	}
 
 	public void AffectationTroupes(Map<Integer, Zone> zones) {
+		boolean flag = false;
 		Scanner entree = new Scanner(System.in);
-		int etudiantSelec;
-		System.out.println(
-				"choisissez une zone :\n1-La Bibliothèque\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
-		System.out.println("1-La Bibliothèque");
-		System.out.println("2-Le Bureau Des Etudiants");
-		System.out.println("3-Le Quartier Administratif");
-		System.out.println("4-Les Halles Industrielles");
-		System.out.println("5-La Halle Sportive");
-		int lieuSelec = entree.nextInt();
-		if (lieuSelec <= 5 && lieuSelec >= 1) {
-			System.out.println(
-					"Il y a actuellement " + zones.get(lieuSelec).getNombreEtu() + " étudiants dans cette zone");
-			System.out.println("Choisissez ce que vous souhaitez faire :");
-			System.out.println("0-Désaffecter étudiant");
-			System.out.println("1-Affecter étudiant");
-			System.out.println("2-Retour");
-			int actionSelec = entree.nextInt();
-			switch (actionSelec) {
-			case 0:
+		while (flag == false) {
+			int etudiantSelec;
+			System.out.println("choisissez une zone :");
+			System.out.println("1-La Bibliothèque");
+			System.out.println("2-Le Bureau Des Etudiants");
+			System.out.println("3-Le Quartier Administratif");
+			System.out.println("4-Les Halles Industrielles");
+			System.out.println("5-La Halle Sportive");
+			System.out.println("\n6-Quitter");
+			int lieuSelec = entree.nextInt();
+			if (lieuSelec >= 1l && lieuSelec <= 5) {
 				System.out.println(
-						"Entrez le numéro de l'étudiant à désaffecteraffecter à " + zones.get(lieuSelec).getNomZone());
-				etudiantSelec = entree.nextInt();
+						"Il y a actuellement " + zones.get(lieuSelec).getNombreEtu() + " étudiants dans cette zone");
+				System.out.println("Choisissez ce que vous souhaitez faire :");
+				System.out.println("0-Désaffecter étudiant");
+				System.out.println("1-Affecter étudiant");
+				System.out.println("2-Retour");
+				int actionSelec = entree.nextInt();
+				switch (actionSelec) {
+				case 0:
+					System.out.println("Entrez le numéro de l'étudiant à désaffecteraffecter à "
+							+ zones.get(lieuSelec).getNomZone());
+					etudiantSelec = entree.nextInt();
 
-				if (this.etudiantsDispo.get(etudiantSelec).getLocalisation() == zones.get(lieuSelec)) {
-					zones.get(lieuSelec).desaffecterEtudiant(this.etudiantsDispo.get(etudiantSelec));
-				} else {
-					System.out.println("L'étudiant n'est pas dans cette zone");
-				}
-				break;
-			case 1:
-				System.out.println("Entrez le numéro de l'étudiant à affecter à " + zones.get(lieuSelec).getNomZone());
-				etudiantSelec = entree.nextInt();
-				if (this.etudiantsDispo.get(etudiantSelec).isReserviste() == false) {
-					if (this.etudiantsDispo.get(etudiantSelec).getLocalisation() != zones.get(lieuSelec)
-							&& this.etudiantsDispo.get(etudiantSelec).getLocalisation() != null) {
-						System.out.println("L'étudiant est déjà assigné à une zone");
+					if (this.etudiantsDispo.get(etudiantSelec).getLocalisation() == zones.get(lieuSelec)) {
+						zones.get(lieuSelec).desaffecterEtudiant(this.etudiantsDispo.get(etudiantSelec));
 					} else {
-						zones.get(lieuSelec).affecterEtudiant(this.etudiantsDispo.get(etudiantSelec));
+						System.out.println("L'étudiant n'est pas dans cette zone");
+					}
+					break;
+				case 1:
+					System.out.println(
+							"Entrez le numéro de l'étudiant à affecter à " + zones.get(lieuSelec).getNomZone());
+					etudiantSelec = entree.nextInt();
+					if (this.etudiantsDispo.get(etudiantSelec).isReserviste() == false) {
+						if (this.etudiantsDispo.get(etudiantSelec).getLocalisation() != zones.get(lieuSelec)
+								&& this.etudiantsDispo.get(etudiantSelec).getLocalisation() != null) {
+							System.out.println("L'étudiant est déjà assigné à une zone");
+						} else {
+							zones.get(lieuSelec).affecterEtudiant(this.etudiantsDispo.get(etudiantSelec));
+						}
+					} else {
+						System.out.println("L'étudiant est réserviste, il ne peut pas être assigné à une zone");
+					}
+					break;
+				default:
+					break;
+				}
+			}else{
+				if (zones.get(1).getFactionJ1() == this.getFactionJoueur()) {
+					// @formatter:off
+					if (zones.get(1).getEtuJoueur1().size() > 1 && 
+						zones.get(2).getEtuJoueur1().size() > 1 && 
+						zones.get(3).getEtuJoueur1().size() > 1 && 
+						zones.get(4).getEtuJoueur1().size() > 1 &&
+						zones.get(5).getEtuJoueur1().size() > 1) {
+					// @formatter:on
+						flag = true;
+					} else {
+						System.out.println("Vous devez assigner au moins 1 étudiant dans chaque zone");
 					}
 				} else {
-					System.out.println("L'étudiant est réserviste, il ne peut pas être assigné à une zone");
+					// @formatter:off
+					if (zones.get(1).getEtuJoueur2().size() > 1 && 
+						zones.get(2).getEtuJoueur2().size() > 1 && 
+						zones.get(3).getEtuJoueur2().size() > 1 && 
+						zones.get(4).getEtuJoueur2().size() > 1 &&
+						zones.get(5).getEtuJoueur2().size() > 1) {
+					// @formatter:on
+						flag = true;
+					} else {
+						System.out.println("Vous devez assigner au moins 1 étudiant dans chaque zone");
+					}
 				}
-				break;
-			default:
-				break;
 			}
 		}
-		//entree.close();
+
 	}
 
 	public Map<Integer, Etudiant> getEtudiantsDispo() {
@@ -363,8 +393,6 @@ public class Joueur {
 	public void setNomJoueur(String nomJoueur) {
 		this.nomJoueur = nomJoueur;
 	}
-
-
 
 	public void affecterPoints(Etudiant PointsEtu, int nbPoints) {
 
