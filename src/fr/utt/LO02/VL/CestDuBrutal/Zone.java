@@ -107,13 +107,15 @@ public class Zone {
 	}
 	
 
-	private void triInitiative(Map<Integer, Etudiant> etudiantsJoueur) {
+	private List<Etudiant> triInitiative(Map<Integer, Etudiant> etudiantsJoueur) {
 		//List orderInitiative = new ArrayList();
 		//for (int i=1; i<5; i++) {
 		//	etudiantsJoueur.get(i).getInitiative();
 		//}
+		List <Etudiant> etuOrdreInitiative = new ArrayList<Etudiant>(); 
 		Iterator<Integer> itEtu = etudiantsJoueur.keySet().iterator();
-		
+		int etuTriInitiative = itEtu.next();
+		return etuOrdreInitiative;
 	}
 	
 
