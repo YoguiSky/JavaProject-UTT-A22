@@ -2,14 +2,15 @@ package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.Scanner;
 import java.util.Map;
-import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+import java.util.HashMap;
 
 public class Joueur {
 
 	private int nbZonesControlees;
 	private int nbPoints = 400;
 	private String nomJoueur;
-	private Map<Integer, Etudiant> etudiantsDispo = new LinkedHashMap<>();
+	private Map<Integer, Etudiant> etudiantsDispo = new HashMap<>();
 	private Faction factionJoueur = null;
 	private int nbReservistes = 0; // le joueur a initialement affecté aucun réserviste
 
@@ -249,22 +250,47 @@ public class Joueur {
 		// ajouter la définition de la faction du joueur
 	}
 
+	public int getKeyEtudiant(Etudiant value) {
+		for (Entry<Integer, Etudiant> entry : this.etudiantsDispo.entrySet()) {
+			if (entry.getValue() == value) {
+				return (int) entry.getKey();
+			}
+		}
+	}
+
 	public void AffectationTroupes(Map<Integer, Zone> zones) {
 		boolean flag = false;
 		Scanner entree = new Scanner(System.in);
 		while (flag == false) {
 			int etudiantSelec;
 			System.out.println("choisissez une zone :");
-			System.out.println("1-La Bibliothèque");
-			System.out.println("2-Le Bureau Des Etudiants");
-			System.out.println("3-Le Quartier Administratif");
-			System.out.println("4-Les Halles Industrielles");
-			System.out.println("5-La Halle Sportive");
-			System.out.println("\n6-Quitter");
+			System.out.println("1-La Bibliothèque\t\t"
+					+ (zones.get(1).getFactionJ1() == this.getFactionJoueur() ? zones.get(1).getEtuJoueur1().size()
+							: zones.get(1).getEtuJoueur2().size()));
+			System.out.println("2-Le Bureau Des Etudiants\t"
+					+ (zones.get(2).getFactionJ1() == this.getFactionJoueur() ? zones.get(2).getEtuJoueur1().size()
+							: zones.get(2).getEtuJoueur2().size()));
+			System.out.println("3-Le Quartier Administratif\t"
+					+ (zones.get(3).getFactionJ1() == this.getFactionJoueur() ? zones.get(3).getEtuJoueur1().size()
+							: zones.get(3).getEtuJoueur2().size()));
+			System.out.println("4-Les Halles Industrielles\t"
+					+ (zones.get(4).getFactionJ1() == this.getFactionJoueur() ? zones.get(4).getEtuJoueur1().size()
+							: zones.get(4).getEtuJoueur2().size()));
+			System.out.println("5-La Halle Sportive\t\t"
+					+ (zones.get(5).getFactionJ1() == this.getFactionJoueur() ? zones.get(5).getEtuJoueur1().size()
+							: zones.get(5).getEtuJoueur2().size()));
+			System.out.println("\n6-Fin");
 			int lieuSelec = entree.nextInt();
-			if (lieuSelec >= 1l && lieuSelec <= 5) {
+			if (lieuSelec >= 1 && lieuSelec <= 5) {
 				System.out.println(
-						"Il y a actuellement " + zones.get(lieuSelec).getNombreEtu() + " étudiants dans cette zone");
+						"Vous avez actuellement " + (zones.get(lieuSelec).getFactionJ1() == this.getFactionJoueur()
+								? zones.get(lieuSelec).getFactionJ1()
+								: zones.get(lieuSelec).getFactionJ2()) + " étudiants dans cette zone");
+
+				System.out.print("Voici les étudiants déjà affectés:");
+				for (int i = 0; i < 5; i++) {
+
+				}
 				System.out.println("Choisissez ce que vous souhaitez faire :");
 				System.out.println("0-Désaffecter étudiant");
 				System.out.println("1-Affecter étudiant");
@@ -300,14 +326,14 @@ public class Joueur {
 				default:
 					break;
 				}
-			}else{
+			} else {
 				if (zones.get(1).getFactionJ1() == this.getFactionJoueur()) {
 					// @formatter:off
-					if (zones.get(1).getEtuJoueur1().size() > 1 && 
-						zones.get(2).getEtuJoueur1().size() > 1 && 
-						zones.get(3).getEtuJoueur1().size() > 1 && 
-						zones.get(4).getEtuJoueur1().size() > 1 &&
-						zones.get(5).getEtuJoueur1().size() > 1) {
+					if (zones.get(1).getEtuJoueur1().size() >= 1 && 
+						zones.get(2).getEtuJoueur1().size() >= 1 && 
+						zones.get(3).getEtuJoueur1().size() >= 1 && 
+						zones.get(4).getEtuJoueur1().size() >= 1 &&
+						zones.get(5).getEtuJoueur1().size() >= 1) {
 					// @formatter:on
 						flag = true;
 					} else {
@@ -315,11 +341,11 @@ public class Joueur {
 					}
 				} else {
 					// @formatter:off
-					if (zones.get(1).getEtuJoueur2().size() > 1 && 
-						zones.get(2).getEtuJoueur2().size() > 1 && 
-						zones.get(3).getEtuJoueur2().size() > 1 && 
-						zones.get(4).getEtuJoueur2().size() > 1 &&
-						zones.get(5).getEtuJoueur2().size() > 1) {
+					if (zones.get(1).getEtuJoueur2().size() >= 1 && 
+						zones.get(2).getEtuJoueur2().size() >= 1 && 
+						zones.get(3).getEtuJoueur2().size() >= 1 && 
+						zones.get(4).getEtuJoueur2().size() >= 1 &&
+						zones.get(5).getEtuJoueur2().size() >= 1) {
 					// @formatter:on
 						flag = true;
 					} else {
