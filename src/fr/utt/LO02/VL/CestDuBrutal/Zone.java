@@ -1,8 +1,7 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
+
 
 public class Zone {
 
@@ -106,6 +105,17 @@ public class Zone {
 		}
 
 	}
+	
+
+	private void triInitiative(Map<Integer, Etudiant> etudiantsJoueur) {
+		//List orderInitiative = new ArrayList();
+		//for (int i=1; i<5; i++) {
+		//	etudiantsJoueur.get(i).getInitiative();
+		//}
+		Iterator<Integer> itEtu = etudiantsJoueur.keySet().iterator();
+		
+	}
+	
 
 	/**
 	 * @return the estControleePar
