@@ -92,7 +92,6 @@ public class Zone {
 				} else {
 					etuAction.action(etuCibleJ2);
 				}
-
 			} else {
 				double choixFaction = Math.random();
 				if (choixFaction < 0.5) {
@@ -100,14 +99,12 @@ public class Zone {
 				} else {
 					etuAction.action(etuCibleJ2);
 				}
-
 			}
 		}
-
 	}
 	
 
-	private List<Etudiant> triInitiative(Set<Etudiant> etudiantsJoueur) {
+	private static List<Etudiant> triInitiative(Set<Etudiant> etudiantsJoueur) {
 		int indiceEtu = 0;
 		List <Etudiant> tempoList = new ArrayList<Etudiant>();
 		List <Etudiant> etuOrdreInitiative = new ArrayList<Etudiant>(); 
@@ -127,7 +124,6 @@ public class Zone {
 					etuOrdreInitiative.add(tempoList.get(0));
 					tempoList.remove(0);
 				}
-				
 			}
 		}
 		//etuOrdreInitiative.add();
@@ -257,6 +253,22 @@ public class Zone {
 	}
 
 	public static void main(String[] args) {
+		Etudiant etu1 = new Etudiant(Faction.ISI,true,0,0,0,0,3);
+		Etudiant etu2 = new Etudiant(Faction.ISI,true,0,0,0,0,0);
+		Etudiant etu3 = new Etudiant(Faction.ISI,true,0,0,0,0,4);
+		Etudiant etu4 = new Etudiant(Faction.ISI,true,0,0,0,0,9);
+		Etudiant etu5 = new Etudiant(Faction.ISI,true,0,0,0,0,7);
+		Set<Etudiant> etuJoueurTest = new HashSet<Etudiant>();
+		etuJoueurTest.add(etu1);
+		etuJoueurTest.add(etu2);
+		etuJoueurTest.add(etu3);
+		etuJoueurTest.add(etu4);
+		etuJoueurTest.add(etu5);
+		
+		List<Etudiant> etuTriTest = new ArrayList<Etudiant>();
+		etuTriTest = triInitiative(etuJoueurTest);
+		System.out.println("etuJoueurTest : " + etuJoueurTest.toString());
+		System.out.println("etuTriTest : " + etuTriTest.toString());
 		// TODO Auto-generated method stub
 
 	}
