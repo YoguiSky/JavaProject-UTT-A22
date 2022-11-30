@@ -104,9 +104,9 @@ public class Zone {
 	}
 	
 
-	private static List<Etudiant> triInitiative(Set<Etudiant> etudiantsJoueur) {
+	private static List<Etudiant> triInitiative(List<Etudiant> etudiantsJoueur) {
 		int indiceEtu = 0;
-		List <Etudiant> tempoList = new ArrayList<Etudiant>();
+		List <Etudiant> tempoList = new ArrayList<Etudiant>(etudiantsJoueur);
 		List <Etudiant> etuOrdreInitiative = new ArrayList<Etudiant>(); 
 		Iterator<Etudiant> itEtu = etudiantsJoueur.iterator();
 		while(itEtu.hasNext()) {
@@ -253,12 +253,12 @@ public class Zone {
 	}
 
 	public static void main(String[] args) {
-		Etudiant etu1 = new Etudiant(Faction.ISI,true,0,0,0,0,3);
+		Etudiant etu1 = new Etudiant(Faction.ISI,true,0,0,0,3,0);
 		Etudiant etu2 = new Etudiant(Faction.ISI,true,0,0,0,0,0);
-		Etudiant etu3 = new Etudiant(Faction.ISI,true,0,0,0,0,4);
-		Etudiant etu4 = new Etudiant(Faction.ISI,true,0,0,0,0,9);
-		Etudiant etu5 = new Etudiant(Faction.ISI,true,0,0,0,0,7);
-		Set<Etudiant> etuJoueurTest = new HashSet<Etudiant>();
+		Etudiant etu3 = new Etudiant(Faction.ISI,true,0,0,0,4,0);
+		Etudiant etu4 = new Etudiant(Faction.ISI,true,0,0,0,9,0);
+		Etudiant etu5 = new Etudiant(Faction.ISI,true,0,0,0,7,0);
+		ArrayList<Etudiant> etuJoueurTest = new ArrayList<Etudiant>();
 		etuJoueurTest.add(etu1);
 		etuJoueurTest.add(etu2);
 		etuJoueurTest.add(etu3);

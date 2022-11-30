@@ -218,5 +218,9 @@ public class Etudiant {
 		// TODO Auto-generated method stub
 		// Etudiant toto = new Etudiant(false, 0, 0, 0, 0, 0);
 	}
+	
+	public String toString() {
+		return "étudiant : initiative " + this.initiative;
+	}
 
 }
