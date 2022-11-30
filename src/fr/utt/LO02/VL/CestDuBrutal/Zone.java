@@ -107,15 +107,32 @@ public class Zone {
 	}
 	
 
-	private List<Etudiant> triInitiative(Map<Integer, Etudiant> etudiantsJoueur) {
-		//List orderInitiative = new ArrayList();
-		//for (int i=1; i<5; i++) {
-		//	etudiantsJoueur.get(i).getInitiative();
-		//}
+	private List<Etudiant> triInitiative(Set<Etudiant> etudiantsJoueur) {
+		int indiceEtu = 0;
+		List <Etudiant> tempoList = new ArrayList<Etudiant>();
 		List <Etudiant> etuOrdreInitiative = new ArrayList<Etudiant>(); 
-		Iterator<Integer> itEtu = etudiantsJoueur.keySet().iterator();
-		int etuTriInitiative = itEtu.next();
+		Iterator<Etudiant> itEtu = etudiantsJoueur.iterator();
+		while(itEtu.hasNext()) {
+			tempoList.add(itEtu.next());
+		}
+		while(etuOrdreInitiative.size()<5) {
+			indiceEtu = tempoList.get(0).getInitiative();
+			for(int i=0; i<tempoList.size(); i++) {
+				if (tempoList.get(i).getInitiative() > indiceEtu) {
+					indiceEtu = tempoList.get(i).getInitiative();
+					etuOrdreInitiative.add(tempoList.get(i));
+					tempoList.remove(i);
+				
+				}else {
+					etuOrdreInitiative.add(tempoList.get(0));
+					tempoList.remove(0);
+				}
+				
+			}
+		}
+		//etuOrdreInitiative.add();
 		return etuOrdreInitiative;
+		
 	}
 	
 
