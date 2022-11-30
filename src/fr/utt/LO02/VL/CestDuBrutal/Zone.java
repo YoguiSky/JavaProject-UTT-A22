@@ -2,7 +2,6 @@ package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.*;
 
-
 public class Zone {
 
 	private Faction factionJ1;
@@ -102,35 +101,38 @@ public class Zone {
 			}
 		}
 	}
-	
 
-	private static List<Etudiant> triInitiative(List<Etudiant> etudiantsJoueur) {
+	private static List<Etudiant> triInitiative(Set<Etudiant> etudiantsJoueur) {
 		int indiceEtu = 0;
-		List <Etudiant> tempoList = new ArrayList<Etudiant>(etudiantsJoueur);
-		List <Etudiant> etuOrdreInitiative = new ArrayList<Etudiant>(); 
+		Etudiant etuInit;
+		List<Etudiant> tempoList = new ArrayList<Etudiant>(etudiantsJoueur);
+		List<Etudiant> etuOrdreInitiative = new ArrayList<Etudiant>();
 		Iterator<Etudiant> itEtu = etudiantsJoueur.iterator();
-		while(itEtu.hasNext()) {
-			tempoList.add(itEtu.next());
-		}
-		while(etuOrdreInitiative.size()<5) {
-			indiceEtu = tempoList.get(0).getInitiative();
-			for(int i=0; i<tempoList.size(); i++) {
+		/*
+		 * while(itEtu.hasNext()) { tempoList.add(itEtu.next()); }
+		 */
+		while (etuOrdreInitiative.size() < etudiantsJoueur.size()) {
+			//indiceEtu = tempoList.get(0).getInitiative();
+			//etuInit = tempoList.get(0);
+			for (int i = 0; i < tempoList.size(); i++) {
 				if (tempoList.get(i).getInitiative() > indiceEtu) {
 					indiceEtu = tempoList.get(i).getInitiative();
-					etuOrdreInitiative.add(tempoList.get(i));
-					tempoList.remove(i);
-				
-				}else {
-					etuOrdreInitiative.add(tempoList.get(0));
-					tempoList.remove(0);
+					etuInit = tempoList.get(i);
+					/*
+					 * etuOrdreInitiative.add(tempoList.get(i)); tempoList.remove(i);
+					 * 
+					 * }else { etuOrdreInitiative.add(tempoList.get(0)); tempoList.remove(0);
+					 */
 				}
+				etuOrdreInitiative.add(tempoList.get(i));
+				tempoList.remove(i);
+
 			}
 		}
-		//etuOrdreInitiative.add();
+		// etuOrdreInitiative.add();
 		return etuOrdreInitiative;
-		
+
 	}
-	
 
 	/**
 	 * @return the estControleePar
@@ -253,18 +255,18 @@ public class Zone {
 	}
 
 	public static void main(String[] args) {
-		Etudiant etu1 = new Etudiant(Faction.ISI,true,0,0,0,3,0);
-		Etudiant etu2 = new Etudiant(Faction.ISI,true,0,0,0,0,0);
-		Etudiant etu3 = new Etudiant(Faction.ISI,true,0,0,0,4,0);
-		Etudiant etu4 = new Etudiant(Faction.ISI,true,0,0,0,9,0);
-		Etudiant etu5 = new Etudiant(Faction.ISI,true,0,0,0,7,0);
-		ArrayList<Etudiant> etuJoueurTest = new ArrayList<Etudiant>();
+		Etudiant etu1 = new Etudiant(Faction.ISI, true, 0, 0, 0, 3, 0);
+		Etudiant etu2 = new Etudiant(Faction.ISI, true, 0, 0, 0, 0, 0);
+		Etudiant etu3 = new Etudiant(Faction.ISI, true, 0, 0, 0, 4, 0);
+		Etudiant etu4 = new Etudiant(Faction.ISI, true, 0, 0, 0, 9, 0);
+		Etudiant etu5 = new Etudiant(Faction.ISI, true, 0, 0, 0, 7, 0);
+		Set<Etudiant> etuJoueurTest = new HashSet<Etudiant>();
 		etuJoueurTest.add(etu1);
 		etuJoueurTest.add(etu2);
 		etuJoueurTest.add(etu3);
 		etuJoueurTest.add(etu4);
 		etuJoueurTest.add(etu5);
-		
+
 		List<Etudiant> etuTriTest = new ArrayList<Etudiant>();
 		etuTriTest = triInitiative(etuJoueurTest);
 		System.out.println("etuJoueurTest : " + etuJoueurTest.toString());
