@@ -37,6 +37,7 @@ public final class Partie {
     	boolean flag = false;
     	int reservisteSelec;
     	int zoneSelec;
+    	int etuSelec;
     	Scanner entree = new Scanner(System.in);
     	while(flag == false) {
     		System.out.println("L'heure est au mouvement de troupes !");
@@ -87,6 +88,7 @@ public final class Partie {
     					}
     					zoneSelec = entree.nextInt();
     					if(zones.get(zoneSelec).getEstControleePar() == quiJoue){
+    						System.out.println("Quels etudiants voulez-vous reaffecter ?");
     						if( quiJoue.getFactionJoueur() == joueur1.getFactionJoueur()) {
     							for (int l = 1; l < zones.get(zoneSelec).getEtuJoueur1().size(); l++) {
     								System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(l)
@@ -97,6 +99,22 @@ public final class Partie {
     		    							+ "\t\nInitiative : " + joueur1.getEtudiantsDispo().get(l).getInitiative()
     		    							+ "\t\nConstitution : " + joueur1.getEtudiantsDispo().get(l).getConstitution()
     		    							+ "\t\nStrategie : " + joueur1.getEtudiantsDispo().get(l).getStrategie());
+    								
+    								etuSelec = entree.nextInt();
+    								if(joueur1.getEtudiantsDispo().get(etuSelec).getLocalisation() == zones.get(zoneSelec)){
+    									System.out.println(
+    											"Choisissez ou vous reaffectez l'etudiant : \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
+    									switch(entree.nextInt()) {
+    									case 1: break;
+    									case 2: break;
+    									case 3: break;
+    									case 4: break;
+    									case 5: break;
+    									default: System.out.println("zone non-existante");
+    									}
+    								}else {
+    									System.out.println("Veuillez selectionner un etudiant qui est dans cette zone !");
+    								}
     							}
     						}else {
     							for (int l = 1; l < zones.get(zoneSelec).getEtuJoueur2().size(); l++) {
