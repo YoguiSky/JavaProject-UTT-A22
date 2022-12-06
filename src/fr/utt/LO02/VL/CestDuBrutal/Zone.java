@@ -1,14 +1,13 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
-import java.util.Set;
-import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Zone {
 
 	Faction factionJ1;
 	Faction factionJ2;
-	Set<Etudiant> etuJoueur1 = new HashSet<Etudiant>();
-	Set<Etudiant> etuJoueur2 = new HashSet<Etudiant>();
+	LinkedList<Etudiant> etuJoueur1 = new LinkedList<Etudiant>();
+	LinkedList<Etudiant> etuJoueur2 = new LinkedList<Etudiant>();
 	private Joueur estControleePar;
 	private String nomZone;
 	private int nombreEtu; // penser à modifier le lien Zone/Etudiant dans le diagramme de classes !!
@@ -89,19 +88,19 @@ public class Zone {
 		this.factionJ2 = factionJ2;
 	}
 
-	public Set<Etudiant> getEtuJoueur1() {
+	public LinkedList<Etudiant> getEtuJoueur1() {
 		return etuJoueur1;
 	}
 
-	public void setEtuJoueur1(Set<Etudiant> etuJoueur1) {
+	public void setEtuJoueur1(LinkedList<Etudiant> etuJoueur1) {
 		this.etuJoueur1 = etuJoueur1;
 	}
 
-	public Set<Etudiant> getEtuJoueur2() {
+	public LinkedList<Etudiant> getEtuJoueur2() {
 		return etuJoueur2;
 	}
 
-	public void setEtuJoueur2(Set<Etudiant> etuJoueur2) {
+	public void setEtuJoueur2(LinkedList<Etudiant> etuJoueur2) {
 		this.etuJoueur2 = etuJoueur2;
 	}
 

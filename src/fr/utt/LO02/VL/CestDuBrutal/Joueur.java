@@ -250,14 +250,22 @@ public class Joueur {
 		// ajouter la définition de la faction du joueur
 	}
 
-	public int getKeyEtudiant(Etudiant value) {
+	
+	
+	
+	
+	
+	
+	
+	//TODO
+	/*public int getKeyEtudiant(Etudiant value) {
 		for (Entry<Integer, Etudiant> entry : this.etudiantsDispo.entrySet()) {
 			if (entry.getValue() == value) {
 				return (int) entry.getKey();
 			}
 		}
 	}
-
+*/
 	public void AffectationTroupes(Map<Integer, Zone> zones) {
 		boolean flag = false;
 		Scanner entree = new Scanner(System.in);
