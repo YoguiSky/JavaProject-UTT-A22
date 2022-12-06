@@ -255,6 +255,7 @@ public class Zone {
 	}
 
 	public static void main(String[] args) {
+		//test de la méthode de tri (ne fonctionne pas)
 		Etudiant etu1 = new Etudiant(Faction.ISI, true, 0, 0, 0, 3, 0);
 		Etudiant etu2 = new Etudiant(Faction.ISI, true, 0, 0, 0, 0, 0);
 		Etudiant etu3 = new Etudiant(Faction.ISI, true, 0, 0, 0, 4, 0);
