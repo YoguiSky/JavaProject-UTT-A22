@@ -33,7 +33,7 @@ public final class Partie {
     }
     
     //Méthode associée à la phase 4 
-    public void treve(Joueur joueur) {
+    public void treve(Joueur joueur1, Joueur joueur2) {
     	boolean flag = false;
     	int reservisteSelec;
     	int zoneSelec;
@@ -45,7 +45,7 @@ public final class Partie {
     		switch(entree.nextInt()) {
     		case 1:
     			System.out.println("Reservistes disponibles :");
-    			for(int i=0; i< quiJoue.getEtudiantsDispo().size(); i++) {
+    			for(int i=1; i< quiJoue.getEtudiantsDispo().size(); i++) {
     				if (quiJoue.getEtudiantsDispo().get(i).isReserviste() == true) {
     					System.out.println("Etudiant N°" + quiJoue.getEtudiantsDispo().get(i)
     							+ "\t\nCredits ECTS : " + quiJoue.getEtudiantsDispo().get(i).getCreditsECTS()
@@ -53,13 +53,14 @@ public final class Partie {
     							+ "\t\nForce : " + quiJoue.getEtudiantsDispo().get(i).getForce()
     							+ "\t\nResistance : " + quiJoue.getEtudiantsDispo().get(i).getResistance()
     							+ "\t\nInitiative : " + quiJoue.getEtudiantsDispo().get(i).getInitiative()
-    							+ "\t\nConstitution : " + quiJoue.getEtudiantsDispo().get(i).getConstitution());	
+    							+ "\t\nConstitution : " + quiJoue.getEtudiantsDispo().get(i).getConstitution()
+    							+ "\t\nStrategie : " + quiJoue.getEtudiantsDispo().get(i).getStrategie());	
     				}
     				reservisteSelec = entree.nextInt();
     				//On affecte le réserviste dans une zone qui n'est pas déjà contrôlée
     				if(quiJoue.getEtudiantsDispo().get(reservisteSelec).isReserviste() == true) {
     					System.out.println("Zones non controlees : ");
-    					for (int j = 0; j < zones.size() ; j++ ) {
+    					for (int j = 1; j < zones.size() ; j++ ) {
     						if(zones.get(j).getEstControleePar() == null) {
     							System.out.println(j + "-" + zones.get(j).getNomZone()); //afficher le nombre de crédits ECTS pour chaque faction dans la zone quand la méthode sera créée
     						}
@@ -78,7 +79,46 @@ public final class Partie {
     				}
     			}
     			break;
-    		case 2: break;
+    		case 2: 
+    			if(quiJoue.getNbZonesControlees() != 0) {
+    				for(int k=1; k < zones.size(); k++ ) {
+    					if(zones.get(k).getEstControleePar() == quiJoue) {
+    						System.out.println("Zone N°" + k + " : " + zones.get(k).getNomZone());
+    					}
+    					zoneSelec = entree.nextInt();
+    					if(zones.get(zoneSelec).getEstControleePar() == quiJoue){
+    						if( quiJoue.getFactionJoueur() == joueur1.getFactionJoueur()) {
+    							for (int l = 1; l < zones.get(zoneSelec).getEtuJoueur1().size(); l++) {
+    								System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(l)
+    		    							+ "\t\nCredits ECTS : " + joueur1.getEtudiantsDispo().get(l).getCreditsECTS()
+    		    							+ "\t\nDexterite : " + joueur1.getEtudiantsDispo().get(l).getDexterite()
+    		    							+ "\t\nForce : " + joueur1.getEtudiantsDispo().get(l).getForce()
+    		    							+ "\t\nResistance : " + joueur1.getEtudiantsDispo().get(l).getResistance()
+    		    							+ "\t\nInitiative : " + joueur1.getEtudiantsDispo().get(l).getInitiative()
+    		    							+ "\t\nConstitution : " + joueur1.getEtudiantsDispo().get(l).getConstitution()
+    		    							+ "\t\nStrategie : " + joueur1.getEtudiantsDispo().get(l).getStrategie());
+    							}
+    						}else {
+    							for (int l = 1; l < zones.get(zoneSelec).getEtuJoueur2().size(); l++) {
+    								System.out.println("Etudiant N°" + joueur2.getEtudiantsDispo().get(l)
+    		    							+ "\t\nCredits ECTS : " + joueur2.getEtudiantsDispo().get(l).getCreditsECTS()
+    		    							+ "\t\nDexterite : " + joueur2.getEtudiantsDispo().get(l).getDexterite()
+    		    							+ "\t\nForce : " + joueur2.getEtudiantsDispo().get(l).getForce()
+    		    							+ "\t\nResistance : " + joueur2.getEtudiantsDispo().get(l).getResistance()
+    		    							+ "\t\nInitiative : " + joueur2.getEtudiantsDispo().get(l).getInitiative()
+    		    							+ "\t\nConstitution : " + joueur2.getEtudiantsDispo().get(l).getConstitution()
+    		    							+ "\t\nStrategie : " + joueur2.getEtudiantsDispo().get(l).getStrategie());
+    							}
+    						}
+    						
+    					}else {
+    						System.out.println("Vous ne pouvez pas redeployer les etudiants d'une zone que vous ne controlez pas !");
+    					}
+    				}
+    			}else {
+    				System.out.println("Vous ne pouvez pas redeployer d'etudiants si vous ne controlez aucune zone !");
+    			}
+    			break;
     		case 3: break;
     		default: System.out.println("Veuillez choisir une action valide.");
     		}

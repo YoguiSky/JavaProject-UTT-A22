@@ -364,6 +364,7 @@ public class Joueur {
 		}
 
 	}
+    
 
 	public Map<Integer, Etudiant> getEtudiantsDispo() {
 		return etudiantsDispo;
