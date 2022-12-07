@@ -50,6 +50,7 @@ public final class Partie {
     		System.out.println(
     				"Quelle action voulez-vous faire ? \n1-Affecter des reservistes \n2-redeployer combatants valides \n3-Connaitre le nombre de Credits ECTS sur les zones de vos choix \n4-Passer la phase de treve");
     		switch(entree.nextInt()) {
+    		//On affiche les réservistes disponibles
     		case 1:
     			System.out.println("Reservistes disponibles :");
     			for(int i=1; i< quiJoue.getEtudiantsDispo().size(); i++) {
@@ -64,7 +65,7 @@ public final class Partie {
     							+ "\t\nStrategie : " + quiJoue.getEtudiantsDispo().get(i).getStrategie());	
     				}
     				reservisteSelec = entree.nextInt();
-    				//On affecte le réserviste dans une zone qui n'est pas déjà contrôlée
+    				//On affecte le réserviste sélectionné dans une zone qui n'est pas déjà contrôlée
     				if(quiJoue.getEtudiantsDispo().get(reservisteSelec).isReserviste() == true) {
     					System.out.println("Zones non controlees : ");
     					for (int j = 1; j < zones.size() ; j++ ) {
@@ -86,6 +87,7 @@ public final class Partie {
     				}
     			}
     			break;
+    			//On redeploye les combattants valides qui sont sur les zones deja controlées
     		case 2: 
     			if(quiJoue.getNbZonesControlees() != 0) {
     				for(int k=1; k < zones.size(); k++ ) {
@@ -95,6 +97,7 @@ public final class Partie {
     					zoneSelec = entree.nextInt();
     					if(zones.get(zoneSelec).getEstControleePar() == quiJoue){
     						System.out.println("Quels etudiants voulez-vous reaffecter ?");
+    						//petit problème : il faut s'assurer que les étudiants sélectionnées correspondent bien aux étudiants du joueur qui fait l'action; d'où la vérification de la faction des etudiants
     						if( quiJoue.getFactionJoueur() == joueur1.getFactionJoueur()) {
     							for (int y = 1; y < zones.get(zoneSelec).getEtuJoueur1().size(); y++) {
     								System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(y)
@@ -111,6 +114,7 @@ public final class Partie {
     									System.out.println(
     											"Choisissez ou vous voulez reaffectez l'etudiant : \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
     									zoneObjectif = entree.nextInt();
+    									//on réaffecte les étudiant sur les zones choisies tout en proposant de modifier la stratégie
     									switch(entree.nextInt()) {
     									case 1:
     										if(zoneObjectif != zoneSelec) {
