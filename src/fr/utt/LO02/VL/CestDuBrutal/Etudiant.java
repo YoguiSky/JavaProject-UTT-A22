@@ -210,17 +210,38 @@ public class Etudiant {
 		this.localisation = localisation;
 	}
 
+	/**
+	 * 
+	 * @param etudiantCible
+	 */
 	public void action(Etudiant etudiantCible) {
 		strategie.typeStrategie(etudiantCible, this);
 	}
+	
+	@Override
+	/**
+	 * 
+	 */
+	public String toString() {
+		return "\nCredits ECTS : " + this.creditsECTS 
+				+ "\nDexterite : " + this.dexterite 
+				+ "\nForce : " + this.force 
+				+ "\nResistence : " + this.resistance
+				+ "\nInitiative : " + this.initiative
+				+ "\nConstitution : " + this.constitution
+				+ "\nStrategie : " + this.strategie;
+	}
 
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// Etudiant toto = new Etudiant(false, 0, 0, 0, 0, 0);
+		Etudiant toto = new Etudiant(Faction.A2I,false, 0, 0, 0, 0, 0);
+		System.out.println(toto);
 	}
 	
-	public String toString() {
-		return "étudiant : initiative " + this.initiative;
-	}
+	
 
 }

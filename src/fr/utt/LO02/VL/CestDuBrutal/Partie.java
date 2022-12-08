@@ -72,6 +72,7 @@ public final class Partie {
     						if(zones.get(j).getEstControleePar() == null) {
     							System.out.println(j + "-" + zones.get(j).getNomZone()); //afficher le nombre de crédits ECTS pour chaque faction dans la zone quand la méthode sera créée
     						}
+    						//une fois qu'on a affiché les zones non contrôlées on selectionne dans quelle zone on y met notre étudiant réserviste
     						zoneSelec = entree.nextInt();
     						if(zones.get(zoneSelec).getEstControleePar() == null) {
     							zones.get(zoneSelec).affecterEtudiant(quiJoue.getEtudiantsDispo().get(reservisteSelec));
@@ -87,7 +88,7 @@ public final class Partie {
     				}
     			}
     			break;
-    			//On redeploye les combattants valides qui sont sur les zones deja controlées
+    			//On redéploye les combattants valides qui sont sur les zones deja controlées
     		case 2: 
     			if(quiJoue.getNbZonesControlees() != 0) {
     				for(int k=1; k < zones.size(); k++ ) {
