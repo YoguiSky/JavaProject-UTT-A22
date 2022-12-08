@@ -366,6 +366,49 @@ public class Joueur {
 	}
     
 
+	/**
+	 * Méthode utilisée lors de la phase de trêve pour affecter les réservistes dans les zones non contrôlées.
+	 * 
+	 * @param joueur
+	 * @param zones
+	 * @param zoneSelec
+	 */
+	public void affecterReservistes(Joueur joueur, Map<Integer,Zone> zones, int zoneSelec) {
+		int reservisteSelec;
+		Scanner entree = new Scanner(System.in);
+		
+		System.out.println("Reservistes disponibles :");
+		for(int i=1; i< joueur.getEtudiantsDispo().size(); i++) {
+			if (joueur.getEtudiantsDispo().get(i).isReserviste() == true) {
+				//caractéristiques de l'étudiant affichées à l'aide de la méthode toString
+				System.out.println("Etudiant N°" + joueur.getEtudiantsDispo().get(i)
+						+ "\n" + joueur.getEtudiantsDispo().get(i).toString());
+			}
+			reservisteSelec = entree.nextInt();
+			//On affecte le réserviste sélectionné dans une zone qui n'est pas déjà contrôlée
+			if(joueur.getEtudiantsDispo().get(reservisteSelec).isReserviste() == true) {
+				System.out.println("Zones non controlees : ");
+				for (int j = 1; j < zones.size() ; j++ ) {
+					if(zones.get(j).getEstControleePar() == null) {
+						System.out.println(j + "-" + zones.get(j).getNomZone()); //afficher le nombre de crédits ECTS pour chaque faction dans la zone quand la méthode sera créée
+					}
+					//une fois qu'on a affiché les zones non contrôlées on selectionne dans quelle zone on y met notre étudiant réserviste
+					zoneSelec = entree.nextInt();
+					if(zones.get(zoneSelec).getEstControleePar() == null) {
+						zones.get(zoneSelec).affecterEtudiant(joueur.getEtudiantsDispo().get(reservisteSelec));
+						joueur.getEtudiantsDispo().get(reservisteSelec).setReserviste(false);
+						System.out.println(
+								"L'etudiant N°" + reservisteSelec + " est maintenant affecte dans la zone " + zones.get(zoneSelec).getNomZone() + ".");
+					}else {
+						System.out.println("Zone deja controlee !");
+					}
+				}
+			}else {
+				System.out.println("Cet etudiant n'est pas reserviste !");
+			}
+		}
+	}
+	
 	public Map<Integer, Etudiant> getEtudiantsDispo() {
 		return etudiantsDispo;
 	}

@@ -1,6 +1,8 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.Scanner;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 
 public class Etudiant {
@@ -38,6 +40,8 @@ public class Etudiant {
 		this.initiative = initiative;
 		this.factionEtu = factionEtu;
 	}
+	
+	
 	
 	/**
 	 * La méthode newStratégie est appellée en pahse de trève lorsqu'on souhaite modifier la stratégie des étudiants qu'on redéploie.
@@ -77,6 +81,40 @@ public class Etudiant {
 			//message renvoyé si la commande ne entrée ne correspond à aucun des cas ci-dessus
 		default : System.out.println("Non cette strategie n'existe malheureusement pas");
 		
+		}
+	}
+	
+	/**
+	 * Méthode reaffecterEtudiant qui permet de réaffecter un étudiant d'une zone contrôlée vers une autre zone qui n'est pas contôlée.
+	 * Dans cette méthode on redéfinit aussi la stratégie de l'étudiant réaffecté
+	 * @param joueur
+	 * @param zones
+	 * @param etuSelec
+	 * @param zoneObjectif
+	 * @param zoneSelec
+	 */
+	public void reaffecterEtudiant(Joueur joueur, Map<Integer,Zone> zones , int etuSelec, int zoneObjectif, int zoneSelec) {
+		Scanner entree = new Scanner(System.in);
+		//On vérifie que la zone choisie est différente de celle où l'étudiant est actuellement
+		if(zoneObjectif != zoneSelec) {
+			//On affecte l'étudiant à la nouvelle zone tout en le retirant de l'ancienne
+			zones.get(zoneObjectif).affecterEtudiant(joueur.getEtudiantsDispo().get(etuSelec));
+			zones.get(zoneSelec).desaffecterEtudiant(joueur.getEtudiantsDispo().get(etuSelec));
+			System.out.println(
+					"L'etudiant N°" + joueur.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
+			//Une fois que c'est fait, on propose de modifier la stratégie de l'étudiant
+			System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
+			switch(entree.nextInt()) {
+			case 1 :
+				//on applique une nouvelle stratégie à l'étudiant à l'aide d'une méthode utilisant un switch-case
+				joueur.getEtudiantsDispo().get(etuSelec).newStrategie(joueur, etuSelec);
+				break;
+			case 2 : System.out.println("D'accord."); break;
+			//Message renvoyé si la commande entrée dans la console ne correspond pas aux options possibles
+			default : System.out.println("Commande pas valide... try again !");
+			}
+		}else {
+			System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
 		}
 	}
 

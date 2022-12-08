@@ -35,14 +35,11 @@ public final class Partie {
     //Méthode associée à la phase 4 
     public void treve(Joueur joueur1, Joueur joueur2) {
     	//On déclare l'ensemble des objets au début de la méthode
-    	boolean flag = false;
-    	int reservisteSelec;
-    	int zoneSelec;
+    	boolean flag = false; //Condition d'arrêt de la méthode trêve
+    	//zoneSelec, etuSelec et zoneObjectif sont des entiers qui prendront les valeurs choisies par le joueur dans la console
+    	int zoneSelec = 0; //Il faut initialiser zoneSelec pour ne pas avoir d'erreur dans le programme
     	int etuSelec;
     	int zoneObjectif;
-    	Attaquer offensive = new Attaquer();
-    	Soigner defensive = new Soigner();
-    	Aleatoire aleatoire = new Aleatoire();
     	
     	Scanner entree = new Scanner(System.in);
     	while(flag == false) {
@@ -52,70 +49,25 @@ public final class Partie {
     		switch(entree.nextInt()) {
     		//On affiche les réservistes disponibles
     		case 1:
-    			System.out.println("Reservistes disponibles :");
-    			for(int i=1; i< quiJoue.getEtudiantsDispo().size(); i++) {
-    				if (quiJoue.getEtudiantsDispo().get(i).isReserviste() == true) {
-    					//On affiche les caractéristiques de l'étudiant en dessous à l'aide d'une méthode toString définie dans la classe Etudiant
-    					/*System.out.println("Etudiant N°" + quiJoue.getEtudiantsDispo().get(i)
-    							+ "\t\nCredits ECTS : " + quiJoue.getEtudiantsDispo().get(i).getCreditsECTS()
-    							+ "\t\nDexterite : " + quiJoue.getEtudiantsDispo().get(i).getDexterite()
-    							+ "\t\nForce : " + quiJoue.getEtudiantsDispo().get(i).getForce()
-    							+ "\t\nResistance : " + quiJoue.getEtudiantsDispo().get(i).getResistance()
-    							+ "\t\nInitiative : " + quiJoue.getEtudiantsDispo().get(i).getInitiative()
-    							+ "\t\nConstitution : " + quiJoue.getEtudiantsDispo().get(i).getConstitution()
-    							+ "\t\nStrategie : " + quiJoue.getEtudiantsDispo().get(i).getStrategie());	
-    				*/
-    					//caractéristiques de l'étudiant affichées à l'aide de la méthode toString
-    					System.out.println("Etudiant N°" + quiJoue.getEtudiantsDispo().get(i)
-    							+ "\n" + quiJoue.getEtudiantsDispo().get(i).toString());
-    				}
-    				reservisteSelec = entree.nextInt();
-    				//On affecte le réserviste sélectionné dans une zone qui n'est pas déjà contrôlée
-    				if(quiJoue.getEtudiantsDispo().get(reservisteSelec).isReserviste() == true) {
-    					System.out.println("Zones non controlees : ");
-    					for (int j = 1; j < zones.size() ; j++ ) {
-    						if(zones.get(j).getEstControleePar() == null) {
-    							System.out.println(j + "-" + zones.get(j).getNomZone()); //afficher le nombre de crédits ECTS pour chaque faction dans la zone quand la méthode sera créée
-    						}
-    						//une fois qu'on a affiché les zones non contrôlées on selectionne dans quelle zone on y met notre étudiant réserviste
-    						zoneSelec = entree.nextInt();
-    						if(zones.get(zoneSelec).getEstControleePar() == null) {
-    							zones.get(zoneSelec).affecterEtudiant(quiJoue.getEtudiantsDispo().get(reservisteSelec));
-    							quiJoue.getEtudiantsDispo().get(reservisteSelec).setReserviste(false);
-    							System.out.println(
-    									"L'etudiant N°" + reservisteSelec + " est maintenant affecte dans la zone " + zones.get(zoneSelec).getNomZone() + ".");
-    						}else {
-    							System.out.println("Zone deja controlee !");
-    						}
-    					}
-    				}else {
-    					System.out.println("Cet etudiant n'est pas reserviste !");
-    				}
-    			}
+    			quiJoue.affecterReservistes(quiJoue, zones, zoneSelec);
     			break;
     			//On redéploye les combattants valides qui sont sur les zones deja controlées
     		case 2: 
+    			//il faut bien sûr que le joueur contrôle des zones afin de pouvoir réaliser cette étape
     			if(quiJoue.getNbZonesControlees() != 0) {
     				for(int k=1; k < zones.size(); k++ ) {
     					if(zones.get(k).getEstControleePar() == quiJoue) {
     						System.out.println("Zone N°" + k + " : " + zones.get(k).getNomZone());
     					}
+    					
     					zoneSelec = entree.nextInt();
     					if(zones.get(zoneSelec).getEstControleePar() == quiJoue){
     						System.out.println("Quels etudiants voulez-vous reaffecter ?");
+    						
     						//petit problème : il faut s'assurer que les étudiants sélectionnées correspondent bien aux étudiants du joueur qui fait l'action; d'où la vérification de la faction des etudiants
     						if( quiJoue.getFactionJoueur() == joueur1.getFactionJoueur()) {
+    							
     							for (int y = 1; y < zones.get(zoneSelec).getEtuJoueur1().size(); y++) {
-    								//la méthode toString devrait être plus efficace pour afficher l'étudiant
-    								/*System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(y)
-    		    							+ "\t\nCredits ECTS : " + joueur1.getEtudiantsDispo().get(y).getCreditsECTS()
-    		    							+ "\t\nDexterite : " + joueur1.getEtudiantsDispo().get(y).getDexterite()
-    		    							+ "\t\nForce : " + joueur1.getEtudiantsDispo().get(y).getForce()
-    		    							+ "\t\nResistance : " + joueur1.getEtudiantsDispo().get(y).getResistance()
-    		    							+ "\t\nInitiative : " + joueur1.getEtudiantsDispo().get(y).getInitiative()
-    		    							+ "\t\nConstitution : " + joueur1.getEtudiantsDispo().get(y).getConstitution()
-    		    							+ "\t\nStrategie : " + joueur1.getEtudiantsDispo().get(y).getStrategie());
-    								*/
     								//On affiche le numéro de l'étudiant ainsi que ses caractéristiques
     								System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(y) 
     										+ "\n" + joueur1.getEtudiantsDispo().get(y).toString());
@@ -124,196 +76,24 @@ public final class Partie {
     								if(joueur1.getEtudiantsDispo().get(etuSelec).getLocalisation() == zones.get(zoneSelec)){
     									System.out.println(
     											"Choisissez ou vous voulez reaffectez l'etudiant : \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
+    									
     									zoneObjectif = entree.nextInt();
     									//on réaffecte les étudiant sur les zones choisies tout en proposant de modifier la stratégie
     									switch(entree.nextInt()) {
     									case 1:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur1.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											/*System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											*/
-        											//on apploque une nouvelle stratégie à l'étudiant à l'aide d'une méthode utilisant un switch-case
-        											joueur1.getEtudiantsDispo().get(etuSelec).newStrategie(joueur1, etuSelec);
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 2:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur1.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 3:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur1.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 4:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur1.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 5:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur1.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur1.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									default: System.out.println("zone non-existante");
     									}
@@ -323,16 +103,6 @@ public final class Partie {
     							}
     						}else {
     							for (int x = 1; x < zones.get(zoneSelec).getEtuJoueur2().size(); x++) {
-    								//méthode plus simple écrite en non-commentaire juste en dessous
-    								/*System.out.println("Etudiant N°" + joueur2.getEtudiantsDispo().get(x)
-    		    							+ "\t\nCredits ECTS : " + joueur2.getEtudiantsDispo().get(x).getCreditsECTS()
-    		    							+ "\t\nDexterite : " + joueur2.getEtudiantsDispo().get(x).getDexterite()
-    		    							+ "\t\nForce : " + joueur2.getEtudiantsDispo().get(x).getForce()
-    		    							+ "\t\nResistance : " + joueur2.getEtudiantsDispo().get(x).getResistance()
-    		    							+ "\t\nInitiative : " + joueur2.getEtudiantsDispo().get(x).getInitiative()
-    		    							+ "\t\nConstitution : " + joueur2.getEtudiantsDispo().get(x).getConstitution()
-    		    							+ "\t\nStrategie : " + joueur2.getEtudiantsDispo().get(x).getStrategie());
-    								*/
     								//on affiche les caractéristiques de l'étudiant à l'aide d'une méthode toString définie dans la classe Etudiant
     								System.out.println("Etudiant N°" + joueur2.getEtudiantsDispo().get(x)
     										+ "\n" + joueur2.getEtudiantsDispo().get(x).toString()); 
@@ -343,189 +113,19 @@ public final class Partie {
     									zoneObjectif = entree.nextInt();
     									switch(entree.nextInt()) {
     									case 1:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur2.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 2:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur2.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 3:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur2.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 4:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur2.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									case 5:
-    										if(zoneObjectif != zoneSelec) {
-    											zones.get(zoneObjectif).affecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										zones.get(zoneSelec).desaffecterEtudiant(joueur2.getEtudiantsDispo().get(etuSelec));
-        										System.out.println(
-        												"L'etudiant N°" + joueur2.getEtudiantsDispo().get(etuSelec) + " quitte la zone " + zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-        										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-        										switch(entree.nextInt()) {
-        										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-        											switch(entree.nextInt()) {
-        											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-        												System.out.println("Strategie definie comme offensive");
-        												break;
-        											case 2 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-        												System.out.println("Strategie definie comme defensive");
-        												break;
-        											case 3 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
-        												System.out.println("Strategie definie comme aleatoire");
-        												break;
-        											case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-        												break;
-        											default : System.out.println("Non cette strategie n'existe malheureusement pas");
-        											
-        											}
-        											break;
-        										case 2 : System.out.println("D'accord."); 
-        											break;
-        										default : System.out.println("Commande pas valide... try again !");
-        										}
-    										}else {
-    											System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-    										}
+    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
     										break;
     									default: System.out.println("zone non-existante");
     									}

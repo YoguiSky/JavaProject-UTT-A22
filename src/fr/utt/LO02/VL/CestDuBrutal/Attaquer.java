@@ -63,6 +63,18 @@ public class Attaquer implements Strategie{
 		return "attaquer";
 	}
 	public static void main(String[] args) {
+		double y1 = -(Math.random()-1);
+		double y2 = -(Math.random()-1);
+		double y3 = -(Math.random()-1);
+		double y4 = -(Math.random()-1);
+		double y5 = -(Math.random()-1);
+		
+		System.out.println(
+				 "y1 : " + y1 
+				+"\ny2 : " + y2 
+				+"\ny3 : " + y3 
+				+"\ny4 : " + y4 
+				+"\ny5 : " + y5);
 		// TODO Auto-generated method stub
 
 	}
