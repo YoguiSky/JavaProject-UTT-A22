@@ -239,7 +239,7 @@ public class Etudiant {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Etudiant toto = new Etudiant(Faction.A2I,false, 0, 0, 0, 0, 0);
-		System.out.println(toto);
+		System.out.println(toto.toString());
 	}
 	
 	

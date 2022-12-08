@@ -55,7 +55,8 @@ public final class Partie {
     			System.out.println("Reservistes disponibles :");
     			for(int i=1; i< quiJoue.getEtudiantsDispo().size(); i++) {
     				if (quiJoue.getEtudiantsDispo().get(i).isReserviste() == true) {
-    					System.out.println("Etudiant N°" + quiJoue.getEtudiantsDispo().get(i)
+    					//On affiche les caractéristiques de l'étudiant en dessous à l'aide d'une méthode toString définie dans la classe Etudiant
+    					/*System.out.println("Etudiant N°" + quiJoue.getEtudiantsDispo().get(i)
     							+ "\t\nCredits ECTS : " + quiJoue.getEtudiantsDispo().get(i).getCreditsECTS()
     							+ "\t\nDexterite : " + quiJoue.getEtudiantsDispo().get(i).getDexterite()
     							+ "\t\nForce : " + quiJoue.getEtudiantsDispo().get(i).getForce()
@@ -63,6 +64,10 @@ public final class Partie {
     							+ "\t\nInitiative : " + quiJoue.getEtudiantsDispo().get(i).getInitiative()
     							+ "\t\nConstitution : " + quiJoue.getEtudiantsDispo().get(i).getConstitution()
     							+ "\t\nStrategie : " + quiJoue.getEtudiantsDispo().get(i).getStrategie());	
+    				*/
+    					//caractéristiques de l'étudiant affichées à l'aide de la méthode toString
+    					System.out.println("Etudiant N°" + quiJoue.getEtudiantsDispo().get(i)
+    							+ "\n" + quiJoue.getEtudiantsDispo().get(i).toString());
     				}
     				reservisteSelec = entree.nextInt();
     				//On affecte le réserviste sélectionné dans une zone qui n'est pas déjà contrôlée
@@ -101,7 +106,8 @@ public final class Partie {
     						//petit problème : il faut s'assurer que les étudiants sélectionnées correspondent bien aux étudiants du joueur qui fait l'action; d'où la vérification de la faction des etudiants
     						if( quiJoue.getFactionJoueur() == joueur1.getFactionJoueur()) {
     							for (int y = 1; y < zones.get(zoneSelec).getEtuJoueur1().size(); y++) {
-    								System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(y)
+    								//la méthode toString devrait être plus efficace pour afficher l'étudiant
+    								/*System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(y)
     		    							+ "\t\nCredits ECTS : " + joueur1.getEtudiantsDispo().get(y).getCreditsECTS()
     		    							+ "\t\nDexterite : " + joueur1.getEtudiantsDispo().get(y).getDexterite()
     		    							+ "\t\nForce : " + joueur1.getEtudiantsDispo().get(y).getForce()
@@ -109,6 +115,10 @@ public final class Partie {
     		    							+ "\t\nInitiative : " + joueur1.getEtudiantsDispo().get(y).getInitiative()
     		    							+ "\t\nConstitution : " + joueur1.getEtudiantsDispo().get(y).getConstitution()
     		    							+ "\t\nStrategie : " + joueur1.getEtudiantsDispo().get(y).getStrategie());
+    								*/
+    								//On affiche le numéro de l'étudiant ainsi que ses caractéristiques
+    								System.out.println("Etudiant N°" + joueur1.getEtudiantsDispo().get(y) 
+    										+ "\n" + joueur1.getEtudiantsDispo().get(y).toString());
     								
     								etuSelec = entree.nextInt();
     								if(joueur1.getEtudiantsDispo().get(etuSelec).getLocalisation() == zones.get(zoneSelec)){
@@ -310,7 +320,8 @@ public final class Partie {
     							}
     						}else {
     							for (int x = 1; x < zones.get(zoneSelec).getEtuJoueur2().size(); x++) {
-    								System.out.println("Etudiant N°" + joueur2.getEtudiantsDispo().get(x)
+    								//méthode plus simple écrite en non-commentaire juste en dessous
+    								/*System.out.println("Etudiant N°" + joueur2.getEtudiantsDispo().get(x)
     		    							+ "\t\nCredits ECTS : " + joueur2.getEtudiantsDispo().get(x).getCreditsECTS()
     		    							+ "\t\nDexterite : " + joueur2.getEtudiantsDispo().get(x).getDexterite()
     		    							+ "\t\nForce : " + joueur2.getEtudiantsDispo().get(x).getForce()
@@ -318,7 +329,10 @@ public final class Partie {
     		    							+ "\t\nInitiative : " + joueur2.getEtudiantsDispo().get(x).getInitiative()
     		    							+ "\t\nConstitution : " + joueur2.getEtudiantsDispo().get(x).getConstitution()
     		    							+ "\t\nStrategie : " + joueur2.getEtudiantsDispo().get(x).getStrategie());
-    								
+    								*/
+    								//on affiche les caractéristiques de l'étudiant à l'aide d'une méthode toString définie dans la classe Etudiant
+    								System.out.println("Etudiant N°" + joueur2.getEtudiantsDispo().get(x)
+    										+ "\n" + joueur2.getEtudiantsDispo().get(x).toString()); 
     								etuSelec = entree.nextInt();
     								if(joueur2.getEtudiantsDispo().get(etuSelec).getLocalisation() == zones.get(zoneSelec)){
     									System.out.println(

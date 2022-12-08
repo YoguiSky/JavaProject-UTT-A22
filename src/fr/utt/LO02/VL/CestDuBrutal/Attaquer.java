@@ -40,7 +40,7 @@ public class Attaquer implements Strategie{
 			
 			//on crée une deuxième condition, cette fois pour déterminer le coef le plus grand entre valMin et 0 :
 			if( valMin > 0) {
-				coefficientDegat = valMin/100; //On correction de la méthode d'attaque
+				coefficientDegat = valMin/100; //correction de la méthode d'attaque
 			}
 			else {
 				coefficientDegat = 0;
