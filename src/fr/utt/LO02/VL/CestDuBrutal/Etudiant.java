@@ -1,5 +1,8 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
+import java.util.Scanner;
+
+
 public class Etudiant {
 	
 	private Faction factionEtu;
@@ -34,6 +37,47 @@ public class Etudiant {
 		this.constitution = constitution;
 		this.initiative = initiative;
 		this.factionEtu = factionEtu;
+	}
+	
+	/**
+	 * La méthode newStratégie est appellée en pahse de trève lorsqu'on souhaite modifier la stratégie des étudiants qu'on redéploie.
+	 * Si on choisit de ne pas choisir de nouvelle stratégie après avoir appelé la méthode, on garde la stratégie précédente.
+	 * 
+	 * @param joueur
+	 * @param etuSelec
+	 */
+	public void newStrategie(Joueur joueur, int etuSelec) {
+		//On déclare nos objets en début de méthode
+		Attaquer offensive = new Attaquer();
+		Soigner defensive = new Soigner();
+		Aleatoire aleatoire = new Aleatoire();
+		Scanner entree = new Scanner(System.in);
+		
+		//on séléctionne le choix du joueur à l'aide de la méthode nextInt
+		System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
+		switch(entree.nextInt()) {
+		//le joueur choisit la stratégie offensive
+		case 1 : 
+			joueur.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
+			System.out.println("Strategie definie comme offensive");
+			break;
+			//le joueur choisit la stratégie défensive
+		case 2 : 
+			joueur.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
+			System.out.println("Strategie definie comme defensive");
+			break;
+			//le joueur choisit une stratégie aléatoire
+		case 3 : 
+			joueur.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);        											
+			System.out.println("Strategie definie comme aleatoire");
+			break;
+			//on ne fait rien
+		case 4 : System.out.println("Vous ne modifiez pas la strategie de l'etudiant"); 
+			break;
+			//message renvoyé si la commande ne entrée ne correspond à aucun des cas ci-dessus
+		default : System.out.println("Non cette strategie n'existe malheureusement pas");
+		
+		}
 	}
 
 	/**

@@ -40,7 +40,7 @@ public final class Partie {
     	int zoneSelec;
     	int etuSelec;
     	int zoneObjectif;
-    	Attaquer ofensive = new Attaquer();
+    	Attaquer offensive = new Attaquer();
     	Soigner defensive = new Soigner();
     	Aleatoire aleatoire = new Aleatoire();
     	
@@ -136,10 +136,10 @@ public final class Partie {
         										System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
         										switch(entree.nextInt()) {
         										case 1 :
-        											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
+        											/*System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -155,6 +155,9 @@ public final class Partie {
         											default : System.out.println("Non cette strategie n'existe malheureusement pas");
         											
         											}
+        											*/
+        											//on apploque une nouvelle stratégie à l'étudiant à l'aide d'une méthode utilisant un switch-case
+        											joueur1.getEtudiantsDispo().get(etuSelec).newStrategie(joueur1, etuSelec);
         											break;
         										case 2 : System.out.println("D'accord."); 
         											break;
@@ -176,7 +179,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -213,7 +216,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -250,7 +253,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -287,7 +290,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur1.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -351,7 +354,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -388,7 +391,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -425,7 +428,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -462,7 +465,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
@@ -499,7 +502,7 @@ public final class Partie {
         											System.out.println("Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
         											switch(entree.nextInt()) {
         											case 1 : 
-        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(ofensive);
+        												joueur2.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
         												System.out.println("Strategie definie comme offensive");
         												break;
         											case 2 : 
