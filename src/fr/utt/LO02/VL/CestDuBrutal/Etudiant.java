@@ -1,7 +1,10 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 public class Etudiant {
-	
+
 	private Faction factionEtu;
 	private boolean enCombat;
 	private boolean reserviste;
@@ -12,6 +15,7 @@ public class Etudiant {
 	private int constitution = 0;
 	private int initiative = 0;
 	private Strategie strategie;
+	private int numEtudiant;
 	private Zone localisation; // a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le
 								// diagramme de classes
 
@@ -25,8 +29,8 @@ public class Etudiant {
 	 * @param initiative
 	 * @param constitution
 	 */
-	public Etudiant(Faction factionEtu, boolean enCombat, double dexterite, double force, double resistance, int initiative,
-			int constitution) {
+	public Etudiant(Faction factionEtu, boolean enCombat, double dexterite, double force, double resistance,
+			int initiative, int constitution, int numEtudiant) {
 		this.enCombat = enCombat;
 		this.dexterite = dexterite;
 		this.force = force;
@@ -34,6 +38,7 @@ public class Etudiant {
 		this.constitution = constitution;
 		this.initiative = initiative;
 		this.factionEtu = factionEtu;
+		this.numEtudiant = numEtudiant;
 	}
 
 	/**
@@ -210,8 +215,35 @@ public class Etudiant {
 		this.localisation = localisation;
 	}
 
-	public void action(Etudiant etudiantCible) {
-		strategie.typeStrategie(etudiantCible, this);
+	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {
+		if(this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
+			etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+			System.out.println("etu n°"+this.getNumEtudiant()+" faction = "+this.getFactionEtu()+" pv = "+this.getCreditsECTS()+" initiative = "+ this.getInitiative() +" attaque etu n°"+etuJoueur2.get(0).getNumEtudiant()+" faction = "+etuJoueur2.get(0).getFactionEtu()+" pv = "+etuJoueur2.get(0).getCreditsECTS()+" initiative = "+etuJoueur2.get(0).getInitiative());
+			strategie.typeStrategie(etuJoueur2.get(0), this);
+			if (etuJoueur2.get(0).getCreditsECTS() <= 0) {
+				System.out.println("L'étudiant n°"+etuJoueur2.get(0).getNumEtudiant()+" est dead sa mère, il reste "+(etuJoueur2.size()-1)+" étudiants");
+				etuJoueur2.remove(0);
+			}
+			//etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+		}
+		else{
+			etuJoueur1.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+			System.out.println("etu n°"+this.getNumEtudiant()+" faction = "+this.getFactionEtu()+" pv = "+this.getCreditsECTS()+" initiative = "+ this.getInitiative() +" attaque etu n°"+etuJoueur1.get(0).getNumEtudiant()+" faction = "+etuJoueur1.get(0).getFactionEtu()+" pv = "+etuJoueur1.get(0).getCreditsECTS()+" initiative = "+etuJoueur1.get(0).getInitiative());
+			strategie.typeStrategie(etuJoueur1.get(0), this);
+			if (etuJoueur1.get(0).getCreditsECTS() <= 0) {
+				System.out.println("L'étudiant n°"+etuJoueur1.get(0).getNumEtudiant()+" est dead sa mère, il reste "+(etuJoueur1.size()-1)+" étudiants");
+				etuJoueur1.remove(0);
+			}
+			//etuJoueur1.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+		}
+	}
+
+	public int getNumEtudiant() {
+		return numEtudiant;
+	}
+
+	public void setNumEtudiant(int numEtudiant) {
+		this.numEtudiant = numEtudiant;
 	}
 
 	public static void main(String[] args) {

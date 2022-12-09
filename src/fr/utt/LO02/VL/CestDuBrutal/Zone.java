@@ -1,14 +1,15 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
-import java.util.LinkedList;
+import java.util.*;
 
 public class Zone {
 
-	Faction factionJ1;
-	Faction factionJ2;
-	LinkedList<Etudiant> etuJoueur1 = new LinkedList<Etudiant>();
-	LinkedList<Etudiant> etuJoueur2 = new LinkedList<Etudiant>();
-	private Joueur estControleePar;
+	private Faction factionJ1;
+	private Faction factionJ2;
+	private ArrayList<Etudiant> etuJoueur1 = new ArrayList<Etudiant>();
+	private ArrayList<Etudiant> etuJoueur2 = new ArrayList<Etudiant>();
+	private ArrayList<Etudiant> etuZone = new ArrayList<Etudiant>();
+	private Faction estControleePar = null;
 	private String nomZone;
 	private int nombreEtu; // penser à modifier le lien Zone/Etudiant dans le diagramme de classes !!
 
@@ -23,20 +24,76 @@ public class Zone {
 
 	}
 
+	/*
+	 * public void testSort() {
+	 * etuJoueur1.sort(Comparator.comparing(Etudiant::getInitiative));
+	 * Iterator<Etudiant> iter = etuJoueur1.iterator(); while(iter.hasNext()) {
+	 * System.out.println(iter.next().getInitiative()); } }
+	 */
+	public void triInitiative() {
+		/*
+		 * list.sort((o1, o2) ->
+		 * o1.getCustomProperty().compareTo(o2.getCustomProperty()));
+		 * 
+		 * Comparator<Employee> compareById = (Employee o1, Employee o2) ->
+		 * o1.getId().compareTo( o2.getId() ); Collections.sort(employees, compareById);
+		 * Collections.sort(employees, compareById.reversed());
+		 * 
+		 * (o1, o2) -> o1.getStartDate().compareTo(o2.getStartDate())
+		 */
+		etuZone.addAll(etuJoueur1);
+		etuZone.addAll(etuJoueur2);
+		// Collections.sort(etuZone,);
+		etuZone.sort(Comparator.comparing(Etudiant::getInitiative).reversed());
+		// etuZone.sort(Comparator.comparing(Collections::reverseOrder()));
+		// ollections.sort(etuZone, Collections.reverse());
+	}
+
+	public void triECTS() {
+		etuJoueur1.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+		etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+	}
+
+	public int getECTS() {
+		Iterator<Etudiant> ITetuzone = etuZone.iterator();
+		int ECTSttl = 0;
+		while (ITetuzone.hasNext()) {
+			ECTSttl += ITetuzone.next().getCreditsECTS();
+		}
+		return ECTSttl;
+	}
+
+	public boolean combatZone() {
+		etuZone.get(0).action(etuJoueur1, etuJoueur2);
+		etuZone.add(etuZone.get(0));
+		etuZone.remove(0);
+		if (etuJoueur1.size() == 0 || etuJoueur2.size() == 0) {
+			if(etuJoueur1.size() == 0) {
+				this.setEstControleePar(etuJoueur2.get(0).getFactionEtu());
+			}else {
+				this.setEstControleePar(etuJoueur1.get(0).getFactionEtu());
+			}
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	/**
 	 * @return the estControleePar
 	 */
-	
+
 	public void affecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
 			etuJoueur1.add(etudiant);
-			
+
 		} else if (etudiant.getFactionEtu() == factionJ2) {
 			etuJoueur2.add(etudiant);
 		}
 		etudiant.setLocalisation(this);
-		nombreEtu++;
+		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
+
 	public void desaffecterEtudiant(Etudiant etudiant) {
 		if (etudiant.getFactionEtu() == factionJ1) {
 			etuJoueur1.remove(etudiant);
@@ -44,17 +101,17 @@ public class Zone {
 			etuJoueur2.remove(etudiant);
 		}
 		etudiant.setLocalisation(null);
-		nombreEtu--;
+		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
 
-	public Joueur getEstControleePar() {
+	public Faction getEstControleePar() {
 		return estControleePar;
 	}
 
 	/**
 	 * @param estControleePar the estControleePar to set
 	 */
-	public void setEstControleePar(Joueur estControleePar) {
+	public void setEstControleePar(Faction estControleePar) {
 		this.estControleePar = estControleePar;
 	}
 
@@ -72,38 +129,6 @@ public class Zone {
 		this.nomZone = nomZone;
 	}
 
-	public Faction getFactionJ1() {
-		return factionJ1;
-	}
-
-	public void setFactionJ1(Faction factionJ1) {
-		this.factionJ1 = factionJ1;
-	}
-
-	public Faction getFactionJ2() {
-		return factionJ2;
-	}
-
-	public void setFactionJ2(Faction factionJ2) {
-		this.factionJ2 = factionJ2;
-	}
-
-	public LinkedList<Etudiant> getEtuJoueur1() {
-		return etuJoueur1;
-	}
-
-	public void setEtuJoueur1(LinkedList<Etudiant> etuJoueur1) {
-		this.etuJoueur1 = etuJoueur1;
-	}
-
-	public LinkedList<Etudiant> getEtuJoueur2() {
-		return etuJoueur2;
-	}
-
-	public void setEtuJoueur2(LinkedList<Etudiant> etuJoueur2) {
-		this.etuJoueur2 = etuJoueur2;
-	}
-
 	/**
 	 * @return the nombreEtu
 	 */
@@ -112,15 +137,68 @@ public class Zone {
 	}
 
 	/**
-	 * @param nombreEtu the nombreEtu to set
+	 * @return the etuJoueur1
 	 */
-	public void setNombreEtu(int nombreEtu) {
-		this.nombreEtu = nombreEtu;
+	public ArrayList<Etudiant> getEtuJoueur1() {
+		return etuJoueur1;
+	}
+
+	/**
+	 * @param etuJoueur1 the etuJoueur1 to set
+	 */
+	public void setEtuJoueur1(ArrayList<Etudiant> etuJoueur1) {
+		this.etuJoueur1 = etuJoueur1;
+	}
+
+	/**
+	 * @return the etuJoueur2
+	 */
+	public ArrayList<Etudiant> getEtuJoueur2() {
+		return etuJoueur2;
+	}
+
+	/**
+	 * @param etuJoueur2 the etuJoueur2 to set
+	 */
+	public void setEtuJoueur2(ArrayList<Etudiant> etuJoueur2) {
+		this.etuJoueur2 = etuJoueur2;
+	}
+
+	/**
+	 * @return the factionJ1
+	 */
+	public Faction getFactionJ1() {
+		return factionJ1;
+	}
+
+	/**
+	 * @param factionJ1 the factionJ1 to set
+	 */
+	public void setFactionJ1(Faction factionJ1) {
+		this.factionJ1 = factionJ1;
+	}
+
+	/**
+	 * @return the factionJ2
+	 */
+	public Faction getFactionJ2() {
+		return factionJ2;
+	}
+
+	/**
+	 * @param factionJ2 the factionJ2 to set
+	 */
+	public void setFactionJ2(Faction factionJ2) {
+		this.factionJ2 = factionJ2;
 	}
 
 	public static void main(String[] args) {
+		Set<Etudiant> etuJoueurTest = new HashSet<Etudiant>();
+
+		List<Etudiant> etuTriTest = new ArrayList<Etudiant>();
+		System.out.println("etuJoueurTest : " + etuJoueurTest.toString());
+		System.out.println("etuTriTest : " + etuTriTest.toString());
 		// TODO Auto-generated method stub
-		
 
 	}
 

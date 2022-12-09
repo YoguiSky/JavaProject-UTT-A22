@@ -11,7 +11,7 @@ public class Attaquer implements Strategie{
 	 * méthode attaquer
 	 */
 	public void typeStrategie(Etudiant etuCible,Etudiant etuAction) {
-		System.out.println(etuAction + " attaque " + etuCible);
+		//System.out.println(etuAction + " attaque " + etuCible);
 		
 		//On commence par définir tous nos paramètres :
 		
@@ -40,7 +40,7 @@ public class Attaquer implements Strategie{
 			
 			//on crée une deuxième condition, cette fois pour déterminer le coef le plus grand entre valMin et 0 :
 			if( valMin > 0) {
-				coefficientDegat = valMin;
+				coefficientDegat = valMin/100;
 			}
 			else {
 				coefficientDegat = 0;

@@ -2,7 +2,6 @@ package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.Scanner;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.HashMap;
 
 public class Joueur {
@@ -19,6 +18,24 @@ public class Joueur {
 	 * 
 	 * @param nomJoueur
 	 */
+	public Joueur(String name, Faction fac) {
+		this.nomJoueur = name;
+		this.factionJoueur = fac;
+		for (int i = 1; i <= 20; i++) {
+
+			if (i <= 5) {
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, true, 0, 0, 0, 0, 0,i));
+			} else if (i > 5 && i <= 15) {
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 0, 0, 0, (int)(Math.random()*10), 0,i));
+			} else if (i > 15 && i <= 19) {
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1, 1, 1, 5, 1,i));
+			} else if (i > 19) {
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 2, 2, 2, 10, 2,i));
+			}
+			this.etudiantsDispo.get(i).setStrategie(new Attaquer());
+		}
+
+	}
 
 	public Joueur() {
 		Attaquer attaquer = new Attaquer();
@@ -67,17 +84,17 @@ public class Joueur {
 
 			if (i <= 15) {
 				System.out.println("\nEtudiant n° " + i);
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 0, 0, 0, 0, 0));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 0, 0, 0, 0, 0,i));
 			} else if (i > 15 && i <= 19) {
 				System.out.println("\nEtudiant d'élite n° " + (i - 15));
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1, 1, 1, 5, 1));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1, 1, 1, 5, 1,i));
 			} else if (i > 19) {
 				System.out.println("\nMaitre du gobi");
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 2, 2, 2, 10, 2));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 2, 2, 2, 10, 2,i));
 			}
 
 			while (this.getNbPoints() > 0 && next == true) {
-				System.out.println("\nEntrez le chiffre associer à votre choix, vous avez " + this.getNbPoints()
+				System.out.println("\nEntrez le chiffre associé à votre choix, vous avez " + this.getNbPoints()
 						+ " crédits et " + this.nbReservistes + " réservistes");
 				System.out.println("\nChoix :\t\tStats :");
 				System.out.println("0-Strategie\t" + (this.etudiantsDispo.get(i).getStrategie() == null ? "aléatoire"
@@ -250,22 +267,12 @@ public class Joueur {
 		// ajouter la définition de la faction du joueur
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	//TODO
-	/*public int getKeyEtudiant(Etudiant value) {
-		for (Entry<Integer, Etudiant> entry : this.etudiantsDispo.entrySet()) {
-			if (entry.getValue() == value) {
-				return (int) entry.getKey();
-			}
-		}
-	}
-*/
+	// TODO
+	/*
+	 * public int getKeyEtudiant(Etudiant value) { for (Entry<Integer, Etudiant>
+	 * entry : this.etudiantsDispo.entrySet()) { if (entry.getValue() == value) {
+	 * return (int) entry.getKey(); } } }
+	 */
 	public void AffectationTroupes(Map<Integer, Zone> zones) {
 		boolean flag = false;
 		Scanner entree = new Scanner(System.in);
@@ -290,10 +297,13 @@ public class Joueur {
 			System.out.println("\n6-Fin");
 			int lieuSelec = entree.nextInt();
 			if (lieuSelec >= 1 && lieuSelec <= 5) {
-				System.out.println(
-						"Vous avez actuellement " + (zones.get(lieuSelec).getFactionJ1() == this.getFactionJoueur()
-								? zones.get(lieuSelec).getFactionJ1()
-								: zones.get(lieuSelec).getFactionJ2()) + " étudiants dans cette zone");
+				System.out
+						.println(
+								"Vous avez actuellement "
+										+ (zones.get(lieuSelec).getFactionJ1() == this.getFactionJoueur()
+												? zones.get(lieuSelec).getEtuJoueur1().size()
+												: zones.get(lieuSelec).getEtuJoueur2().size())
+										+ " étudiants dans cette zone");
 
 				System.out.print("Voici les étudiants déjà affectés:");
 				for (int i = 0; i < 5; i++) {
