@@ -73,33 +73,7 @@ public final class Partie {
     										+ "\n" + joueur1.getEtudiantsDispo().get(y).toString());
     								
     								etuSelec = entree.nextInt();
-    								if(joueur1.getEtudiantsDispo().get(etuSelec).getLocalisation() == zones.get(zoneSelec)){
-    									System.out.println(
-    											"Choisissez ou vous voulez reaffectez l'etudiant : \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
-    									
-    									zoneObjectif = entree.nextInt();
-    									//on réaffecte les étudiant sur les zones choisies tout en proposant de modifier la stratégie
-    									switch(entree.nextInt()) {
-    									case 1:
-    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 2:
-    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 3:
-    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 4:
-    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 5:
-    										joueur1.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur1, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									default: System.out.println("zone non-existante");
-    									}
-    								}else {
-    									System.out.println("Veuillez selectionner un etudiant qui est dans cette zone !");
-    								}
+    								joueur1.getEtudiantsDispo().get(etuSelec).affecterEtudiantZone(joueur1, zones,etuSelec, zoneSelec);
     							}
     						}else {
     							for (int x = 1; x < zones.get(zoneSelec).getEtuJoueur2().size(); x++) {
@@ -107,31 +81,7 @@ public final class Partie {
     								System.out.println("Etudiant N°" + joueur2.getEtudiantsDispo().get(x)
     										+ "\n" + joueur2.getEtudiantsDispo().get(x).toString()); 
     								etuSelec = entree.nextInt();
-    								if(joueur2.getEtudiantsDispo().get(etuSelec).getLocalisation() == zones.get(zoneSelec)){
-    									System.out.println(
-    											"Choisissez ou vous voulez reaffectez l'etudiant : \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
-    									zoneObjectif = entree.nextInt();
-    									switch(entree.nextInt()) {
-    									case 1:
-    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 2:
-    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 3:
-    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 4:
-    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									case 5:
-    										joueur2.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur2, zones, etuSelec, zoneObjectif, zoneSelec);
-    										break;
-    									default: System.out.println("zone non-existante");
-    									}
-    								}else {
-    									System.out.println("Veuillez selectionner un etudiant qui est dans cette zone !");
-    								}
+    								joueur2.getEtudiantsDispo().get(etuSelec).affecterEtudiantZone(joueur2, zones, etuSelec, zoneSelec);
     							}
     						}
     						
