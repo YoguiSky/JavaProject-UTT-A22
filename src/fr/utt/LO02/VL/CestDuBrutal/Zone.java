@@ -9,7 +9,7 @@ public class Zone {
 	private ArrayList<Etudiant> etuJoueur1 = new ArrayList<Etudiant>();
 	private ArrayList<Etudiant> etuJoueur2 = new ArrayList<Etudiant>();
 	private ArrayList<Etudiant> etuZone = new ArrayList<Etudiant>();
-	private Faction estControleePar = null;
+	private Joueur estControleePar = null;
 	private String nomZone;
 	private int nombreEtu; // penser à modifier le lien Zone/Etudiant dans le diagramme de classes !!
 
@@ -64,6 +64,8 @@ public class Zone {
 	}
 
 	public boolean combatZone() {
+		triECTS();
+		triInitiative();
 		etuZone.get(0).action(etuJoueur1, etuJoueur2);
 		etuZone.add(etuZone.get(0));
 		etuZone.remove(0);
@@ -104,14 +106,14 @@ public class Zone {
 		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
 
-	public Faction getEstControleePar() {
+	public Joueur getEstControleePar() {
 		return estControleePar;
 	}
 
 	/**
 	 * @param estControleePar the estControleePar to set
 	 */
-	public void setEstControleePar(Faction estControleePar) {
+	public void setEstControleePar(Joueur estControleePar) {
 		this.estControleePar = estControleePar;
 	}
 
