@@ -1,7 +1,7 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+//import java.util.Comparator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,6 +18,16 @@ public class Etudiant {
 	private int initiative = 0;
 	private Strategie strategie;
 	private int numEtudiant;
+	private boolean estMort;
+	
+	public boolean isEstMort() {
+		return estMort;
+	}
+
+	public void setEstMort(boolean estMort) {
+		this.estMort = estMort;
+	}
+
 	private Zone localisation; // a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le
 								// diagramme de classes
 
@@ -31,9 +41,9 @@ public class Etudiant {
 	 * @param initiative
 	 * @param constitution
 	 */
-	public Etudiant(Faction factionEtu, boolean enCombat, double dexterite, double force, double resistance,
+	public Etudiant(Faction factionEtu, boolean reserviste, double dexterite, double force, double resistance,
 			int initiative, int constitution, int numEtudiant) {
-		this.enCombat = enCombat;
+		this.reserviste = reserviste;
 		this.dexterite = dexterite;
 		this.force = force;
 		this.resistance = resistance;
@@ -363,7 +373,7 @@ public class Etudiant {
 	public String toString() {
 		return "\nCredits ECTS : " + this.creditsECTS + "\nDexterite : " + this.dexterite + "\nForce : " + this.force
 				+ "\nResistence : " + this.resistance + "\nInitiative : " + this.initiative + "\nConstitution : "
-				+ this.constitution + "\nStrategie : " + this.strategie;
+				+ this.constitution + "\nStrategie : " + this.strategie.nomStrat();
 	}
 
 	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {

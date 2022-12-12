@@ -10,17 +10,21 @@ public class Zone {
 	private ArrayList<Etudiant> etuJoueur2 = new ArrayList<Etudiant>();
 	private ArrayList<Etudiant> etuZone = new ArrayList<Etudiant>();
 	private Joueur estControleePar = null;
+	private Joueur joueur1;
+	private Joueur joueur2;
 	private String nomZone;
 	private int nombreEtu; // penser à modifier le lien Zone/Etudiant dans le diagramme de classes !!
 
 	/**
 	 * constructeur de la classe Zone
 	 */
-	public Zone(String nomZone, Faction factionJ1, Faction factionJ2) {
+	public Zone(String nomZone, Joueur J1, Joueur J2) {
 		// A compléter
 		this.nomZone = nomZone;
-		this.factionJ1 = factionJ1;
-		this.factionJ2 = factionJ2;
+		this.joueur1 = J1;
+		this.joueur2 = J2;
+		this.factionJ1 = J1.getFactionJoueur();
+		this.factionJ2 = J2.getFactionJoueur();
 
 	}
 
@@ -31,22 +35,10 @@ public class Zone {
 	 * System.out.println(iter.next().getInitiative()); } }
 	 */
 	public void triInitiative() {
-		/*
-		 * list.sort((o1, o2) ->
-		 * o1.getCustomProperty().compareTo(o2.getCustomProperty()));
-		 * 
-		 * Comparator<Employee> compareById = (Employee o1, Employee o2) ->
-		 * o1.getId().compareTo( o2.getId() ); Collections.sort(employees, compareById);
-		 * Collections.sort(employees, compareById.reversed());
-		 * 
-		 * (o1, o2) -> o1.getStartDate().compareTo(o2.getStartDate())
-		 */
+		etuZone.clear();
 		etuZone.addAll(etuJoueur1);
 		etuZone.addAll(etuJoueur2);
-		// Collections.sort(etuZone,);
 		etuZone.sort(Comparator.comparing(Etudiant::getInitiative).reversed());
-		// etuZone.sort(Comparator.comparing(Collections::reverseOrder()));
-		// ollections.sort(etuZone, Collections.reverse());
 	}
 
 	public void triECTS() {
@@ -55,6 +47,7 @@ public class Zone {
 	}
 
 	public int getECTS() {
+		//System.out.println(etuZone.size());
 		Iterator<Etudiant> ITetuzone = etuZone.iterator();
 		int ECTSttl = 0;
 		while (ITetuzone.hasNext()) {
@@ -63,17 +56,18 @@ public class Zone {
 		return ECTSttl;
 	}
 
-	public boolean combatZone() {
+	public boolean combatZone(Joueur J1, Joueur J2) {
+		System.out.println("\nCombat dans " + this.getNomZone());
 		triECTS();
 		triInitiative();
 		etuZone.get(0).action(etuJoueur1, etuJoueur2);
 		etuZone.add(etuZone.get(0));
 		etuZone.remove(0);
 		if (etuJoueur1.size() == 0 || etuJoueur2.size() == 0) {
-			if(etuJoueur1.size() == 0) {
-				this.setEstControleePar(etuJoueur2.get(0).getFactionEtu());
-			}else {
-				this.setEstControleePar(etuJoueur1.get(0).getFactionEtu());
+			if (etuJoueur1.size() == 0) {
+				this.setEstControleePar(J2);
+			} else {
+				this.setEstControleePar(J1);
 			}
 			return false;
 		} else {
@@ -141,6 +135,11 @@ public class Zone {
 	/**
 	 * @return the etuJoueur1
 	 */
+	public ArrayList<Etudiant> getEtu(Joueur joueur) {
+		if (joueur == joueur1)return etuJoueur1;
+		else return etuJoueur2;
+	}
+
 	public ArrayList<Etudiant> getEtuJoueur1() {
 		return etuJoueur1;
 	}

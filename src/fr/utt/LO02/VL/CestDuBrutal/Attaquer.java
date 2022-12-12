@@ -61,8 +61,9 @@ public class Attaquer implements Strategie {
 			System.out.println("L'Etudiant a perdu " + creditsECTSPerdus);
 			if (etuCible.get(0).getCreditsECTS() <= 0) {
 				System.out.println("L'étudiant n°" + etuCible.get(0).getNumEtudiant()
-						+ " est mort, il reste " + (etuCible.size() - 1) + " étudiants");
-				etuCible.remove(0);
+						+ " est mort, il reste " + (etuCible.size() - 1) + " étudiants\n");
+				etuCible.get(0).setEstMort(true);
+				etuCible.get(0).getLocalisation().desaffecterEtudiant(etuCible.get(0));
 			}
 			
 		}
