@@ -1,31 +1,33 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
+import java.util.ArrayList;
+
 public class Soigner implements Strategie {
 	
 	/**
 	 * méthode Stratégie qui s'occupe du soin
 	 */
-	public void typeStrategie(Etudiant etuCible,Etudiant etuAction) {
+	public void typeStrategie(ArrayList<Etudiant> etuCible,Etudiant etuAction) {
 		int x = (int)Math.random()*101; //x est un nombre aléatoire compris entre 0 et 100 
 		double y = Math.random()*0.6;
 		
-		System.out.println(etuAction + " soigne " + etuCible);
+		System.out.println(etuAction + " soigne " + etuCible.get(0));
 		if (x >= 0 && x <= 20+6*etuAction.getDexterite()){
 			//Le soin est réussi !
 			System.out.println("Le soin est réussi !"); //Il est préférable d'informer le joueur du déroulement du soin
-			int creditsECTSGagne = (int)(y*etuCible.getConstitution());
+			int creditsECTSGagne = (int)(y*etuCible.get(0).getConstitution());
 			
-			//remplacer ça par une méthode étudiant etuCible.add() qu'il faut d'abord rajouter dans la classe Etudiant
-			etuCible.setCreditsECTS(etuCible.getCreditsECTS() + creditsECTSGagne );
+			//remplacer ça par une méthode étudiant etuCible.get(0).add() qu'il faut d'abord rajouter dans la classe Etudiant
+			etuCible.get(0).setCreditsECTS(etuCible.get(0).getCreditsECTS() + creditsECTSGagne );
 			 
-			if (etuCible.getCreditsECTS() > 30 + etuCible.getConstitution()) {
-				etuCible.setCreditsECTS(30 + etuCible.getConstitution());
+			if (etuCible.get(0).getCreditsECTS() > 30 + etuCible.get(0).getConstitution()) {
+				etuCible.get(0).setCreditsECTS(30 + etuCible.get(0).getConstitution());
 				
-				System.out.println(etuCible + " a regagné toute sa vie !");
+				System.out.println(etuCible.get(0) + " a regagné toute sa vie !");
 			}
 			
 			else {
-				System.out.println(etuCible + " a regagné " + creditsECTSGagne + " crédits ECTS !");
+				System.out.println(etuCible.get(0) + " a regagné " + creditsECTSGagne + " crédits ECTS !");
 					}
 		}
 		else{

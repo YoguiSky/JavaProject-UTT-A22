@@ -6,8 +6,8 @@ public class Zone {
 
 	private Faction factionJ1;
 	private Faction factionJ2;
-	private Set<Etudiant> etuJoueur1 = new HashSet<Etudiant>();
-	private Set<Etudiant> etuJoueur2 = new HashSet<Etudiant>();
+	private ArrayList<Etudiant> etuJoueur1 = new ArrayList<Etudiant>();
+	private ArrayList<Etudiant> etuJoueur2 = new ArrayList<Etudiant>();
 	private ArrayList<Etudiant> etuZone = new ArrayList<Etudiant>();
 	private Joueur estControleePar = null;
 	private String nomZone;
@@ -24,124 +24,61 @@ public class Zone {
 
 	}
 
-	public void combatZone(Joueur joueur1, Joueur joueur2) {
-		this.getNomZone();
-		int bestInitiativeJ1 = 0;
-		int bestInitiativeJ2 = 0;
-		int moinsCreditsJ1 = 100;
-		int moinsCreditsJ2 = 100;
-		// certaines variables Etudiant sont initialisées comme nulles car elles sont
-		// modifiées dans des conditions. Le programme considère une erreur si in ne les
-		// initialise pas
-		Etudiant etuBestInitiativeJ1 = null;
-		Etudiant etuBestInitiativeJ2 = null;
-		Etudiant etuAction;
-		Etudiant etuCibleJ1 = null;
-		Etudiant etuCibleJ2 = null;
-		// On récupère l'etat de contrôle de la zone au tout debut des combats
-		Joueur statutControle = this.getEstControleePar();
-		// la condition représente la condition d'arrêt des combats (changement de
-		// statut de controle de la zone).
-		while (this.getEstControleePar() == null || statutControle == this.getEstControleePar()) {
-
-			// On crée une boucle pour récupérer en même temps l'étudiant avec le moins de
-			// credtis ECTS de cahque joueur ainsi que celui ayant la meilleure initiative.
-			Iterator<Etudiant> itJ1 = etuJoueur1.iterator();
-			while (itJ1.hasNext()) {
-				Etudiant meilleureInitiativeJ1 = itJ1.next();
-				if (meilleureInitiativeJ1.getInitiative() > bestInitiativeJ1) {
-					bestInitiativeJ1 = meilleureInitiativeJ1.getInitiative();
-					etuBestInitiativeJ1 = meilleureInitiativeJ1;
-				}
-				if (meilleureInitiativeJ1.getCreditsECTS() < moinsCreditsJ1) {
-					moinsCreditsJ1 = meilleureInitiativeJ1.getCreditsECTS();
-					etuCibleJ1 = etuBestInitiativeJ1;
-				}
-			}
-			Iterator<Etudiant> itJ2 = etuJoueur2.iterator();
-			while (itJ2.hasNext()) {
-				Etudiant meilleureInitiativeJ2 = itJ2.next();
-				if (meilleureInitiativeJ2.getInitiative() > bestInitiativeJ2) {
-					bestInitiativeJ2 = meilleureInitiativeJ2.getInitiative();
-					etuBestInitiativeJ2 = meilleureInitiativeJ2;
-				}
-				if (meilleureInitiativeJ2.getCreditsECTS() > moinsCreditsJ2) {
-					moinsCreditsJ2 = meilleureInitiativeJ2.getCreditsECTS();
-					etuCibleJ2 = meilleureInitiativeJ2;
-				}
-			}
-			// maintenant qu'on à récupéré la meilleure des initiatives des etudiants de
-			// chaque zone, on determine la meilleure entre les deux étudiants.
-			if (etuBestInitiativeJ1.getInitiative() > etuBestInitiativeJ2.getInitiative()) {
-				etuAction = etuBestInitiativeJ1;
-			} else {
-				etuAction = etuBestInitiativeJ2;
-			}
-			// maintenant, on détermine l'action que notre étudiant va réaliser. Pour cela,
-			// on a besoin de récupérer la faction de l'étudaint ciblé par l'action
-
-			if (etuAction.getStrategie() == new Attaquer()) {
-				if (etuAction.getFactionEtu() == joueur1.getFactionJoueur()) {
-					etuAction.action(etuCibleJ2);
-				} else {
-					etuAction.action(etuCibleJ1);
-				}
-			} else if (etuAction.getStrategie() == new Soigner()) {
-				if (etuAction.getFactionEtu() == joueur1.getFactionJoueur()) {
-					etuAction.action(etuCibleJ1);
-				} else {
-					etuAction.action(etuCibleJ2);
-				}
-			} else {
-				double choixFaction = Math.random();
-				if (choixFaction < 0.5) {
-					etuAction.action(etuCibleJ1);
-				} else {
-					etuAction.action(etuCibleJ2);
-				}
-			}
-		}
-	}
-
-	private static List<Etudiant> triInitiative(Set<Etudiant> etudiantsJoueur) {
-		int indiceEtu = 0;
-		Etudiant etuInit;
-		List<Etudiant> tempoList = new ArrayList<Etudiant>(etudiantsJoueur);
-		List<Etudiant> etuOrdreInitiative = new ArrayList<Etudiant>();
-		Iterator<Etudiant> itEtu = etudiantsJoueur.iterator();
+	/*
+	 * public void testSort() {
+	 * etuJoueur1.sort(Comparator.comparing(Etudiant::getInitiative));
+	 * Iterator<Etudiant> iter = etuJoueur1.iterator(); while(iter.hasNext()) {
+	 * System.out.println(iter.next().getInitiative()); } }
+	 */
+	public void triInitiative() {
 		/*
-		 * while(itEtu.hasNext()) { tempoList.add(itEtu.next()); }
+		 * list.sort((o1, o2) ->
+		 * o1.getCustomProperty().compareTo(o2.getCustomProperty()));
+		 * 
+		 * Comparator<Employee> compareById = (Employee o1, Employee o2) ->
+		 * o1.getId().compareTo( o2.getId() ); Collections.sort(employees, compareById);
+		 * Collections.sort(employees, compareById.reversed());
+		 * 
+		 * (o1, o2) -> o1.getStartDate().compareTo(o2.getStartDate())
 		 */
-		while (etuOrdreInitiative.size() < etudiantsJoueur.size()) {
-			//indiceEtu = tempoList.get(0).getInitiative();
-			//etuInit = tempoList.get(0);
-			for (int i = 0; i < tempoList.size(); i++) {
-				if (tempoList.get(i).getInitiative() > indiceEtu) {
-					indiceEtu = tempoList.get(i).getInitiative();
-					etuInit = tempoList.get(i);
-					/*
-					 * etuOrdreInitiative.add(tempoList.get(i)); tempoList.remove(i);
-					 * 
-					 * }else { etuOrdreInitiative.add(tempoList.get(0)); tempoList.remove(0);
-					 */
-				}
-				etuOrdreInitiative.add(tempoList.get(i));
-				tempoList.remove(i);
-
-			}
-		}
-		// etuOrdreInitiative.add();
-		return etuOrdreInitiative;
-
+		etuZone.addAll(etuJoueur1);
+		etuZone.addAll(etuJoueur2);
+		// Collections.sort(etuZone,);
+		etuZone.sort(Comparator.comparing(Etudiant::getInitiative).reversed());
+		// etuZone.sort(Comparator.comparing(Collections::reverseOrder()));
+		// ollections.sort(etuZone, Collections.reverse());
 	}
-	
+
+	public void triECTS() {
+		etuJoueur1.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+		etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+	}
+
 	public int getECTS() {
-		Iterator<Etudiant> ITetuZone = etuZone.iterator();
-		int ECTStt1 = 0;
-		while(ITetuZone.hasNext()) {
-			ECTStt1 += ITetuZone.next().getCreditsECTS();
+		Iterator<Etudiant> ITetuzone = etuZone.iterator();
+		int ECTSttl = 0;
+		while (ITetuzone.hasNext()) {
+			ECTSttl += ITetuzone.next().getCreditsECTS();
 		}
-		return ECTStt1;
+		return ECTSttl;
+	}
+
+	public boolean combatZone() {
+		triECTS();
+		triInitiative();
+		etuZone.get(0).action(etuJoueur1, etuJoueur2);
+		etuZone.add(etuZone.get(0));
+		etuZone.remove(0);
+		if (etuJoueur1.size() == 0 || etuJoueur2.size() == 0) {
+			if(etuJoueur1.size() == 0) {
+				this.setEstControleePar(etuJoueur2.get(0).getFactionEtu());
+			}else {
+				this.setEstControleePar(etuJoueur1.get(0).getFactionEtu());
+			}
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
@@ -156,7 +93,7 @@ public class Zone {
 			etuJoueur2.add(etudiant);
 		}
 		etudiant.setLocalisation(this);
-		nombreEtu++;
+		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
 
 	public void desaffecterEtudiant(Etudiant etudiant) {
@@ -166,7 +103,7 @@ public class Zone {
 			etuJoueur2.remove(etudiant);
 		}
 		etudiant.setLocalisation(null);
-		nombreEtu--;
+		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
 
 	public Joueur getEstControleePar() {
@@ -202,37 +139,30 @@ public class Zone {
 	}
 
 	/**
-	 * @param nombreEtu the nombreEtu to set
-	 */
-	public void setNombreEtu(int nombreEtu) {
-		this.nombreEtu = nombreEtu;
-	}
-
-	/**
 	 * @return the etuJoueur1
 	 */
-	public Set<Etudiant> getEtuJoueur1() {
+	public ArrayList<Etudiant> getEtuJoueur1() {
 		return etuJoueur1;
 	}
 
 	/**
 	 * @param etuJoueur1 the etuJoueur1 to set
 	 */
-	public void setEtuJoueur1(Set<Etudiant> etuJoueur1) {
+	public void setEtuJoueur1(ArrayList<Etudiant> etuJoueur1) {
 		this.etuJoueur1 = etuJoueur1;
 	}
 
 	/**
 	 * @return the etuJoueur2
 	 */
-	public Set<Etudiant> getEtuJoueur2() {
+	public ArrayList<Etudiant> getEtuJoueur2() {
 		return etuJoueur2;
 	}
 
 	/**
 	 * @param etuJoueur2 the etuJoueur2 to set
 	 */
-	public void setEtuJoueur2(Set<Etudiant> etuJoueur2) {
+	public void setEtuJoueur2(ArrayList<Etudiant> etuJoueur2) {
 		this.etuJoueur2 = etuJoueur2;
 	}
 
@@ -265,21 +195,9 @@ public class Zone {
 	}
 
 	public static void main(String[] args) {
-		//test de la méthode de tri (ne fonctionne pas)
-		Etudiant etu1 = new Etudiant(Faction.ISI, true, 0, 0, 0, 3, 0);
-		Etudiant etu2 = new Etudiant(Faction.ISI, true, 0, 0, 0, 0, 0);
-		Etudiant etu3 = new Etudiant(Faction.ISI, true, 0, 0, 0, 4, 0);
-		Etudiant etu4 = new Etudiant(Faction.ISI, true, 0, 0, 0, 9, 0);
-		Etudiant etu5 = new Etudiant(Faction.ISI, true, 0, 0, 0, 7, 0);
 		Set<Etudiant> etuJoueurTest = new HashSet<Etudiant>();
-		etuJoueurTest.add(etu1);
-		etuJoueurTest.add(etu2);
-		etuJoueurTest.add(etu3);
-		etuJoueurTest.add(etu4);
-		etuJoueurTest.add(etu5);
 
 		List<Etudiant> etuTriTest = new ArrayList<Etudiant>();
-		etuTriTest = triInitiative(etuJoueurTest);
 		System.out.println("etuJoueurTest : " + etuJoueurTest.toString());
 		System.out.println("etuTriTest : " + etuTriTest.toString());
 		// TODO Auto-generated method stub
