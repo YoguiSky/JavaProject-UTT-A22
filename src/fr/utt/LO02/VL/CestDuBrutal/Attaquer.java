@@ -79,6 +79,7 @@ public class Attaquer implements Strategie {
 	}
 
 	public static void main(String[] args) {
+		//Etudiant etu1J1 = new Etudiant("A2I",false,7,9.,1.,4.,2,1);
 		// TODO Auto-generated method stub
 
 	}
