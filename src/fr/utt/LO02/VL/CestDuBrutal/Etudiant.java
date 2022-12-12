@@ -19,7 +19,7 @@ public class Etudiant {
 	private Strategie strategie;
 	private int numEtudiant;
 	private boolean estMort;
-	
+
 	public boolean isEstMort() {
 		return estMort;
 	}
@@ -366,16 +366,16 @@ public class Etudiant {
 
 	}
 
-	@Override
+	//@Override
 	/**
 	 * 
-	 */
+	 
 	public String toString() {
 		return "\nCredits ECTS : " + this.creditsECTS + "\nDexterite : " + this.dexterite + "\nForce : " + this.force
 				+ "\nResistence : " + this.resistance + "\nInitiative : " + this.initiative + "\nConstitution : "
 				+ this.constitution + "\nStrategie : " + this.strategie.nomStrat();
 	}
-
+*/
 	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {
 		if (this.getStrategie() == new Attaquer()) {
 			if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
@@ -395,7 +395,9 @@ public class Etudiant {
 			}
 
 		} else if (this.getStrategie() == new Aleatoire()) {
-			if (Math.random() > 0.5) {
+			double random = Math.random();
+			System.out.println("\n==============================" + random + "\n");
+			if (random > 0.5) {
 				strategie.typeStrategie(etuJoueur2, this);
 			}
 			// etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));

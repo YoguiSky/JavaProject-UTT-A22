@@ -194,13 +194,7 @@ public class Zone {
 	}
 
 	public static void main(String[] args) {
-		Set<Etudiant> etuJoueurTest = new HashSet<Etudiant>();
-
-		List<Etudiant> etuTriTest = new ArrayList<Etudiant>();
-		System.out.println("etuJoueurTest : " + etuJoueurTest.toString());
-		System.out.println("etuTriTest : " + etuTriTest.toString());
-		// TODO Auto-generated method stub
-
+	
 	}
 
 }

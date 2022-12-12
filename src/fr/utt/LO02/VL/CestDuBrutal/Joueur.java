@@ -29,11 +29,11 @@ public class Joueur {
 				this.etudiantsDispo.put(i,
 						new Etudiant(this.factionJoueur, false, 0, 0, 0, (int) (Math.random() * 10), 0, i));
 			} else if (i > 15 && i <= 19) {
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1, 1, 1, 5, 1, i));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1+(int) (Math.random() * 10), 1, 1, 5, 1, i));
 			} else if (i > 19) {
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 2, 2, 2, 10, 2, i));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 2+(int) (Math.random() * 10), 2, 2, 10, 2, i));
 			}
-			this.etudiantsDispo.get(i).setStrategie(new Attaquer());
+			this.etudiantsDispo.get(i).setStrategie(new Aleatoire());
 		}
 
 	}

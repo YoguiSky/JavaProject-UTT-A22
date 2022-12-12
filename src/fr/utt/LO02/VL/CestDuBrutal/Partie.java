@@ -1,6 +1,6 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
-import java.awt.desktop.QuitEvent;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -81,24 +81,10 @@ public final class Partie {
 				System.out.println(
 						"De quelle zone voulez vous connaître les credits ECTS totaux ? \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
 				zoneSelec = entree.nextInt();
-				switch (zoneSelec) {
-				case 1:
-					zones.get(zoneSelec).getECTS();
-					break;
-				case 2:
-					zones.get(zoneSelec).getECTS();
-					break;
-				case 3:
-					zones.get(zoneSelec).getECTS();
-					break;
-				case 4:
-					zones.get(zoneSelec).getECTS();
-					break;
-				case 5:
-					zones.get(zoneSelec).getECTS();
-					break;
-				default:
+				if (zoneSelec < 1 || zoneSelec > 5) {
 					System.out.println("Zone inexistante... try again !");
+				} else {
+					System.out.println(zones.get(zoneSelec).getECTS());
 				}
 				break;
 			// Si on ne fait rien on sort de la méthode
@@ -169,7 +155,7 @@ public final class Partie {
 		int zone = 0;
 		while (flag == true) {
 			// System.out.println((zone+1));
-			flag = this.zones.get(1).combatZone(joueur1, joueur2);
+			flag = this.zones.get(zone+1).combatZone(joueur1, joueur2);
 			zone = (zone + 1) % 5;
 		}
 	}
@@ -203,9 +189,18 @@ public final class Partie {
 			partie.zones.get(1).affecterEtudiant(joueur1.getEtudiantsDispo().get(i));
 			partie.zones.get(1).affecterEtudiant(joueur2.getEtudiantsDispo().get(i));
 		}
-		partie.zones.get(1).triInitiative();
-		partie.zones.get(1).triECTS();
-		System.out.println(partie.zones.get(1).getECTS());
+		partie.zones.get(2).affecterEtudiant(joueur1.getEtudiantsDispo().get(11));
+		partie.zones.get(2).affecterEtudiant(joueur2.getEtudiantsDispo().get(11));
+		partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(12));
+		partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(12));
+		partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(13));
+		partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(13));
+		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(14));
+		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(14));
+
+		//partie.zones.get(1).triInitiative();
+		//partie.zones.get(1).triECTS();
+		//System.out.println(partie.zones.get(1).getECTS());
 		// System.out.println(partie.zones.get(1).getEtuJoueur1().size());
 		// partie.zones.get(1).combatZone();
 		// partie.zones.get(1).combatZone();
