@@ -11,7 +11,7 @@ public class Soigner implements Strategie {
 		int x = (int)Math.random()*101; //x est un nombre aléatoire compris entre 0 et 100 
 		double y = Math.random()*0.6;
 		
-		System.out.println(etuAction + " soigne " + etuCible.get(0));
+		System.out.println("etu n°"+etuAction.getNumEtudiant() + " soigne etu n°" + etuCible.get(0).getNumEtudiant());
 		if (x >= 0 && x <= 20+6*etuAction.getDexterite()){
 			//Le soin est réussi !
 			System.out.println("Le soin est réussi !"); //Il est préférable d'informer le joueur du déroulement du soin
@@ -27,7 +27,7 @@ public class Soigner implements Strategie {
 			}
 			
 			else {
-				System.out.println(etuCible.get(0) + " a regagné " + creditsECTSGagne + " crédits ECTS !");
+				System.out.println("etu n°"+etuCible.get(0).getNumEtudiant() + " a regagné " + creditsECTSGagne + " crédits ECTS !");
 					}
 		}
 		else{

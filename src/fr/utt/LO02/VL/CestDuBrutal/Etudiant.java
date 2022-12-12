@@ -1,7 +1,7 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+//import java.util.Comparator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,6 +18,16 @@ public class Etudiant {
 	private int initiative = 0;
 	private Strategie strategie;
 	private int numEtudiant;
+	private boolean estMort;
+
+	public boolean isEstMort() {
+		return estMort;
+	}
+
+	public void setEstMort(boolean estMort) {
+		this.estMort = estMort;
+	}
+
 	private Zone localisation; // a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le
 								// diagramme de classes
 
@@ -31,9 +41,9 @@ public class Etudiant {
 	 * @param initiative
 	 * @param constitution
 	 */
-	public Etudiant(Faction factionEtu, boolean enCombat, double dexterite, double force, double resistance,
+	public Etudiant(Faction factionEtu, boolean reserviste, double dexterite, double force, double resistance,
 			int initiative, int constitution, int numEtudiant) {
-		this.enCombat = enCombat;
+		this.reserviste = reserviste;
 		this.dexterite = dexterite;
 		this.force = force;
 		this.resistance = resistance;
@@ -356,16 +366,16 @@ public class Etudiant {
 
 	}
 
-	@Override
+	//@Override
 	/**
 	 * 
-	 */
+	 
 	public String toString() {
 		return "\nCredits ECTS : " + this.creditsECTS + "\nDexterite : " + this.dexterite + "\nForce : " + this.force
 				+ "\nResistence : " + this.resistance + "\nInitiative : " + this.initiative + "\nConstitution : "
-				+ this.constitution + "\nStrategie : " + this.strategie;
+				+ this.constitution + "\nStrategie : " + this.strategie.nomStrat();
 	}
-
+*/
 	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {
 		if (this.getStrategie() == new Attaquer()) {
 			if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
@@ -385,7 +395,9 @@ public class Etudiant {
 			}
 
 		} else if (this.getStrategie() == new Aleatoire()) {
-			if (Math.random() > 0.5) {
+			double random = Math.random();
+			System.out.println("\n==============================" + random + "\n");
+			if (random > 0.5) {
 				strategie.typeStrategie(etuJoueur2, this);
 			}
 			// etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
