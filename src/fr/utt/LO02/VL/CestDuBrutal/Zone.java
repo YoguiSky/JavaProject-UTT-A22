@@ -8,6 +8,7 @@ public class Zone {
 	private Faction factionJ2;
 	private Set<Etudiant> etuJoueur1 = new HashSet<Etudiant>();
 	private Set<Etudiant> etuJoueur2 = new HashSet<Etudiant>();
+	private ArrayList<Etudiant> etuZone = new ArrayList<Etudiant>();
 	private Joueur estControleePar = null;
 	private String nomZone;
 	private int nombreEtu; // penser à modifier le lien Zone/Etudiant dans le diagramme de classes !!
@@ -132,6 +133,15 @@ public class Zone {
 		// etuOrdreInitiative.add();
 		return etuOrdreInitiative;
 
+	}
+	
+	public int getECTS() {
+		Iterator<Etudiant> ITetuZone = etuZone.iterator();
+		int ECTStt1 = 0;
+		while(ITetuZone.hasNext()) {
+			ECTStt1 += ITetuZone.next().getCreditsECTS();
+		}
+		return ECTStt1;
 	}
 
 	/**

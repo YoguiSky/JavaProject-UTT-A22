@@ -93,8 +93,19 @@ public final class Partie {
     				System.out.println("Vous ne pouvez pas redeployer d'etudiants si vous ne controlez aucune zone !");
     			}
     			break;
-    		//Accès à l'ensemble des crédits ECTS de l'équipe du joueur sur les zones  demandées
-    		case 3: break;
+    		//Accès à l'ensemble des crédits ECTS de la zone demandée
+    		case 3:
+    			System.out.println("De quelle zone voulez vous connaître les credits ECTS totaux ? \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
+    			zoneSelec = entree.nextInt();
+    			switch(entree.nextInt()) {
+    			case 1 : zones.get(zoneSelec).getECTS();	break;
+    			case 2 : zones.get(zoneSelec).getECTS();	break;
+    			case 3 : zones.get(zoneSelec).getECTS();	break;
+    			case 4 : zones.get(zoneSelec).getECTS();	break;
+    			case 5 : zones.get(zoneSelec).getECTS();	break;
+    			default : System.out.println("Zone inexistante... try again !");
+    			}
+    			break;
     		//Si on ne fait rien on sort de la méthode
     		case 4:
     			flag = true;
