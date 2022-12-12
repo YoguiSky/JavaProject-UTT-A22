@@ -41,7 +41,7 @@ public class Etudiant {
 	}
 
 	/**
-	 * La méthode newStratégie est appellée en pahse de trève lorsqu'on souhaite
+	 * La méthode newStratégie est appellée en phase de trève lorsqu'on souhaite
 	 * modifier la stratégie des étudiants qu'on redéploie. Si on choisit de ne pas
 	 * choisir de nouvelle stratégie après avoir appelé la méthode, on garde la
 	 * stratégie précédente.
@@ -130,6 +130,14 @@ public class Etudiant {
 		}
 	}
 
+	
+	/**
+	 * methode utilisée pour généraliser la reaffecation des etudiants das les différentes zones pendant la phase de trêve.
+	 * @param joueur
+	 * @param zones
+	 * @param etuSelec
+	 * @param zoneSelec
+	 */
 	public void affecterEtudiantZone(Joueur joueur, Map<Integer, Zone> zones, int etuSelec, int zoneSelec) {
 		int zoneObjectif;
 		Scanner entree = new Scanner(System.in);
