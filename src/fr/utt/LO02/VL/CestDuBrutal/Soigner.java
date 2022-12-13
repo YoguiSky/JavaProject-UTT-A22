@@ -8,7 +8,9 @@ public class Soigner implements Strategie {
 	 * méthode Stratégie qui s'occupe du soin
 	 */
 	public void typeStrategie(ArrayList<Etudiant> etuCible, Etudiant etuAction) {
-		if (etuCible.get(0).getNumEtudiant() != etuAction.getNumEtudiant()) {
+		System.out.println(etuCible.get(0).getInitiative()+"-"+etuCible.get(0).getFactionEtu()+"------"+etuAction.getInitiative()+"-"+etuAction.getFactionEtu());
+		//if ((etuCible.get(0).getNumEtudiant() != etuAction.getNumEtudiant())&&(etuCible.get(0).getFactionEtu() == etuAction.getFactionEtu())) {
+		if ((etuCible.get(0) != etuAction)) {
 			int x = (int) (Math.random() * 101); // x est un nombre aléatoire compris entre 0 et 100
 			double y = Math.random() * 0.6;
 
@@ -38,10 +40,10 @@ public class Soigner implements Strategie {
 				}
 			} else {
 				// Si la première condition n'est pas respectée, le soin échoue.
-				System.out.println("le soin a échoué...");
+				System.out.println("Le soin a échoué...");
 			}
 		} else {
-			System.out.println("Impossible de se soigner sois même !");
+			System.out.println("L'étudiant n°"+etuAction.getNumEtudiant()+" ne peut se soigner sois même !");
 		}
 	}
 

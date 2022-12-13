@@ -13,6 +13,7 @@ public final class Partie {
 	private boolean gagnee = false;
 	private int etatPartie;
 	private String vainqueur;
+	private int zone = 0;
 	private Map<Integer, Zone> zones = new LinkedHashMap<>();
 	/*
 	 * private enum phaseDeJeu{ Treve, Melee, };
@@ -54,29 +55,83 @@ public final class Partie {
 			case 2:
 				// il faut bien sûr que le joueur contrôle des zones afin de pouvoir réaliser
 				// cette étape
-				System.out.println("Zones disponibles");
-				if (joueur_actuel.getNbZonesControlees() != 0) {
-					for (int k = 1; k <= 5; k++) {
-						if (zones.get(k).getEstControleePar() == joueur_actuel) {
-							System.out.println(k + "-" + zones.get(k).getNomZone());
+				boolean zones_dispo = false;
+				for (int k = 1; k <= 5; k++) {
+					if (zones.get(k).getEstControleePar() == joueur_actuel && zones.get(k).getEtu(joueur_actuel).size() > 1) {
+						zones_dispo = true;
+					}
+				}
+				if (zones_dispo == true) {
+					System.out.println("Zones disponibles");
+					if (joueur_actuel.getNbZonesControlees() != 0) {
+						for (int k = 1; k <= 5; k++) {
+							if (zones.get(k).getEstControleePar() == joueur_actuel && zones.get(k).getEtu(joueur_actuel).size() > 1) {
+								System.out.println(k + "-" + zones.get(k).getNomZone());
+							}
 						}
-					}
+						zoneSelec = entree.nextInt();
 
-					zoneSelec = entree.nextInt();
-					System.out.println("Quels etudiants voulez-vous reaffecter ?");
-					System.out.println("\t\tCrédits\tDexterité\tForce\tRésistance\tInitiative\tConstitution\tStrat");
-					for (int y = 1; y < zones.get(zoneSelec).getEtu(joueur_actuel).size(); y++) {
-						// On affiche le numéro de l'étudiant ainsi que ses caractéristiques
-						System.out
-								.println(y + "-Etudiant N°" + joueur_actuel.getEtudiantsDispo().get(y).getNumEtudiant()
-										+ joueur_actuel.getEtudiantsDispo().get(y).toString());
-					}
-					etuSelec = entree.nextInt();
-					joueur_actuel.getEtudiantsDispo().get(etuSelec).affecterEtudiantZone(joueur_actuel, zones, etuSelec,
-							zoneSelec);
+						if (zones.get(zoneSelec).getEstControleePar() == joueur_actuel) {
+							System.out.println("Quels etudiants voulez-vous reaffecter ?");
+							System.out.println("\t\tCrédits\tDexterité\tForce\tRésistance\tInitiative\tConstitution\tStrat");
+							for (int y = 0; y < zones.get(zoneSelec).getEtu(joueur_actuel).size(); y++) {
+								System.out.println(
+										y + "-Etudiant N°" + zones.get(zoneSelec).getEtu(joueur_actuel).get(y).getNumEtudiant() + zones.get(zoneSelec).getEtu(joueur_actuel).get(y).toString());
+							}
+							etuSelec = entree.nextInt();
 
+							if (etuSelec <= zones.get(zoneSelec).getEtu(joueur_actuel).size() && etuSelec >= 0) {
+								System.out.println("choisissez une zone où réaffecter cet étudiant :");
+								for (int k = 1; k <= 5; k++) {
+									if (zones.get(k).getEstControleePar() == null) {
+										System.out.println(k + "-" + zones.get(k).getNomZone());
+									}
+								}
+								int zoneReafect = entree.nextInt();
+
+								if (zones.get(zoneReafect).getEstControleePar() == null) {
+									Etudiant etuMouvement = zones.get(zoneSelec).getEtu(joueur_actuel).get(etuSelec);
+									zones.get(zoneSelec).desaffecterEtudiant(etuMouvement);
+									zones.get(zoneReafect).affecterEtudiant(etuMouvement);
+									System.out.println("Voulez vous changer sa stratégie ? Sa stratégie est actuellement " + etuMouvement.getStrategie().nomStrat());
+									System.out.println("0-Oui");
+									System.out.println("1-Non");
+
+									if (entree.nextInt() == 0) {
+										System.out.println("Choisissez sa nouvelle stratégie :");
+										System.out.println("1-Soigner");
+										System.out.println("2-Attaquer");
+										System.out.println("3-Aléatoire");
+										int nouvelleStrat = entree.nextInt();
+										switch (nouvelleStrat) {
+										case 1:
+											etuMouvement.setStrategie(new Soigner());
+											break;
+										case 2:
+											etuMouvement.setStrategie(new Attaquer());
+											break;
+										case 3:
+											etuMouvement.setStrategie(new Aleatoire());
+											break;
+										default:
+											System.out.println("Cette stratégie n'existe pas");
+											break;
+										}
+									}
+								} else {
+									System.out.println("Veuillez choisir une zone valide");
+								}
+							} else {
+								System.out.println("Cet étudaiant n'est pas dans une zone conquise");
+							}
+						} else {
+							System.out.println("Veuillez choisir une zone que vous controllez");
+						}
+					} else {
+						System.out.println("Vous ne pouvez pas redeployer d'etudiants si vous ne controlez aucune zone !");
+					}
 				} else {
-					System.out.println("Vous ne pouvez pas redeployer d'etudiants si vous ne controlez aucune zone !");
+					System.out.println("Vous n'avez aucun étidiants à redéployer");
 				}
 				break;
 			case 3:
@@ -90,8 +145,7 @@ public final class Partie {
 				if (zoneSelec < 1 || zoneSelec > 5) {
 					System.out.println("Zone inexistante... try again !");
 				} else {
-					System.out
-							.println("Il y a un total de " + zones.get(zoneSelec).getECTS() + " ECTS dans cette zone");
+					System.out.println("Il y a un total de " + zones.get(zoneSelec).getECTS() + " ECTS dans cette zone");
 				}
 				break;
 			// Si on ne fait rien on sort de la méthode
@@ -159,7 +213,11 @@ public final class Partie {
 
 	public void melee(Joueur J1, Joueur J2) {
 		boolean flag = true;
-		int zone = 0;
+		for (int i = 1; i <= 5; i++) {
+			if (this.zones.get(i).getEstControleePar() == null) {
+				this.zones.get(i).triInitiative();
+			}
+		}
 		while (flag == true) {
 			// System.out.println((zone+1));
 			if (this.zones.get(zone + 1).getEstControleePar() == null) {
@@ -172,8 +230,7 @@ public final class Partie {
 	public static void main(String[] args) {
 
 		Partie partie = Partie.getInstance();
-		System.out
-				.println("\033[1;31m ===== Début de la partie ! =====\033[0m\n\nPhase 1 : Parametrage des troupes.\n");
+		System.out.println("\033[1;31m ===== Début de la partie ! =====\033[0m\n\nPhase 1 : Parametrage des troupes.\n");
 		System.out.println("Tour du joueur 1 :");
 		Joueur joueur1 = new Joueur("toto", Faction.A2I);
 		System.out.println("Tour du joueur 2 :");
@@ -206,6 +263,9 @@ public final class Partie {
 		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(17));
 		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(18));
 		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(18));
+		joueur2.getEtudiantsDispo().get(18).setInitiative(10);
+		joueur2.getEtudiantsDispo().get(18).setCreditsECTS(30);
+		joueur2.getEtudiantsDispo().get(18).setConstitution(30);
 		while (partie.gagnee == false) {
 			partie.melee(joueur1, joueur2);
 			if (joueur1.getNbZonesControlees() < 3 && joueur2.getNbZonesControlees() < 3) {

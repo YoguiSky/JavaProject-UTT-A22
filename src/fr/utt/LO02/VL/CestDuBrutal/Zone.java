@@ -52,7 +52,6 @@ public class Zone {
 	public boolean combatZone(Joueur J1, Joueur J2) {
 		System.out.println("\nCombat dans " + this.getNomZone());
 		triECTS();
-		triInitiative();
 		etuZone.get(0).action(etuJoueur1, etuJoueur2);
 		etuZone.add(etuZone.get(0));
 		etuZone.remove(0);
@@ -82,6 +81,7 @@ public class Zone {
 			etuJoueur2.add(etudiant);
 		}
 		etudiant.setLocalisation(this);
+		System.out.println("L'etudiant N°"+etudiant.getNumEtudiant() +" a été affecté à "+this.getNomZone());
 		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
 
@@ -92,6 +92,7 @@ public class Zone {
 			etuJoueur2.remove(etudiant);
 		}
 		etudiant.setLocalisation(null);
+		System.out.println("L'etudiant N°"+etudiant.getNumEtudiant() +" a été désaffecté de "+this.getNomZone());
 		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
 

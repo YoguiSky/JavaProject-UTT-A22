@@ -285,68 +285,7 @@ public class Etudiant {
 	 * @param zoneObjectif
 	 * @param zoneSelec
 	 */
-	public void reaffecterEtudiant(Joueur joueur, Map<Integer, Zone> zones, int etuSelec, int zoneObjectif,
-			int zoneSelec) {
-		Scanner entree = new Scanner(System.in);
-		// On vérifie que la zone choisie est différente de celle où l'étudiant est
-		// actuellement
-		if (zoneObjectif != zoneSelec) {
-			// On affecte l'étudiant à la nouvelle zone tout en le retirant de l'ancienne
-			zones.get(zoneObjectif).affecterEtudiant(joueur.getEtudiantsDispo().get(etuSelec));
-			zones.get(zoneSelec).desaffecterEtudiant(joueur.getEtudiantsDispo().get(etuSelec));
-			System.out.println("L'etudiant N°" + joueur.getEtudiantsDispo().get(etuSelec) + " quitte la zone "
-					+ zones.get(zoneSelec) + " pour aller vers " + zones.get(zoneObjectif) + ".");
-			// Une fois que c'est fait, on propose de modifier la stratégie de l'étudiant
-			System.out.println("\nVoulez vous modifier sa strategie ? \n1-Oui\n2-Non");
-			switch (entree.nextInt()) {
-			case 1:
-				// on applique une nouvelle stratégie à l'étudiant à l'aide d'une méthode
-				// utilisant un switch-case
-				joueur.getEtudiantsDispo().get(etuSelec).newStrategie(joueur, etuSelec);
-				break;
-			case 2:
-				System.out.println("D'accord.");
-				break;
-			// Message renvoyé si la commande entrée dans la console ne correspond pas aux
-			// options possibles
-			default:
-				System.out.println("Commande pas valide... try again !");
-			}
-		} else {
-			System.out.println("Vous etes entrain de d'essayer de reaffecter l'etudiant sur la zone ou il est...");
-		}
-	}
-
-	/**
-	 * methode utilisée pour généraliser la reaffecation des etudiants das les
-	 * différentes zones pendant la phase de trêve.
-	 * 
-	 * @param joueur
-	 * @param zones
-	 * @param etuSelec
-	 * @param zoneSelec
-	 */
-	public void affecterEtudiantZone(Joueur joueur, Map<Integer, Zone> zones, int etuSelec, int zoneSelec) {
-		int zoneObjectif;
-		Scanner entree = new Scanner(System.in);
-		if (joueur.getEtudiantsDispo().get(etuSelec).getLocalisation() == zones.get(zoneSelec)) {
-			System.out.println(
-					"Choisissez ou vous voulez reaffectez l'etudiant : \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
-
-			zoneObjectif = entree.nextInt();
-			if (zoneObjectif >= 1 && zoneObjectif <= 5) {
-				joueur.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur, zones, etuSelec, zoneObjectif,
-						zoneSelec);
-			} else {
-				System.out.println("veuillez sélectionner une zone valide");
-			}
-
-		} else {
-			System.out.println("Veuillez selectionner un etudiant qui est dans cette zone !");
-		}
-
-	}
-
+	
 	// @Override
 	/**
 	 * 
@@ -358,7 +297,7 @@ public class Etudiant {
 
 	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {
 		if (this.getStrategie() instanceof Attaquer) {
-			System.out.println("=================Attaquer");
+			//System.out.println("=================Attaquer");
 			if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
 				strategie.typeStrategie(etuJoueur2, this);
 
@@ -379,10 +318,17 @@ public class Etudiant {
 			double random = Math.random();
 			// System.out.println("\n==============================" + random + "\n");
 			if (random > 0.5) {
-				strategie.typeStrategie(etuJoueur2, this);
+				if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
+					new Soigner().typeStrategie(etuJoueur1, this);
+				} else {
+					new Soigner().typeStrategie(etuJoueur2, this);
+				}
 			} else {
-				strategie.typeStrategie(etuJoueur1, this);
-				// etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
+				if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
+					new Attaquer().typeStrategie(etuJoueur2, this);
+				} else {
+					new Attaquer().typeStrategie(etuJoueur1, this);
+				}
 			}
 		}
 	}

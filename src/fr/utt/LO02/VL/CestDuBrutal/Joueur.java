@@ -390,9 +390,6 @@ public class Joueur {
 				if (zones.get(zoneSelec).getEstControleePar() == null) {
 					zones.get(zoneSelec).affecterEtudiant(joueur.getEtudiantsDispo().get(reservisteSelec));
 					joueur.getEtudiantsDispo().get(reservisteSelec).setReserviste(false);
-					System.out.println("L'etudiant N°"
-							+ joueur.getEtudiantsDispo().get(reservisteSelec).getNumEtudiant()
-							+ " est maintenant affecte dans la zone " + zones.get(zoneSelec).getNomZone() + ".");
 				} else {
 					System.out.println("Zone deja controlee !");
 				}
