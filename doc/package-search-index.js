@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"fr.utt.LO02.VL.CestDuBrutal"}];updateSearchResults();

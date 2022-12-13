@@ -1,7 +1,7 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+//import java.util.Comparator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,6 +18,16 @@ public class Etudiant {
 	private int initiative = 0;
 	private Strategie strategie;
 	private int numEtudiant;
+	private boolean estMort;
+
+	public boolean isEstMort() {
+		return estMort;
+	}
+
+	public void setEstMort(boolean estMort) {
+		this.estMort = estMort;
+	}
+
 	private Zone localisation; // a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le
 								// diagramme de classes
 
@@ -31,9 +41,9 @@ public class Etudiant {
 	 * @param initiative
 	 * @param constitution
 	 */
-	public Etudiant(Faction factionEtu, boolean enCombat, double dexterite, double force, double resistance,
+	public Etudiant(Faction factionEtu, boolean reserviste, double dexterite, double force, double resistance,
 			int initiative, int constitution, int numEtudiant) {
-		this.enCombat = enCombat;
+		this.reserviste = reserviste;
 		this.dexterite = dexterite;
 		this.force = force;
 		this.resistance = resistance;
@@ -324,50 +334,31 @@ public class Etudiant {
 					"Choisissez ou vous voulez reaffectez l'etudiant : \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
 
 			zoneObjectif = entree.nextInt();
-			// on réaffecte les étudiant sur les zones choisies tout en proposant de
-			// modifier la stratégie
-			switch (entree.nextInt()) {
-			case 1:
+			if (zoneObjectif >= 1 && zoneObjectif <= 5) {
 				joueur.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur, zones, etuSelec, zoneObjectif,
 						zoneSelec);
-				break;
-			case 2:
-				joueur.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur, zones, etuSelec, zoneObjectif,
-						zoneSelec);
-				break;
-			case 3:
-				joueur.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur, zones, etuSelec, zoneObjectif,
-						zoneSelec);
-				break;
-			case 4:
-				joueur.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur, zones, etuSelec, zoneObjectif,
-						zoneSelec);
-				break;
-			case 5:
-				joueur.getEtudiantsDispo().get(etuSelec).reaffecterEtudiant(joueur, zones, etuSelec, zoneObjectif,
-						zoneSelec);
-				break;
-			default:
-				System.out.println("zone non-existante");
+			} else {
+				System.out.println("veuillez sélectionner une zone valide");
 			}
+
 		} else {
 			System.out.println("Veuillez selectionner un etudiant qui est dans cette zone !");
 		}
 
 	}
 
-	@Override
+	// @Override
 	/**
 	 * 
+	 * 
+	 * public String toString() { return "\nCredits ECTS : " + this.creditsECTS +
+	 * "\nDexterite : " + this.dexterite + "\nForce : " + this.force + "\nResistence
+	 * : " + this.resistance + "\nInitiative : " + this.initiative + "\nConstitution
+	 * : " + this.constitution + "\nStrategie : " + this.strategie.nomStrat(); }
 	 */
-	public String toString() {
-		return "\nCredits ECTS : " + this.creditsECTS + "\nDexterite : " + this.dexterite + "\nForce : " + this.force
-				+ "\nResistence : " + this.resistance + "\nInitiative : " + this.initiative + "\nConstitution : "
-				+ this.constitution + "\nStrategie : " + this.strategie;
-	}
-
 	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {
-		if (this.getStrategie() == new Attaquer()) {
+		if (this.getStrategie() instanceof Attaquer) {
+			System.out.println("=================Attaquer");
 			if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
 				strategie.typeStrategie(etuJoueur2, this);
 
@@ -377,20 +368,22 @@ public class Etudiant {
 
 				// etuJoueur1.sort(Comparator.comparing(Etudiant::getCreditsECTS));
 			}
-		} else if (this.getStrategie() == new Soigner()) {
+		} else if (this.getStrategie() instanceof Soigner) {
 			if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
 				strategie.typeStrategie(etuJoueur1, this);
 			} else {
 				strategie.typeStrategie(etuJoueur2, this);
 			}
 
-		} else if (this.getStrategie() == new Aleatoire()) {
-			if (Math.random() > 0.5) {
+		} else if (this.getStrategie() instanceof Aleatoire) {
+			double random = Math.random();
+			//System.out.println("\n==============================" + random + "\n");
+			if (random > 0.5) {
 				strategie.typeStrategie(etuJoueur2, this);
+			} else {
+				strategie.typeStrategie(etuJoueur1, this);
+				// etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
 			}
-			// etuJoueur2.sort(Comparator.comparing(Etudiant::getCreditsECTS));
-		} else {
-			strategie.typeStrategie(etuJoueur1, this);
 		}
 	}
 
