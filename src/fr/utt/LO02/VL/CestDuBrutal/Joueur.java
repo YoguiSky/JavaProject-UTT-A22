@@ -29,9 +29,11 @@ public class Joueur {
 				this.etudiantsDispo.put(i,
 						new Etudiant(this.factionJoueur, false, 1, 1, 1, (int) (Math.random() * 10), 0, i));
 			} else if (i > 15 && i <= 19) {
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1+(int) (Math.random() * 10), 1, 1, 5, 1, i));
+				this.etudiantsDispo.put(i,
+						new Etudiant(this.factionJoueur, false, 1 + (int) (Math.random() * 10), 1, 1, 5, 1, i));
 			} else if (i > 19) {
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 2+(int) (Math.random() * 10), 2, 2, 10, 2, i));
+				this.etudiantsDispo.put(i,
+						new Etudiant(this.factionJoueur, false, 2 + (int) (Math.random() * 10), 2, 2, 10, 2, i));
 			}
 			this.etudiantsDispo.get(i).setStrategie(new Aleatoire());
 		}
@@ -367,35 +369,41 @@ public class Joueur {
 		for (int i = 1; i < joueur.getEtudiantsDispo().size(); i++) {
 			if (joueur.getEtudiantsDispo().get(i).isReserviste() == true) {
 				// caractéristiques de l'étudiant affichées à l'aide de la méthode toString
-				System.out.println("Etudiant N°" + joueur.getEtudiantsDispo().get(i).getNumEtudiant());
-						//+ joueur.getEtudiantsDispo().get(i).toString());
+				System.out.println(i + "-Etudiant N°" + joueur.getEtudiantsDispo().get(i).getNumEtudiant());
+				// + joueur.getEtudiantsDispo().get(i).toString());
 			}
 		}
 		reservisteSelec = entree.nextInt();
-		// On affecte le réserviste sélectionné dans une zone qui n'est pas déjà
-		// contrôlée
-		if (joueur.getEtudiantsDispo().get(reservisteSelec).isReserviste() == true) {
-			System.out.println("Choisissez où affecter ce réserviste : ");
-			for (int j = 1; j < zones.size(); j++) {
-				if (zones.get(j).getEstControleePar() == null) {
-					System.out.println(j + "-" + zones.get(j).getNomZone());
+		if (reservisteSelec >= 1 && reservisteSelec <= 20) {
+			// On affecte le réserviste sélectionné dans une zone qui n'est pas déjà
+			// contrôlée
+			if (joueur.getEtudiantsDispo().get(reservisteSelec).isReserviste() == true) {
+				System.out.println("Choisissez où affecter ce réserviste : ");
+				for (int j = 1; j < zones.size(); j++) {
+					if (zones.get(j).getEstControleePar() == null) {
+						System.out.println(j + "-" + zones.get(j).getNomZone());
+					}
 				}
-			}
-			// une fois qu'on a affiché les zones non contrôlées on selectionne dans quelle
-			// zone on y met notre étudiant réserviste
-			int zoneSelec = entree.nextInt();
-			if (zones.get(zoneSelec).getEstControleePar() == null) {
-				zones.get(zoneSelec).affecterEtudiant(joueur.getEtudiantsDispo().get(reservisteSelec));
-				joueur.getEtudiantsDispo().get(reservisteSelec).setReserviste(false);
-				System.out.println("L'etudiant N°" + joueur.getEtudiantsDispo().get(reservisteSelec).getNumEtudiant()
-						+ " est maintenant affecte dans la zone " + zones.get(zoneSelec).getNomZone() + ".");
-			} else {
-				System.out.println("Zone deja controlee !");
-			}
+				// une fois qu'on a affiché les zones non contrôlées on selectionne dans quelle
+				// zone on y met notre étudiant réserviste
+				int zoneSelec = entree.nextInt();
+				if (zones.get(zoneSelec).getEstControleePar() == null) {
+					zones.get(zoneSelec).affecterEtudiant(joueur.getEtudiantsDispo().get(reservisteSelec));
+					joueur.getEtudiantsDispo().get(reservisteSelec).setReserviste(false);
+					System.out.println("L'etudiant N°"
+							+ joueur.getEtudiantsDispo().get(reservisteSelec).getNumEtudiant()
+							+ " est maintenant affecte dans la zone " + zones.get(zoneSelec).getNomZone() + ".");
+				} else {
+					System.out.println("Zone deja controlee !");
+				}
 
-		} else {
-			System.out.println("Cet etudiant n'est pas reserviste !");
+			} else {
+				System.out.println("Cet etudiant n'est pas reserviste !");
+			}
+		}else {
+			System.out.println("Etudiant inexistant");
 		}
+
 	}
 
 	public Map<Integer, Etudiant> getEtudiantsDispo() {

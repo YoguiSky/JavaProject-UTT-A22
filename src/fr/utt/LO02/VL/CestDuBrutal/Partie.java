@@ -1,6 +1,5 @@
 package fr.utt.LO02.VL.CestDuBrutal;
 
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,7 +10,7 @@ public final class Partie {
 	Joueur joueur1;
 	Joueur joueur2;
 	// Joueur quiJoue;
-	private boolean gagnee;
+	private boolean gagnee = false;
 	private int etatPartie;
 	private String vainqueur;
 	private Map<Integer, Zone> zones = new LinkedHashMap<>();
@@ -40,6 +39,7 @@ public final class Partie {
 
 		Scanner entree = new Scanner(System.in);
 		while (flag == false) {
+			System.out.println("\n======Trêve de " + joueur_actuel.getNomJoueur() + "======");
 			System.out.println("L'heure est au mouvement de troupes !");
 			System.out.println("Quelle action voulez-vous faire ?");
 			System.out.println("1-Affecter des reservistes");
@@ -54,37 +54,44 @@ public final class Partie {
 			case 2:
 				// il faut bien sûr que le joueur contrôle des zones afin de pouvoir réaliser
 				// cette étape
+				System.out.println("Zones disponibles");
 				if (joueur_actuel.getNbZonesControlees() != 0) {
-					for (int k = 1; k < zones.size(); k++) {
+					for (int k = 1; k <= 5; k++) {
 						if (zones.get(k).getEstControleePar() == joueur_actuel) {
-							System.out.println("Zone N°" + k + " : " + zones.get(k).getNomZone());
+							System.out.println(k + "-" + zones.get(k).getNomZone());
 						}
 					}
 
 					zoneSelec = entree.nextInt();
 					System.out.println("Quels etudiants voulez-vous reaffecter ?");
+					System.out.println("\t\tCrédits\tDexterité\tForce\tRésistance\tInitiative\tConstitution\tStrat");
 					for (int y = 1; y < zones.get(zoneSelec).getEtu(joueur_actuel).size(); y++) {
 						// On affiche le numéro de l'étudiant ainsi que ses caractéristiques
-						System.out.println("Etudiant N°" + joueur_actuel.getEtudiantsDispo().get(y) + "\n"
-								+ joueur_actuel.getEtudiantsDispo().get(y).toString());
-
-						etuSelec = entree.nextInt();
-						joueur_actuel.getEtudiantsDispo().get(etuSelec).affecterEtudiantZone(joueur_actuel, zones,
-								etuSelec, zoneSelec);
+						System.out
+								.println(y + "-Etudiant N°" + joueur_actuel.getEtudiantsDispo().get(y).getNumEtudiant()
+										+ joueur_actuel.getEtudiantsDispo().get(y).toString());
 					}
+					etuSelec = entree.nextInt();
+					joueur_actuel.getEtudiantsDispo().get(etuSelec).affecterEtudiantZone(joueur_actuel, zones, etuSelec,
+							zoneSelec);
 
 				} else {
 					System.out.println("Vous ne pouvez pas redeployer d'etudiants si vous ne controlez aucune zone !");
 				}
 				break;
 			case 3:
-				System.out.println(
-						"De quelle zone voulez vous connaître les credits ECTS totaux ? \n1-La Bibliothèquen\n2-Le Bureau Des Etudiants\n3-Le Quartier Administratif\n4-Les Halles Industrielles\n5-La Halle Sportive");
+				System.out.println("De quelle zone voulez vous connaître les credits ECTS totaux ?");
+				System.out.println("1-La Bibliothèque");
+				System.out.println("2-Le Bureau Des Etudiants");
+				System.out.println("3-Le Quartier Administratif");
+				System.out.println("4-Les Halles Industrielles");
+				System.out.println("5-La Halle Sportive");
 				zoneSelec = entree.nextInt();
 				if (zoneSelec < 1 || zoneSelec > 5) {
 					System.out.println("Zone inexistante... try again !");
 				} else {
-					System.out.println(zones.get(zoneSelec).getECTS());
+					System.out
+							.println("Il y a un total de " + zones.get(zoneSelec).getECTS() + " ECTS dans cette zone");
 				}
 				break;
 			// Si on ne fait rien on sort de la méthode
@@ -155,7 +162,9 @@ public final class Partie {
 		int zone = 0;
 		while (flag == true) {
 			// System.out.println((zone+1));
-			flag = this.zones.get(zone+1).combatZone(J1, J2);
+			if (this.zones.get(zone + 1).getEstControleePar() == null) {
+				flag = this.zones.get(zone + 1).combatZone(J1, J2);
+			}
 			zone = (zone + 1) % 5;
 		}
 	}
@@ -163,28 +172,20 @@ public final class Partie {
 	public static void main(String[] args) {
 
 		Partie partie = Partie.getInstance();
-		System.out.println(" ===== Début de la partie ! =====\n\nPhase 1 : Parametrage des troupes.\n");
+		System.out
+				.println("\033[1;31m ===== Début de la partie ! =====\033[0m\n\nPhase 1 : Parametrage des troupes.\n");
 		System.out.println("Tour du joueur 1 :");
 		Joueur joueur1 = new Joueur("toto", Faction.A2I);
 		System.out.println("Tour du joueur 2 :");
 		Joueur joueur2 = new Joueur("tutu", Faction.GM);
 		System.out.println("Phase 2 : Affectation des troupes sur le champ de bataille.\n");
-		//Joueur quiJoue = joueur1;
-		// @formatter:off
-		partie.zones.put(1, new Zone("la Bibliothèque", joueur1, joueur2));
-		partie.zones.put(2,	new Zone("le Bureau Des Etudiants", joueur1, joueur2));
-		partie.zones.put(3,	new Zone("le Quartier Administratif", joueur1, joueur2));
-		partie.zones.put(4,	new Zone("les Halles industrielles", joueur1, joueur2));
-		partie.zones.put(5, new Zone("la Halle sportive", joueur1, joueur2));
-		// @formatter:on
 
-		/*
-		 * for (int i = 1;i<20;i++) { if(i<=5) {
-		 * joueur1.getEtudiantsDispo().get(i).setReserviste(true);
-		 * joueur2.getEtudiantsDispo().get(i).setReserviste(true); }else if (i<=10) {
-		 * partie.zones.get(1).affecterEtudiant(joueur1.getEtudiantsDispo().get(i)); } }
-		 */
-		// joueur1.AffectationTroupes(partie.zones);
+		partie.zones.put(1, new Zone("la Bibliothèque", joueur1, joueur2));
+		partie.zones.put(2, new Zone("le Bureau Des Etudiants", joueur1, joueur2));
+		partie.zones.put(3, new Zone("le Quartier Administratif", joueur1, joueur2));
+		partie.zones.put(4, new Zone("les Halles industrielles", joueur1, joueur2));
+		partie.zones.put(5, new Zone("la Halle sportive", joueur1, joueur2));
+
 		for (int i = 6; i <= 10; i++) {
 			partie.zones.get(1).affecterEtudiant(joueur1.getEtudiantsDispo().get(i));
 			partie.zones.get(1).affecterEtudiant(joueur2.getEtudiantsDispo().get(i));
@@ -205,17 +206,23 @@ public final class Partie {
 		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(17));
 		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(18));
 		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(18));
-		//partie.zones.get(1).triInitiative();
-		//partie.zones.get(1).triECTS();
-		//System.out.println(partie.zones.get(1).getECTS());
-		// System.out.println(partie.zones.get(1).getEtuJoueur1().size());
-		// partie.zones.get(1).combatZone();
-		// partie.zones.get(1).combatZone();
-		partie.melee(joueur1, joueur2);
-		System.out.println("\nTrêve étudiant 1 :");
-		partie.treve(joueur1);
-		System.out.println("\nTrêve étudiant 2 :");
-		partie.treve(joueur2);
+		while (partie.gagnee == false) {
+			partie.melee(joueur1, joueur2);
+			if (joueur1.getNbZonesControlees() < 3 && joueur2.getNbZonesControlees() < 3) {
+				//@formatter:off
+				for(int i = 1;i<=5;i++) {System.out.println(partie.zones.get(i).getNomZone()+" est controllée par "+(partie.zones.get(i).getEstControleePar()==null?"\033[1;32mpersonne\033[0m":("\033[1;31m"+partie.zones.get(i).getEstControleePar().getNomJoueur())+"\033[0m"));}//@formatter:on
+				partie.treve(joueur1);
+				partie.treve(joueur2);
+			} else {
+				partie.gagnee = true;
+				if (joueur1.getNbZonesControlees() >= 3) {
+					partie.vainqueur = joueur1.getNomJoueur();
+				} else {
+					partie.vainqueur = joueur2.getNomJoueur();
+				}
+			}
+		}
+		System.out.println("Partie gagnée par " + partie.vainqueur);
 		// partie.zones.get(1).testSort();
 		// TODO Auto-generated method stub
 	}

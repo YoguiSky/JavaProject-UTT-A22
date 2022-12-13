@@ -27,13 +27,6 @@ public class Zone {
 		this.factionJ2 = J2.getFactionJoueur();
 
 	}
-
-	/*
-	 * public void testSort() {
-	 * etuJoueur1.sort(Comparator.comparing(Etudiant::getInitiative));
-	 * Iterator<Etudiant> iter = etuJoueur1.iterator(); while(iter.hasNext()) {
-	 * System.out.println(iter.next().getInitiative()); } }
-	 */
 	public void triInitiative() {
 		etuZone.clear();
 		etuZone.addAll(etuJoueur1);

@@ -350,12 +350,12 @@ public class Etudiant {
 	// @Override
 	/**
 	 * 
-	 * 
-	 * public String toString() { return "\nCredits ECTS : " + this.creditsECTS +
-	 * "\nDexterite : " + this.dexterite + "\nForce : " + this.force + "\nResistence
-	 * : " + this.resistance + "\nInitiative : " + this.initiative + "\nConstitution
-	 * : " + this.constitution + "\nStrategie : " + this.strategie.nomStrat(); }
-	 */
+	 * */
+	public String toString() {
+		return "\t" + this.creditsECTS + "\t" + this.dexterite + "\t\t" + this.force + "\t" + this.resistance + "\t\t"
+				+ this.initiative + "\t\t" + this.constitution + "\t\t" + this.strategie.nomStrat();
+	}
+
 	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {
 		if (this.getStrategie() instanceof Attaquer) {
 			System.out.println("=================Attaquer");
@@ -377,7 +377,7 @@ public class Etudiant {
 
 		} else if (this.getStrategie() instanceof Aleatoire) {
 			double random = Math.random();
-			//System.out.println("\n==============================" + random + "\n");
+			// System.out.println("\n==============================" + random + "\n");
 			if (random > 0.5) {
 				strategie.typeStrategie(etuJoueur2, this);
 			} else {
