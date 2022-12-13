@@ -24,10 +24,10 @@ public class Joueur {
 		for (int i = 1; i <= 20; i++) {
 
 			if (i <= 5) {
-				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, true, 0, 0, 0, 0, 0, i));
+				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, true, 1, 1, 1, 1, 1, i));
 			} else if (i > 5 && i <= 15) {
 				this.etudiantsDispo.put(i,
-						new Etudiant(this.factionJoueur, false, 0, 0, 0, (int) (Math.random() * 10), 0, i));
+						new Etudiant(this.factionJoueur, false, 1, 1, 1, (int) (Math.random() * 10), 0, i));
 			} else if (i > 15 && i <= 19) {
 				this.etudiantsDispo.put(i, new Etudiant(this.factionJoueur, false, 1+(int) (Math.random() * 10), 1, 1, 5, 1, i));
 			} else if (i > 19) {

@@ -66,8 +66,10 @@ public class Zone {
 		if (etuJoueur1.size() == 0 || etuJoueur2.size() == 0) {
 			if (etuJoueur1.size() == 0) {
 				this.setEstControleePar(J2);
+				J2.setNbZonesControlees(J2.getNbZonesControlees()+1);
 			} else {
 				this.setEstControleePar(J1);
+				J1.setNbZonesControlees(J1.getNbZonesControlees()+1);
 			}
 			return false;
 		} else {

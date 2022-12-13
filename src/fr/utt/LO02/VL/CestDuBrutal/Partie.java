@@ -150,12 +150,12 @@ public final class Partie {
 	 * @return the quiJoue
 	 */
 
-	public void melee() {
+	public void melee(Joueur J1, Joueur J2) {
 		boolean flag = true;
 		int zone = 0;
 		while (flag == true) {
 			// System.out.println((zone+1));
-			flag = this.zones.get(zone+1).combatZone(joueur1, joueur2);
+			flag = this.zones.get(zone+1).combatZone(J1, J2);
 			zone = (zone + 1) % 5;
 		}
 	}
@@ -169,7 +169,7 @@ public final class Partie {
 		System.out.println("Tour du joueur 2 :");
 		Joueur joueur2 = new Joueur("tutu", Faction.GM);
 		System.out.println("Phase 2 : Affectation des troupes sur le champ de bataille.\n");
-		Joueur quiJoue = joueur1;
+		//Joueur quiJoue = joueur1;
 		// @formatter:off
 		partie.zones.put(1, new Zone("la Bibliothèque", joueur1, joueur2));
 		partie.zones.put(2,	new Zone("le Bureau Des Etudiants", joueur1, joueur2));
@@ -191,20 +191,27 @@ public final class Partie {
 		}
 		partie.zones.get(2).affecterEtudiant(joueur1.getEtudiantsDispo().get(11));
 		partie.zones.get(2).affecterEtudiant(joueur2.getEtudiantsDispo().get(11));
-		partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(12));
-		partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(12));
-		partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(13));
-		partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(13));
-		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(14));
-		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(14));
-
+		partie.zones.get(2).affecterEtudiant(joueur1.getEtudiantsDispo().get(12));
+		partie.zones.get(2).affecterEtudiant(joueur2.getEtudiantsDispo().get(12));
+		partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(13));
+		partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(13));
+		partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(14));
+		partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(14));
+		partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(15));
+		partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(15));
+		partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(16));
+		partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(16));
+		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(17));
+		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(17));
+		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(18));
+		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(18));
 		//partie.zones.get(1).triInitiative();
 		//partie.zones.get(1).triECTS();
 		//System.out.println(partie.zones.get(1).getECTS());
 		// System.out.println(partie.zones.get(1).getEtuJoueur1().size());
 		// partie.zones.get(1).combatZone();
 		// partie.zones.get(1).combatZone();
-		partie.melee();
+		partie.melee(joueur1, joueur2);
 		System.out.println("\nTrêve étudiant 1 :");
 		partie.treve(joueur1);
 		System.out.println("\nTrêve étudiant 2 :");
