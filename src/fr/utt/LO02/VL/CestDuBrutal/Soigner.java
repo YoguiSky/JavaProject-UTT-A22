@@ -8,7 +8,7 @@ public class Soigner implements Strategie {
 	 * méthode Stratégie qui s'occupe du soin
 	 */
 	public void typeStrategie(ArrayList<Etudiant> etuCible, Etudiant etuAction) {
-		System.out.println(etuCible.get(0).getInitiative()+"-"+etuCible.get(0).getFactionEtu()+"------"+etuAction.getInitiative()+"-"+etuAction.getFactionEtu());
+		//System.out.println(etuCible.get(0).getInitiative()+"-"+etuCible.get(0).getFactionEtu()+"------"+etuAction.getInitiative()+"-"+etuAction.getFactionEtu());
 		//if ((etuCible.get(0).getNumEtudiant() != etuAction.getNumEtudiant())&&(etuCible.get(0).getFactionEtu() == etuAction.getFactionEtu())) {
 		if ((etuCible.get(0) != etuAction)) {
 			int x = (int) (Math.random() * 101); // x est un nombre aléatoire compris entre 0 et 100

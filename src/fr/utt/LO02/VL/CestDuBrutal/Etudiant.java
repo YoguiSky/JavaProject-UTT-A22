@@ -316,7 +316,6 @@ public class Etudiant {
 
 		} else if (this.getStrategie() instanceof Aleatoire) {
 			double random = Math.random();
-			// System.out.println("\n==============================" + random + "\n");
 			if (random > 0.5) {
 				if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
 					new Soigner().typeStrategie(etuJoueur1, this);

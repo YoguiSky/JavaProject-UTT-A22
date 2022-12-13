@@ -16,7 +16,7 @@ public class Attaquer implements Strategie {
 	public static int DEGATS_REF = 10;
 
 	public void typeStrategie(ArrayList<Etudiant> etuCible, Etudiant etuAction) {
-		System.out.println(etuCible.get(0).getInitiative() + "-" + etuCible.get(0).getFactionEtu() + "------" + etuAction.getInitiative() + "-" + etuAction.getFactionEtu());
+		//System.out.println(etuCible.get(0).getInitiative() + "-" + etuCible.get(0).getFactionEtu() + "------" + etuAction.getInitiative() + "-" + etuAction.getFactionEtu());
 		if ((etuCible.get(0) != etuAction)) {
 			System.out.println("etu n°" + etuAction.getNumEtudiant() + " en " + etuAction.getFactionEtu() + " lance une attaque sur etu n°" + etuCible.get(0).getNumEtudiant() + " en "
 					+ etuCible.get(0).getFactionEtu());

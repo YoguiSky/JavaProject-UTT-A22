@@ -40,7 +40,7 @@ public final class Partie {
 
 		Scanner entree = new Scanner(System.in);
 		while (flag == false) {
-			System.out.println("\n======Trêve de " + joueur_actuel.getNomJoueur() + "======");
+			System.out.println("\n\033[1;33m======Trêve de " + joueur_actuel.getNomJoueur() + "======\033[0m");
 			System.out.println("L'heure est au mouvement de troupes !");
 			System.out.println("Quelle action voulez-vous faire ?");
 			System.out.println("1-Affecter des reservistes");
