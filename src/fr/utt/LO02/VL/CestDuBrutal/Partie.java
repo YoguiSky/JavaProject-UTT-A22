@@ -48,7 +48,7 @@ public final class Partie {
 			System.out.println("3-Connaitre le nombre de Credits ECTS sur les zones de vos choix");
 			System.out.println("4-Passer la phase de treve");
 			switch (entree.nextInt()) {
-			// On affiche les réservistes disponibles
+			// On affiche les réservistes
 			case 1:
 				joueur_actuel.affecterReservistes(joueur_actuel, zones);
 				break;
