@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Etudiant {
 
 	private Faction factionEtu;
-	private boolean enCombat;
 	private boolean reserviste;
 	private int creditsECTS = 30;
 	private double dexterite = 0;
@@ -18,7 +17,8 @@ public class Etudiant {
 	private int initiative = 0;
 	private Strategie strategie;
 	private int numEtudiant;
-	private boolean estMort;
+	private boolean estMort = false;
+	private Zone localisation = null; // a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le
 
 	public boolean isEstMort() {
 		return estMort;
@@ -28,8 +28,7 @@ public class Etudiant {
 		this.estMort = estMort;
 	}
 
-	private Zone localisation; // a retirer/modifier quand on aura modifié le lien Etudiant/ZOne dans le
-								// diagramme de classes
+	// diagramme de classes
 
 	/**
 	 * Le constructeur de la classe Etudiant
@@ -41,8 +40,7 @@ public class Etudiant {
 	 * @param initiative
 	 * @param constitution
 	 */
-	public Etudiant(Faction factionEtu, boolean reserviste, double dexterite, double force, double resistance,
-			int initiative, int constitution, int numEtudiant) {
+	public Etudiant(Faction factionEtu, boolean reserviste, double dexterite, double force, double resistance, int initiative, int constitution, int numEtudiant) {
 		this.reserviste = reserviste;
 		this.dexterite = dexterite;
 		this.force = force;
@@ -56,10 +54,6 @@ public class Etudiant {
 	/**
 	 * @return the enCombat
 	 */
-	public boolean isEnCombat() {
-		return enCombat;
-	}
-
 	public Faction getFactionEtu() {
 		return factionEtu;
 	}
@@ -71,10 +65,7 @@ public class Etudiant {
 	/**
 	 * @param enCombat the enCombat to set
 	 */
-	public void setEnCombat(boolean enCombat) {
-		this.enCombat = enCombat;
-	}
-
+	
 	/**
 	 * @return the reserviste
 	 */
@@ -236,43 +227,6 @@ public class Etudiant {
 	 * @param joueur
 	 * @param etuSelec
 	 */
-	public void newStrategie(Joueur joueur, int etuSelec) {
-		// On déclare nos objets en début de méthode
-		Attaquer offensive = new Attaquer();
-		Soigner defensive = new Soigner();
-		Aleatoire aleatoire = new Aleatoire();
-		Scanner entree = new Scanner(System.in);
-
-		// on séléctionne le choix du joueur à l'aide de la méthode nextInt
-		System.out.println(
-				"Quelle strategie choisissez vous ? Le choix est vaste... \t\n1-Offensive\t\n2-Defensive\t\n3-Aleatoire\t\n4-Aucune");
-		switch (entree.nextInt()) {
-		// le joueur choisit la stratégie offensive
-		case 1:
-			joueur.getEtudiantsDispo().get(etuSelec).setStrategie(offensive);
-			System.out.println("Strategie definie comme offensive");
-			break;
-		// le joueur choisit la stratégie défensive
-		case 2:
-			joueur.getEtudiantsDispo().get(etuSelec).setStrategie(defensive);
-			System.out.println("Strategie definie comme defensive");
-			break;
-		// le joueur choisit une stratégie aléatoire
-		case 3:
-			joueur.getEtudiantsDispo().get(etuSelec).setStrategie(aleatoire);
-			System.out.println("Strategie definie comme aleatoire");
-			break;
-		// on ne fait rien
-		case 4:
-			System.out.println("Vous ne modifiez pas la strategie de l'etudiant");
-			break;
-		// message renvoyé si la commande ne entrée ne correspond à aucun des cas
-		// ci-dessus
-		default:
-			System.out.println("Non cette strategie n'existe malheureusement pas");
-
-		}
-	}
 
 	/**
 	 * Méthode reaffecterEtudiant qui permet de réaffecter un étudiant d'une zone
@@ -285,19 +239,19 @@ public class Etudiant {
 	 * @param zoneObjectif
 	 * @param zoneSelec
 	 */
-	
+
 	// @Override
 	/**
 	 * 
 	 * */
 	public String toString() {
-		return "\t" + this.creditsECTS + "\t" + this.dexterite + "\t\t" + this.force + "\t" + this.resistance + "\t\t"
-				+ this.initiative + "\t\t" + this.constitution + "\t\t" + this.strategie.nomStrat();
+		return "\t" + this.creditsECTS + "\t" + this.dexterite + "\t\t" + this.force + "\t" + this.resistance + "\t\t" + this.initiative + "\t\t" + this.constitution + "\t\t"
+				+ this.strategie.nomStrat();
 	}
 
 	public void action(ArrayList<Etudiant> etuJoueur1, ArrayList<Etudiant> etuJoueur2) {
 		if (this.getStrategie() instanceof Attaquer) {
-			//System.out.println("=================Attaquer");
+			// System.out.println("=================Attaquer");
 			if (this.getFactionEtu() == etuJoueur1.get(0).getFactionEtu()) {
 				strategie.typeStrategie(etuJoueur2, this);
 

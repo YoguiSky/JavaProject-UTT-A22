@@ -11,13 +11,9 @@ public final class Partie {
 	Joueur joueur2;
 	// Joueur quiJoue;
 	private boolean gagnee = false;
-	private int etatPartie;
 	private String vainqueur;
 	private int zone = 0;
 	private Map<Integer, Zone> zones = new LinkedHashMap<>();
-	/*
-	 * private enum phaseDeJeu{ Treve, Melee, };
-	 */
 	private static Partie instance = null;
 
 	/**
@@ -168,44 +164,26 @@ public final class Partie {
 	/**
 	 * @return the gagnee
 	 */
-	public boolean isGagnee() {
-		return gagnee;
-	}
 
 	/**
 	 * @param gagnee the gagnee to set
 	 */
-	public void setGagnee(boolean gagnee) {
-		this.gagnee = gagnee;
-	}
 
 	/**
 	 * @return the etat_partie
 	 */
-	public int getEtatPartie() {
-		return etatPartie;
-	}
 
 	/**
 	 * @param etat_partie the etat_partie to set
 	 */
-	public void setEtatPartie(int etatPartie) {
-		this.etatPartie = etatPartie;
-	}
 
 	/**
 	 * @return the vainqueur
 	 */
-	public String getVainqueur() {
-		return vainqueur;
-	}
 
 	/**
 	 * @param vainqueur the vainqueur to set
 	 */
-	public void setVainqueur(String vainqueur) {
-		this.vainqueur = vainqueur;
-	}
 
 	/**
 	 * @return the quiJoue
@@ -232,9 +210,11 @@ public final class Partie {
 		Partie partie = Partie.getInstance();
 		System.out.println("\033[1;31m ===== Début de la partie ! =====\033[0m\n\nPhase 1 : Parametrage des troupes.\n");
 		System.out.println("Tour du joueur 1 :");
-		Joueur joueur1 = new Joueur("toto", Faction.A2I);
+		Joueur joueur1 = new Joueur("toto", Faction.A2I);// commenter pour automatiser
+		// Joueur joueur1 = new Joueur();//décommenter pour automatiser
 		System.out.println("Tour du joueur 2 :");
-		Joueur joueur2 = new Joueur("tutu", Faction.GM);
+		Joueur joueur2 = new Joueur("tutu", Faction.GM);// commenter pour automatiser
+		// Joueur joueur2 = new Joueur();//décommenter pour automatiser
 		System.out.println("Phase 2 : Affectation des troupes sur le champ de bataille.\n");
 
 		partie.zones.put(1, new Zone("la Bibliothèque", joueur1, joueur2));
@@ -242,30 +222,29 @@ public final class Partie {
 		partie.zones.put(3, new Zone("le Quartier Administratif", joueur1, joueur2));
 		partie.zones.put(4, new Zone("les Halles industrielles", joueur1, joueur2));
 		partie.zones.put(5, new Zone("la Halle sportive", joueur1, joueur2));
-
-		for (int i = 6; i <= 10; i++) {
-			partie.zones.get(1).affecterEtudiant(joueur1.getEtudiantsDispo().get(i));
-			partie.zones.get(1).affecterEtudiant(joueur2.getEtudiantsDispo().get(i));
-		}
-		partie.zones.get(2).affecterEtudiant(joueur1.getEtudiantsDispo().get(11));
-		partie.zones.get(2).affecterEtudiant(joueur2.getEtudiantsDispo().get(11));
-		partie.zones.get(2).affecterEtudiant(joueur1.getEtudiantsDispo().get(12));
-		partie.zones.get(2).affecterEtudiant(joueur2.getEtudiantsDispo().get(12));
-		partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(13));
-		partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(13));
-		partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(14));
-		partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(14));
-		partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(15));
-		partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(15));
-		partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(16));
-		partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(16));
-		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(17));
-		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(17));
-		partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(18));
-		partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(18));
-		joueur2.getEtudiantsDispo().get(18).setInitiative(10);
-		joueur2.getEtudiantsDispo().get(18).setCreditsECTS(30);
-		joueur2.getEtudiantsDispo().get(18).setConstitution(30);
+		/*
+		 * //décommenter pour automatiser for (int i = 6; i <= 10; i++) {
+		 * partie.zones.get(1).affecterEtudiant(joueur1.getEtudiantsDispo().get(i));
+		 * partie.zones.get(1).affecterEtudiant(joueur2.getEtudiantsDispo().get(i)); }
+		 * partie.zones.get(2).affecterEtudiant(joueur1.getEtudiantsDispo().get(11));
+		 * partie.zones.get(2).affecterEtudiant(joueur2.getEtudiantsDispo().get(11));
+		 * partie.zones.get(2).affecterEtudiant(joueur1.getEtudiantsDispo().get(12));
+		 * partie.zones.get(2).affecterEtudiant(joueur2.getEtudiantsDispo().get(12));
+		 * partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(13));
+		 * partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(13));
+		 * partie.zones.get(3).affecterEtudiant(joueur1.getEtudiantsDispo().get(14));
+		 * partie.zones.get(3).affecterEtudiant(joueur2.getEtudiantsDispo().get(14));
+		 * partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(15));
+		 * partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(15));
+		 * partie.zones.get(4).affecterEtudiant(joueur1.getEtudiantsDispo().get(16));
+		 * partie.zones.get(4).affecterEtudiant(joueur2.getEtudiantsDispo().get(16));
+		 * partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(17));
+		 * partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(17));
+		 * partie.zones.get(5).affecterEtudiant(joueur1.getEtudiantsDispo().get(18));
+		 * partie.zones.get(5).affecterEtudiant(joueur2.getEtudiantsDispo().get(18));
+		 */
+		joueur1.AffectationTroupes(partie.zones);// commenter pour automatiser
+		joueur2.AffectationTroupes(partie.zones);// commenter pour automatiser
 		while (partie.gagnee == false) {
 			partie.melee(joueur1, joueur2);
 			if (joueur1.getNbZonesControlees() < 3 && joueur2.getNbZonesControlees() < 3) {
@@ -282,9 +261,7 @@ public final class Partie {
 				}
 			}
 		}
-		System.out.println("Partie gagnée par " + partie.vainqueur);
-		// partie.zones.get(1).testSort();
-		// TODO Auto-generated method stub
+		System.out.println("\\033[4;35mPartie gagnée par " + partie.vainqueur + "\\033[0m");
 	}
 
 }
