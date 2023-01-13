@@ -92,7 +92,7 @@ public class Zone {
 			etuJoueur2.remove(etudiant);
 		}
 		etudiant.setLocalisation(null);
-		System.out.println("L'etudiant N°"+etudiant.getNumEtudiant() +" a été désaffecté de "+this.getNomZone());
+		System.out.println("L'etudiant N°"+etudiant.getNumEtudiant() +" a été désaf	fecté de "+this.getNomZone());
 		nombreEtu = etuJoueur1.size() + etuJoueur2.size();
 	}
 

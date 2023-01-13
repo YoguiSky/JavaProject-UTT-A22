@@ -210,11 +210,11 @@ public final class Partie {
 		Partie partie = Partie.getInstance();
 		System.out.println("\033[1;31m ===== Début de la partie ! =====\033[0m\n\nPhase 1 : Parametrage des troupes.\n");
 		System.out.println("Tour du joueur 1 :");
-		Joueur joueur1 = new Joueur("toto", Faction.A2I);// commenter pour automatiser
-		// Joueur joueur1 = new Joueur();//décommenter pour automatiser
+		//Joueur joueur1 = new Joueur("toto", Faction.A2I);// commenter pour automatiser
+		Joueur joueur1 = new Joueur();//décommenter pour automatiser
 		System.out.println("Tour du joueur 2 :");
-		Joueur joueur2 = new Joueur("tutu", Faction.GM);// commenter pour automatiser
-		// Joueur joueur2 = new Joueur();//décommenter pour automatiser
+		//Joueur joueur2 = new Joueur("tutu", Faction.GM);// commenter pour automatiser
+		Joueur joueur2 = new Joueur();//décommenter pour automatiser
 		System.out.println("Phase 2 : Affectation des troupes sur le champ de bataille.\n");
 
 		partie.zones.put(1, new Zone("la Bibliothèque", joueur1, joueur2));
