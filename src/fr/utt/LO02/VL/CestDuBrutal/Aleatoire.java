@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * Classe Aleatoire qui implémente l'interface Stratégie.
  * 
- * @author Vincent
- * @author Louis
+ * @author Vincent DELESTRE
+ * @author Louis GALLOIS
  */
 public class Aleatoire implements Strategie {
 
@@ -25,13 +25,6 @@ public class Aleatoire implements Strategie {
 	 * @param etuAction
 	 */
 	public void typeStrategie(ArrayList<Etudiant> etuCible, Etudiant etuAction) {
-		/*
-		 * On choisit etucible avant d'appeler la méthode typeStrategie de la classe
-		 * Aleatoire lorsque etuAction a une stratégie aléatoire Ceci nous permet de
-		 * choisir le type de stratégie adapté en fonction de la faction de etuCible. la
-		 * faction de etuCible est choisie de manière équiprobable.
-		 */
-
 		if (etuCible.get(0).getFactionEtu() == etuAction.getFactionEtu()) {
 			Strategie soigner = new Soigner();
 			soigner.typeStrategie(etuCible, etuAction);
